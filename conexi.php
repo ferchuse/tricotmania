@@ -6,12 +6,12 @@ function Conectarse()
 	
 	if($_SERVER["SERVER_NAME"] == "pingos.micrositio.mx"){
 		//echo "_SERVER".$_SERVER["SERVER_NAME"];
-		$db="microsit_abarrotes";
-		$usuario="microsit_practic";
-		$pass="UAEH@2018";
+		$db="atoshka_tienda";
+		$usuario="atoshka_admin";
+		$pass="Estambr3s@toshka";
 	}
 	else{
-		$db="abarrotes";
+		$db="tienda_atoshka";
 		$usuario="sistemas";
 		$pass="Glifom3dia";
 		$set_local = "SET time_zone = '-05:00'";
