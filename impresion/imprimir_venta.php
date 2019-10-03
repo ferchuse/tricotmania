@@ -26,7 +26,7 @@
 		
 		<!-- Datos Empresa -->
 		<div class="row">
-			<p class="font-14-5 col-xs-12 text-center"><strong>DULCERÍA PINGOS</strong></p>
+			<p class="font-14-5 col-xs-12 text-center"><strong>ESTAMBRES ATOSHKA</strong></p>
 		</div>
 		
 		<!-- Datos Venta -->
