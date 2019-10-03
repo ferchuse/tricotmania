@@ -4,7 +4,7 @@ function Conectarse()
 	
 	$host="localhost";
 	
-	if($_SERVER["SERVER_NAME"] == "pingos.micrositio.mx"){
+	if($_SERVER["SERVER_NAME"] == "estambresatoshka.com"){
 		//echo "_SERVER".$_SERVER["SERVER_NAME"];
 		$db="atoshka_tienda";
 		$usuario="atoshka_admin";
