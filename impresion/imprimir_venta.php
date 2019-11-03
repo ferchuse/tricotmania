@@ -4,6 +4,10 @@
 	include('../funciones/numero_a_letras.php');
 	
 	$link = Conectarse();
+	
+	$nombre_empresa = "TRICOTOMANIA";
+	
+	
 	$consulta = "SELECT * FROM ventas
 	LEFT JOIN ventas_detalle USING (id_ventas)
 	LEFT JOIN usuarios USING (id_usuarios)
@@ -26,7 +30,7 @@
 		
 		<!-- Datos Empresa -->
 		<div class="row">
-			<p class="font-14-5 col-xs-12 text-center"><strong>ESTAMBRES ATOSHKA</strong></p>
+			<p class="font-14-5 col-xs-12 text-center"><strong><?=$nombre_empresa?></strong></p>
 		</div>
 		
 		<!-- Datos Venta -->
@@ -87,7 +91,7 @@
 			<?php foreach ($fila_venta as $i => $producto) { ?>
 				
 				<tr style="margin: 0px; padding:0px;" class="">
-					<td style="border:none; line-height: 12px; margin: 0px; padding:0px;" class="text-center"><?php echo $producto["cantidad"]; ?></td>
+					<td style="border:none; line-height: 12px; margin: 0px; padding:0px;" class="text-center"><?= number_format($producto["cantidad"]); ?></td>
 					<td style="border:none; line-height: 12px; margin: 0px; padding:0px;" class="" colspan="2"><?php echo $producto["descripcion"]; ?></td>
 					<td style="border:none; line-height: 12px;"></td>
 					<td style="border:none; line-height: 12px;"></td>

@@ -1,5 +1,6 @@
 
 var producto_elegido ;
+var tipo_ticket = "cliente";
 
 $(document).ready( function onLoad(){
 	$('#mayoreo').change(aplicarMayoreo);
@@ -20,7 +21,7 @@ $(document).ready( function onLoad(){
 	
 	$(".buscar").keyup( buscarDescripcion);
 	
-	//Autocomplete Productos https://github.com/devbridge/jQuery-Autocomplete
+	//Autocomplete  https://github.com/devbridge/jQuery-Autocomplete
 	$("#buscar_producto").autocomplete({
 		serviceUrl: "control/productos_autocomplete.php",   
 		onSelect: function(eleccion){
@@ -222,18 +223,21 @@ function agregarProducto(producto){
 		</td>
 		</tr>`;
 		
-		resetFondo();
+		// resetFondo();
 		
 		$("#tabla_venta tbody").append($fila_producto);
 		
-		$.getScript('https://luke-chang.github.io/js-spatial-navigation/spatial_navigation.js', function() {
-			$('#tabla_venta tbody tr')
-			.SpatialNavigation()
-			.focus(function() { $(this).addClass("bg-info"); })
-			.blur(function() { $(this).removeClass("bg-info");  })
-			.first()
-			.focus();
-		});
+		sumarImportes();
+		
+		
+		// $.getScript('https://luke-chang.github.io/js-spatial-navigation/spatial_navigation.js', function() {
+		// $('#tabla_venta tbody tr')
+		// .SpatialNavigation()
+		// .focus(function() { $(this).addClass("bg-info"); })
+		// .blur(function() { $(this).removeClass("bg-info");  })
+		// .first()
+		// .focus();
+		// });
 		
 		
 		//Asigna Callbacks de eventos
@@ -251,9 +255,10 @@ function agregarProducto(producto){
 	
 	alertify.success("Producto Agregado")
 	
-	sumarImportes();
+	
 	$('#form_agregar_producto')[0].reset();	
-	// $("#codigo_producto").focus();
+	
+	$("#descripcion_productos").focus();
 }
 
 function guardarVenta(event){
@@ -296,8 +301,9 @@ function guardarVenta(event){
 			}).done(function(respuesta){
 			if(respuesta.estatus_venta == "success"){
 				alertify.success('Venta Guardada');
-				window.location.reload(true);
-				// imprimirTicket( respuesta.id_ventas)
+				
+				
+				imprimirTicket( respuesta.id_ventas)
 				
 			}
 			}).fail(function(xhr, error, errnum){
@@ -400,7 +406,19 @@ function beforePrint() {
 	//Antes de Imprimir
 }
 function afterPrint() {
-	window.location.reload(true);
+	
+	if(tipo_ticket == "cliente"){
+		tipo_ticket = "copia";
+		// alertify.success(tipo_ticket);
+		window.print();
+	}
+	else{
+		
+		window.location.reload(true);
+	}
+	
+	
+	
 }
 
 
