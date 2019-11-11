@@ -1,6 +1,7 @@
 <?php
 	include("login/login_success.php");
 	include("conexi.php");
+	include("funciones/generar_select.php");
 	$link = Conectarse();
 	$menu_activo = "principal";
 	error_reporting(0);
@@ -57,12 +58,10 @@
 						</div>
 					</div>
 				</form>
-				<div class="col-md-4 hidden">
+				<div class="col-md-4 ">
 					<div class="form-group">
-						<label>
-							<input type="checkbox" id="mayoreo">
-							F11 Mayoreo
-						</label>
+						<label>Vendedor</label>
+						<?= generar_select($link, "usuarios", "id_usuarios", "nombre_usuarios");?>
 					</div>
 				</div>
 			</div>

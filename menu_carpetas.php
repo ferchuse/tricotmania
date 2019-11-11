@@ -40,7 +40,7 @@
 							</li>
 						</ul>
 					</li>
-				<?php
+					<?php
 					}
 				?>
 				
@@ -94,10 +94,14 @@
 							<i class="fas fa-cash-register"></i> Corte de Caja
 						</a>
 					</li>
-					
+					<li>
+						<a href="../usuarios.php"><i class="fa fa-user-plus "></i> Usuarios</a>
+					</li>
 					<?php
 					}
 				?>
+				
+				
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -109,9 +113,7 @@
 							<i class="fas fa-cog"></i> Configuración <strong class="caret"></strong>
 						</a>
 						<ul class="dropdown-menu">
-							<li>
-								<a href="../usuarios.php"><i class="fa fa-user-plus "></i> Usuarios</a>
-							</li>
+							
 							<li>
 								<a href="#">Versión 25-JUN-2019</a>
 							</li>

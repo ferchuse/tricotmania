@@ -26,7 +26,7 @@
 					<?php
 					}
 				?>
-					<?php
+				<?php
 					if ($_COOKIE['nombre_usuarios'] == 'VANESSA') { 
 					?>
 					<li class="dropdown <?php echo $menu_activo == "reportes" ? "active" : ''; ?>">
@@ -39,7 +39,7 @@
 							</li>
 						</ul>
 					</li>
-				<?php
+					<?php
 					}
 				?>
 				<?php
@@ -92,10 +92,13 @@
 							<i class="fas fa-cash-register"></i> Corte de Caja
 						</a>
 					</li>
-					
+					<li>
+						<a href="usuarios.php"><i class="fa fa-user-plus "></i> Usuarios</a>
+					</li>
 					<?php
 					}
 				?>
+				
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -132,7 +135,7 @@
 							<?php echo isset($_COOKIE["nombre_usuarios"]) ? $_COOKIE["nombre_usuarios"] : "" ?>
 						</span>
 						<strong class="caret"></strong>
-						<input type="hidden" id="id_usuarios" value="<?php echo isset($_COOKIE["id_usuarios"]) ? $_COOKIE["id_usuarios"] : ""; ?>">
+						
 					</a>
 					<ul class="dropdown-menu">
 						<li>
