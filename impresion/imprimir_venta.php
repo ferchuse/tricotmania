@@ -5,7 +5,7 @@
 	
 	$link = Conectarse();
 	
-	$nombre_empresa = "TRICOTOMANIA";
+	$nombre_empresa = "TRICOTMANIA";
 	
 	
 	$consulta = "SELECT * FROM ventas
