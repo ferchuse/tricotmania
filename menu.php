@@ -88,7 +88,7 @@
 					if ($_COOKIE["permiso_usuarios"] == "caja" || $_COOKIE['permiso_usuarios'] == "administrador" || $_COOKIE['permiso_usuarios'] == "mostrador") {
 					?>
 					<li class="<?php echo $menu_activo == "resumen" ? "active" : ''; ?>">
-						<a href="resumen.php">
+						<a href="corte/resumen.php">
 							<i class="fas fa-cash-register"></i> Corte de Caja
 						</a>
 					</li>
