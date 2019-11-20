@@ -90,13 +90,11 @@
 					if ($_COOKIE["permiso_usuarios"] == "caja" || $_COOKIE['permiso_usuarios'] == "administrador" || $_COOKIE['permiso_usuarios'] == "mostrador") {
 					?>
 					<li class="<?php echo $menu_activo == "resumen" ? "active" : ''; ?>">
-						<a href="../resumen.php">
+						<a href="../corte/resumen.php">
 							<i class="fas fa-cash-register"></i> Corte de Caja
 						</a>
 					</li>
-					<li>
-						<a href="../usuarios.php"><i class="fa fa-user-plus "></i> Usuarios</a>
-					</li>
+					
 					<?php
 					}
 				?>
@@ -108,6 +106,9 @@
 				<?php
 					if ($_COOKIE["permiso_usuarios"] == "administrador") {
 					?>
+					<li>
+						<a href="../usuarios.php"><i class="fa fa-user-plus "></i> Usuarios</a>
+					</li>
 					<li class="dropdown <?php echo $menu_activo == "control" ? "active" : ''; ?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fas fa-cog"></i> Configuración <strong class="caret"></strong>

@@ -10,7 +10,15 @@ function Conectarse()
 		$usuario="atoshka_admin";
 		$pass="Estambr3s@toshka";
 	}
-	else{
+	elseif($_SERVER["SERVER_NAME"] == "estambresatoshka.com")){
+		$db="microsit_tricotmania";
+		$usuario="microsit_practicas";
+		$pass="UAEH@2018";
+		$set_local = "SET time_zone = '-05:00'";
+		$set_names = "SET NAMES 'utf8'";
+	}
+	
+	elseif($_SERVER["SERVER_NAME"] == "localhost")){
 		$db="tienda_atoshka";
 		$usuario="sistemas";
 		$pass="Glifom3dia";
