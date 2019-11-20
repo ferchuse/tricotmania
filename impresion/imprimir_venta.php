@@ -53,7 +53,7 @@
 					</div>
 				</div>
 				<div style="margin: 0px;" class="mar-0 row justify-content-between">
-					<span class="col-xs-5"><strong>Usuario:</strong></span>
+					<span class="col-xs-5"><strong>Vendedor:</strong></span>
 					<div class="col-xs-7 " id="usuario" name="usuario">
 						<?php echo $fila_venta[0]["nombre_usuarios"]; ?>
 					</div>

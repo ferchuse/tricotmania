@@ -1,5 +1,6 @@
 
 var producto_elegido ;
+var tipo_ticket = "cliente";
 
 function round(value, step) {
 	step || (step = 1.0);
@@ -182,6 +183,14 @@ function renderProductos(tab_index, venta){
 function cobrarEImprimir(evt){
 	evt.data = {"imprimir": true};
 	evt.type = "submit";
+	
+	if($(".tabla_venta:visible tbody tr").length == 0){
+		
+		alertify.error('No hay productos');
+		return false;
+	}
+	
+	
 	guardarVenta(evt).done(function(respuesta){
 		
 		imprimirTicket(respuesta.id_ventas);
@@ -343,7 +352,7 @@ $(document).ready( function onLoad(){
 	});
 	
 	
-	$('#cerrar_venta').click( cobrar);
+	$('#cerrar_venta').click( cobrarEImprimir);
 	
 	$("#codigo_producto").focus();
 }); 
@@ -488,11 +497,15 @@ function sumarImportes(){
 	console.log("sumarImportes");
 	let total = 0;
 	let articulos = 0;
+	let importe = 0;
 	$(".tabla_venta:visible tbody tr").each(function(indice, fila ){
 		console.log("indice",indice )
 		console.log("producto",fila )
 		let cantidad = Number($(this).find(".cantidad").val());
 		let precio = Number($(this).find(".precio").val());
+		
+		console.log("cantidad",cantidad )
+		console.log("precio",precio )
 		//Si la unidad es a granel solo contar 1 articulo
 		if($(this).find(".unidad").val() == 'KG'){
 			articulos+= 1;
@@ -504,6 +517,7 @@ function sumarImportes(){
 		importe= cantidad * precio;
 		total+= importe;
 		
+		console.log("precio",precio )
 		$(this).find(".importe").val(importe.toFixed(2))
 	});
 	
@@ -524,6 +538,7 @@ function guardarVenta(event){
 	var icono = boton.find('.fa');
 	var articulos = $("#tabla_venta tbody tr").size();
 	var productos = [];
+	var task = $.Deferred();
 	
 	// Si el evento es por F12 cobrar o F6 Pendiente
 	if(event.type == "submit"){
@@ -539,6 +554,15 @@ function guardarVenta(event){
 		var estatus_ventas ="PENDIENTE" ;
 		var nombre_cliente =  event;
 		
+	}
+	
+	
+	if($("body #id_usuarios").val() == ''){
+		
+		alertify.error("Elige un vendedor");
+		
+		task.reject();
+		return task.promise();
 	}
 	
 	
@@ -660,7 +684,17 @@ function beforePrint() {
 }
 function afterPrint() {
 	// window.location.reload(true);
-	limpiarTicket();
+	
+	if(tipo_ticket == "cliente"){
+		tipo_ticket = "copia";
+		window.print();
+	}
+	else{
+		
+		window.location.reload(true);
+	}
+	
+	limpiarVenta();
 }
 
 

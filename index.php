@@ -42,7 +42,7 @@
 			
 			}
 			.nav-tabs>li.active>a {
-			font-color: white !importnat;
+			font-color: white !important;
 			background-color: #46b8da !important;
 			}
 		</style>
@@ -71,19 +71,14 @@
 						</div>
 					</div>
 				</form>
-				<?php if ($_COOKIE["permiso_usuarios"] != "mostrador") { ?>
-					<div class="col-md-4">
-						<div class="form-group">
-							
-							<button tabindex="-1" class="btn btn-info pull-right" id="btn_refresh">
-								<i class="fa fa-sync"></i> F4 - Cremeria
-							</button>
-						</div>
+				
+				<div class="col-sm-4">
+					<div class="form-group">
 						
+						<label> Vendedor:</label>
+						<?= generar_select($link, "usuarios", "id_usuarios", "nombre_usuarios", false, false, true);?>
 					</div>
-					<?php
-					}
-				?>
+				</div>
 			</div>
 			
 			<hr>

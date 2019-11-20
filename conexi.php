@@ -6,7 +6,7 @@ function Conectarse()
 	
 	if($_SERVER["SERVER_NAME"] == "tricotmania.com"){
 		//echo "_SERVER".$_SERVER["SERVER_NAME"];
-		$db="atoshka_tienda";
+		$db="atoshka_trictomania";
 		$usuario="atoshka_admin";
 		$pass="Estambr3s@toshka";
 	}
