@@ -75,7 +75,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="departamentos.php"><i class="fas fa-file-alt"></i> Departamentos</a>
+								<a href="catalogos/departamentos.php"><i class="fas fa-file-alt"></i> Departamentos</a>
 							</li>
 							<li>
 								<a href="proveedores.php"><i class="fas fa-file-alt"></i> Proveedores</a>
@@ -113,9 +113,7 @@
 							<li>
 								<a href="usuarios.php"><i class="fa fa-user-plus "></i> Usuarios</a>
 							</li>
-							<li>
-								<a href="#">Versión 25-JUN-2019</a>
-							</li>
+							
 						</ul>
 					</li>
 					

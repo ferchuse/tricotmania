@@ -1,7 +1,7 @@
 <?php
 	
-	include("login/login_success.php");
-	include("conexi.php");
+	include("../login/login_success.php");
+	include("../conexi.php");
 	$link = Conectarse();
 	$menu_activo = "catalogos";
 	$consulta = "SELECT * FROM departamentos ";
@@ -16,7 +16,7 @@
 		die("Error en la consulta $consulta". mysqli_error($link));
 	}
 	// echo "<script> console.log()"
-		
+	
 ?>
 
 <!DOCTYPE html>
@@ -34,13 +34,13 @@
 		</style>
     <title>Departamentos</title>
 		
-    <?php include("styles.php"); ?>
+    <?php include("../styles_carpetas.php"); ?>
 		
 	</head>
 	
 	<body>
     <div class="container-fluid">
-			<?php include("menu.php"); ?>
+			<?php include("../menu_carpetas.php"); ?>
 		</div>
     <section class="container">
 			<strong>
@@ -68,11 +68,11 @@
 						<td><?php echo $fila["id_departamentos"] ?></td> 
 						<td><?php echo $fila["nombre_departamentos"] ?></td> 
 						<td>
-								<button class="btn btn-warning btn_editar" type="button" 
-								data-id_registro="<?php echo $fila["id_departamentos"]?>"
-								>
-									<i class="fas fa-edit" ></i> Editar
-								</button>
+							<button class="btn btn-warning btn_editar" type="button" 
+							data-id_registro="<?php echo $fila["id_departamentos"]?>"
+							>
+								<i class="fas fa-edit" ></i> Editar
+							</button>
 							
 						</td> 
 					</tr>
@@ -80,20 +80,16 @@
 					}
 				?>
 			</table>
-			</section>
-			
-			
-			
-			
-			
-			<?php include('scripts.php'); ?>
-			<?php include('catalogos/form_departamentos.php'); ?>
-					
-      <pre hidden id="debug">
-        <?php print_r ($departamentos)?>
-        // <?php echo var_dump ($departamentos)?>
-      </pre>
-					
+		</section>
+		
+		
+		
+		
+		
+		<?php include('../scripts_carpetas.php'); ?>
+		<?php include('form_departamentos.php'); ?>
+		
+		
 	</body>
 	<script>
 		$("#nuevo").click(function(){
@@ -105,55 +101,57 @@
 		$(".btn_editar").click(cargarDatos);
 		
 		function cargarDatos(event){
-				console.log("event", event);
-				let $boton = $(this);
-				let $icono = $(this).find(".fas");
-				let $id_registro = $(this).data("id_registro");				
-				$boton.prop("disabled", true);
-				$icono.toggleClass("fa-edit fa-spinner fa-spin");				
-				$.ajax({ 
-					"url": "funciones/fila_select.php",
-					"dataType": "JSON",
-					"data": {
-						"tabla": "departamentos",
-						"id_campo": "id_departamentos",
-						"id_valor": $id_registro						
-						}
-					}).done( function alTerminar (respuesta){					
-						console.log("respuesta", respuesta);
-						$boton.prop("disabled", false);
-						$icono.toggleClass("fa-edit fa-spinner fa-spin"); 
-						$("#modal_edicion").modal("show")
-            $("#id_departamentos").val(respuesta.data.id_departamentos);                        
-            $("#nombre_departamentos").val(respuesta.data.nombre_departamentos);                        
-						
-					})
-		}
+			console.log("event", event);
+			let $boton = $(this);
+			let $icono = $(this).find(".fas");
+			let $id_registro = $(this).data("id_registro");				
+			$boton.prop("disabled", true);
+			$icono.toggleClass("fa-edit fa-spinner fa-spin");				
+			$.ajax({ 
+				"url": "../funciones/fila_select.php",
+				"dataType": "JSON",
+				"data": {
+					"tabla": "departamentos",
+					"id_campo": "id_departamentos",
+					"id_valor": $id_registro						
+				}
+				}).done( function alTerminar (respuesta){					
+				console.log("respuesta", respuesta);
+				$boton.prop("disabled", false);
+				$icono.toggleClass("fa-edit fa-spinner fa-spin"); 
+				$("#modal_edicion").modal("show")
+				$("#id_departamentos").val(respuesta.data.id_departamentos);                        
+				$("#nombre_departamentos").val(respuesta.data.nombre_departamentos);                        
 				
+			})
+		}
+		
 		function guardarRegistro(event){
-      // event.preventDefault()
+      event.preventDefault()
       let $boton = $(this).find(':submit');
 			let $icono = $(this).find(".fas");
       $boton.prop("disabled", true);
 			$icono.toggleClass("fa-save fa-spinner fa-spin");
 			console.log("guardarRegistro")
 			$.ajax({ 
-        "url": "control/guardar_catalogo.php",
+        "url": "guardar_catalogo.php",
         "dataType": "JSON",
         "method": "POST",
         "data": {
-            "tabla": "departamentos",
-            "id_campo": $("#id_departamentos").val(),
-            "name": $("#nombre_departamentos").val()
-            
-            }
+					"tabla": "departamentos",
+					"id_campo": $("#id_departamentos").val(),
+					"name": $("#nombre_departamentos").val(),
+					"piezas_descuento": $("#piezas_descuento").val(),
+					"porc_descuento": $("#porc_descuento").val()
+					
+				}
         }).done( function alTerminar (respuesta){
-            console.log("respuesta", respuesta);
-            $boton.prop("disabled", false);
-            $icono.toggleClass("fa-save fa-spinner fa-spin"); 
-            $("#modal_edicion").modal("hide");
-               
-        });
+				console.log("respuesta", respuesta);
+				$boton.prop("disabled", false);
+				$icono.toggleClass("fa-save fa-spinner fa-spin"); 
+				$("#modal_edicion").modal("hide");
+				
+			});
 			// return false;
 		}		
 	</script>

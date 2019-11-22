@@ -4,12 +4,12 @@
 	include("conexi.php");
 	$link = Conectarse();
 	$menu_activo = "catalogos";
-	$consulta = "SELECT * FROM departamentos ";
+	$consulta = "SELECT * FROM proveedores";
 	$result = mysqli_query($link, $consulta);
 	
 	if($result){
 		while($fila = mysqli_fetch_assoc($result)){
-			$departamentos[] = $fila;
+			$proveedores[] = $fila;
 		}
 	}
 	else{ 
@@ -32,25 +32,25 @@
 			top: 25px;
 			}
 		</style>
-    <title>Departamentos</title>
+    <title>Proveedores</title>
 		
-    <?php include("styles.php"); ?>
+    <?php include("../styles_carpetas.php"); ?>
 		
 	</head>
 	
 	<body>
     <div class="container-fluid">
-			<?php include("menu.php"); ?>
+			<?php include("../menu_carpetas.php"); ?>
 		</div>
     <section class="container">
 			<strong>
-				<h2>Departamentos</h2>
+				<h2>Proveedores</h2>
 			</strong>
 			<hr>
 			<!-- Button Modal Proveedores -->
 			<div class="col-md-12 text-right">
-				<button id="nuevo" type="button" class="btn btn-success" >
-					<i class="fa fa-plus"></i> Nuevo
+				<button id="nuevo" type="button" class="btn btn-primary" >
+					<i class="fa fa-plus"></i> Proveedor
 				</button>
 			</div >
 		</section>
@@ -60,16 +60,16 @@
 			<table class="table table-striped">
 				<tr class="success">
 					<td><strong>ID</strong></td>
-					<td><strong>Departamento</strong></td>
+					<td><strong>Proveedor</strong></td>
 					<td><strong>Acciones</strong></td>
 				</tr>
-				<?php foreach($departamentos AS $i=>$fila){	?>
+				<?php foreach($proveedores AS $i=>$fila){	?>
 					<tr class="">
-						<td><?php echo $fila["id_departamentos"] ?></td> 
-						<td><?php echo $fila["nombre_departamentos"] ?></td> 
+						<td><?php echo $fila["id_proveedores"] ?></td> 
+						<td><?php echo $fila["nombre_proveedores"] ?></td> 
 						<td>
 								<button class="btn btn-warning btn_editar" type="button" 
-								data-id_registro="<?php echo $fila["id_departamentos"]?>"
+								data-id_registro="<?php echo $fila["id_proveedores"]?>"
 								>
 									<i class="fas fa-edit" ></i> Editar
 								</button>
@@ -81,13 +81,9 @@
 				?>
 			</table>
 			</section>
-			
-			
-			
-			
-			
-			<?php include('scripts.php'); ?>
-			<?php include('catalogos/form_departamentos.php'); ?>
+
+			<?php include('../scripts_carpetas.php'); ?>
+			<?php include('forms/form_proveedores.php'); ?>
 					
       <pre hidden id="debug">
         <?php print_r ($departamentos)?>
@@ -115,8 +111,8 @@
 					"url": "funciones/fila_select.php",
 					"dataType": "JSON",
 					"data": {
-						"tabla": "departamentos",
-						"id_campo": "id_departamentos",
+						"tabla": "proveedores",
+						"id_campo": "id_proveedores",
 						"id_valor": $id_registro						
 						}
 					}).done( function alTerminar (respuesta){					
@@ -124,27 +120,27 @@
 						$boton.prop("disabled", false);
 						$icono.toggleClass("fa-edit fa-spinner fa-spin"); 
 						$("#modal_edicion").modal("show")
-            $("#id_departamentos").val(respuesta.data.id_departamentos);                        
-            $("#nombre_departamentos").val(respuesta.data.nombre_departamentos);                        
+            $("#id_proveedores").val(respuesta.data.id_proveedores);                        
+            $("#nombre_proveedor").val(respuesta.data.nombre_proveedores);                        
 						
 					})
 		}
 				
 		function guardarRegistro(event){
-      // event.preventDefault()
+      event.preventDefault()
       let $boton = $(this).find(':submit');
 			let $icono = $(this).find(".fas");
       $boton.prop("disabled", true);
-			$icono.toggleClass("fa-save fa-spinner fa-spin");
+			$icono.toggleClass("fa-save fa-spinner fa-spin");				
 			console.log("guardarRegistro")
 			$.ajax({ 
         "url": "control/guardar_catalogo.php",
         "dataType": "JSON",
         "method": "POST",
         "data": {
-            "tabla": "departamentos",
-            "id_campo": $("#id_departamentos").val(),
-            "name": $("#nombre_departamentos").val()
+            "tabla": "proveedores",
+            "id_campo": $("#id_proveedores").val(),
+            "name": $("#nombre_proveedor").val()
             
             }
         }).done( function alTerminar (respuesta){
@@ -152,9 +148,9 @@
             $boton.prop("disabled", false);
             $icono.toggleClass("fa-save fa-spinner fa-spin"); 
             $("#modal_edicion").modal("hide");
-               
+            window.location.reload(true);
         });
-			// return false;
+			
 		}		
 	</script>
 </html>

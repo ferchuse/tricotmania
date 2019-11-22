@@ -118,6 +118,7 @@
 									<th class="text-center">Descripcion del Producto</th>
 									<th class="text-center">Precio Unitario</th>
 									<th class="text-center">Importe</th>
+									<th class="text-center">Descuento</th>
 									<th class="text-center">Existencia</th>
 									<th class="text-center">Acciones</th>
 								</tr>

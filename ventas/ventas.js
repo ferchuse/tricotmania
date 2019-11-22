@@ -454,6 +454,13 @@ function agregarProducto(producto){
 		<td class="col-sm-1"><input readonly type="number" class='precio form-control' value='${precio}'> </td>
 		<td class="col-sm-1"><input readonly type="number" class='importe form-control text-right' > </td>
 		<td class="col-sm-1">	
+		<div class='input-group'>
+		<input type="number" class="descuento form-control"   value='0'> 
+		
+		<span class='input-group-addon'><i class='fas fa-percent'></i></span>
+		</div>
+		</td>
+		<td class="col-sm-1">	
 		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_productos']}'> 
 		</td>
 		<td class="text-center">
@@ -461,8 +468,8 @@ function agregarProducto(producto){
 		<i class="fa fa-trash"></i>
 		</button> 
 		<label class="custom_checkbox">
-		Mayoreo
 		<input class="mayoreo" type="checkbox">
+		Mayoreo
 		<span class="checkmark"></span>
 		</label>
 		</td>
@@ -474,6 +481,8 @@ function agregarProducto(producto){
 		
 		//Asigna Callbacks de eventos
 		$(".mayoreo").change(aplicarMayoreoProducto);
+		$(".descuento").change(aplicarDescuento);
+		$(".descuento").keyup(aplicarDescuento);
 		$(".cantidad").keyup(sumarImportes);
 		$(".cantidad").change(sumarImportes);
 		$("input").focus(function(){
@@ -770,6 +779,27 @@ function aplicarMayoreoProducto(){
 		$precio =  fila.find(".precio_menudeo").val();
 	}
 	fila.find(".precio").val($precio);
+	
+	
+	sumarImportes();
+}
+
+function aplicarDescuento(){
+	var $descuento;
+	var $precio, precio_descuento;
+	var fila =  $(this).closest("tr");
+	console.log("aplicarMayoreoProducto");
+	
+	$precio = Number(fila.find(".precio_menudeo").val());
+	$porc_descuento = Number(fila.find(".descuento").val());
+	
+	ahorro = $precio * $porc_descuento / 100;
+	precio_descuento = $precio * (100 - $porc_descuento) / 100
+	
+	console.log("precio_descuento", precio_descuento);
+	console.log("ahorro", ahorro);
+	
+	fila.find(".precio").val(precio_descuento.toFixed(2));
 	
 	
 	sumarImportes();

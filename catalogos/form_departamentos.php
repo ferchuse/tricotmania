@@ -16,6 +16,14 @@
 							<label for="nombre_departamentos">Departamento</label>
 							<input style="margin:10px 0;" required type="text" class="form-control" id="nombre_departamentos" name="nombre_departamentos" placeholder="">
 						</div>
+						<div class="form-group">
+							<label for="nombre_departamentos">Descuento a partir de:</label>
+							<input  type="number" class="form-control" id="piezas_descuento" name="piezas_descuento" placeholder="Piezas">
+						</div>
+						<div class="form-group">
+							<label for="nombre_departamentos">% de Descuento</label>
+							<input  type="number" class="form-control" id="porc_descuento" name="porc_descuento" >
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">

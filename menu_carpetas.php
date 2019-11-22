@@ -77,7 +77,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="../departamentos.php"><i class="fas fa-file-alt"></i> Departamentos</a>
+								<a href="../catalogos/departamentos.php"><i class="fas fa-file-alt"></i> Departamentos</a>
 							</li>
 							<li>
 								<a href="../proveedores.php"><i class="fas fa-file-alt"></i> Proveedores</a>
