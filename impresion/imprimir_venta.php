@@ -109,6 +109,14 @@
 		<!-- Total -->
 		<tfoot class="font-13" style="margin-bottom: 3px;">
 			<tr>
+				<td class=" text-right" colspan="3"><strong>SUBTOTAL:</strong></td>
+				<td class=" text-right"><?php echo "$" . $producto["subtotal"] ?></td>
+			</tr>
+			<tr>
+				<td class=" text-right" colspan="3"><strong>DESCUENTO:</strong></td>
+				<td class=" text-right"><?php echo "$" . $producto["total_descuento"] ?></td>
+			</tr>
+			<tr>
 				<td class=" text-right" colspan="3"><strong>TOTAL:</strong></td>
 				<td class=" text-right"><?php echo "$" . $producto["total_ventas"] ?></td>
 			</tr>

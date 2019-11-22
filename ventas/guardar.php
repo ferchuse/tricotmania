@@ -17,8 +17,10 @@
 	fecha_ventas = CURDATE(),
 	hora_ventas = CURTIME(),
 	nombre_cliente = '{$_POST["nombre_cliente"]}',
-	total_ventas = '{$_POST["total_ventas"]}',
 	articulos = '{$_POST["articulos"]}',
+	subtotal = '{$_POST["subtotal"]}',
+	total_descuento = '{$_POST["total_descuento"]}',
+	total_ventas = '{$_POST["total_ventas"]}',
 	estatus_ventas = '{$_POST["estatus_ventas"]}',
 	efectivo = '{$_POST["efectivo"]}'
 	
@@ -29,8 +31,10 @@
 	fecha_ventas = CURDATE(),
 	hora_ventas = CURTIME(),
 	nombre_cliente = '{$_POST["nombre_cliente"]}',
-	total_ventas = '{$_POST["total_ventas"]}',
 	articulos = '{$_POST["articulos"]}',
+	subtotal = '{$_POST["subtotal"]}',
+	total_descuento = '{$_POST["total_descuento"]}',
+	total_ventas = '{$_POST["total_ventas"]}',
 	estatus_ventas = '{$_POST["estatus_ventas"]}',
 	efectivo = '{$_POST["efectivo"]}'
 	
@@ -46,7 +50,7 @@
 		
 		$id_ventas = mysqli_insert_id($link);
 		$respuesta["id_ventas"] = $id_ventas;
-		}
+	}
 	else{
 		$respuesta["estatus_venta"] = "error";
 		$respuesta["mensaje_venta"] = "Error en Insertar: $insertarVentas  ".mysqli_error($link);	
@@ -61,7 +65,7 @@
 	
 	
 	foreach($listaProductos as $indice => $producto){
-		 
+		
 		$ganancia_pesos = ($producto["precio"] - $producto["costo_proveedor"]) *  $producto["cantidad"];
 		$ganancia_venta+= $ganancia_pesos;
 		$respuesta["ganancia"][] = $ganancia_pesos;

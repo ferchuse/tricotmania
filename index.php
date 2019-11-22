@@ -50,7 +50,15 @@
 			margin-bottom: 15px;
 			}
 			
-			
+			.nav-tabs .badge {
+			position: absolute;
+			top: -10px;
+			right: -10px;
+			padding: 5px 10px;
+			border-radius: 50%;
+			background: #d83434;
+			color: white;
+			}
 		</style>
 		<link rel="stylesheet" href="css/forma_pago.css">
 		<link rel="stylesheet" href="css/b4-margin-padding.css">
@@ -93,12 +101,14 @@
 					<a data-toggle="tab" href="#tab1">
 						<input class="nombre_cliente" value="Cliente 1" >
 						<input type="hidden" class="id_ventas" value="">
+						<span class="badge">0</span>
 					</a>
 				</li>
 				<li>
 					<a data-toggle="tab" href="#tab2">
 						<input  class="nombre_cliente" value="Cliente 2" >
 						<input type="hidden" class="id_ventas" value="">
+						<span class="badge">0</span>
 					</a>
 				</li>
 				
@@ -106,6 +116,7 @@
 					<a data-toggle="tab" href="#tab3">
 						<input  class="nombre_cliente" value="Cliente 3" >
 						<input type="hidden" class="id_ventas" value="">
+						<span class="badge">0</span>
 					</a>
 				</li>
 				
@@ -164,6 +175,8 @@
 									<th class="text-center">Descripcion del Producto</th>
 									<th class="text-center">Precio Unitario</th>
 									<th class="text-center">Importe</th>
+									<th class="text-center">% Descuento</th>
+									<th class="text-center">Descuento</th>
 									<th class="text-center">Existencia</th>
 									<th class="text-center">Acciones</th>
 								</tr>
@@ -180,17 +193,16 @@
 								<input class="form-control articulos" type="number" autocomplete="off" readonly value="0">
 							</div>
 							
-							<div class="col-sm-6 col-6 h3 text-right ">
-								<label class="venta" for="">Subtotal:</label>  <br>
-								<label class="venta" for="">Descuento $:</label>  <br>
-								<label class="venta" for="">Total:</label> 
+							
+							<div class="col-sm-9 col-6  text-right ">
+								<label class="venta lbl_totales"  for="">Subtotal:</label>  <br>
+								<label class="venta lbl_totales" for="">Descuento:</label>  <br>
+								<label class="venta lbl_totales" for="">Total:</label> 
 							</div>
-							<div class="col-sm-2 col-6 h3 venta">
-								<input readonly  id="subtotal" type="text" class="form-control input-lg text-right venta" value="0" >
-								<input  id="porc_descuento" type="text" class="form-control input-lg text-right venta" value="0">
-								<input readonly id="descuento" type="text" class="form-control input-lg text-right venta" value="0">
-								<input readonly  id="iva" type="text" class="form-control input-lg text-right venta" value="0">
-								<input readonly  id="total" type="text" class="form-control input-lg text-right venta" value="0" >
+							<div class="col-sm-2 col-6  venta">
+								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
+								<input readonly type="text" class="form-control text-right venta total_descuento" value="0">
+								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>
 						</div>
 					</section>
@@ -205,6 +217,8 @@
 									<th class="text-center">Descripcion del Producto</th>
 									<th class="text-center">Precio Unitario</th>
 									<th class="text-center">Importe</th>
+									<th class="text-center">% Descuento</th>
+									<th class="text-center">Descuento</th>
 									<th class="text-center">Existencia</th>
 									<th class="text-center">Acciones</th>
 								</tr>
@@ -220,14 +234,16 @@
 								<label>Artículos </label>
 								<input class="form-control articulos" type="number" autocomplete="off" readonly value="0">
 							</div>
-							<div class="col-sm-8 text-right">
-								
+							
+							<div class="col-sm-9 col-6  text-right ">
+								<label class="venta lbl_totales"  for="">Subtotal:</label>  <br>
+								<label class="venta lbl_totales" for="">Descuento:</label>  <br>
+								<label class="venta lbl_totales" for="">Total:</label> 
 							</div>
-							<div class="col-sm-1 h2">
-								<strong>TOTAL:</strong>
-							</div>
-							<div class="col-sm-2 h1">
-								<input readonly type="text" class="total form-control input-lg text-right " value="0" name="total">
+							<div class="col-sm-2 col-6  venta">
+								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
+								<input readonly type="text" class="form-control text-right venta total_descuento" value="0">
+								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>
 						</div>
 					</section>

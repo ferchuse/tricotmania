@@ -570,6 +570,7 @@ function sumarImportes(){
 	// $("#total_pago").val(round(total, 0.5).toFixed(2));
 	
 	
+	$(".nav-tabs .active .badge").text(articulos);
 	$(".articulos:visible").val(articulos);
 	$(".subtotal:visible").val(subtotal.toFixed(2));
 	$(".total_descuento:visible").val(total_descuento.toFixed(2));
@@ -645,6 +646,8 @@ return $.ajax({
 		"efectivo": $("#efectivo").val(),
 		"estatus_ventas": estatus_ventas,
 		"nombre_cliente": nombre_cliente.toUpperCase(),
+		subtotal: $(".subtotal:visible").val(),
+		total_descuento: $(".total_descuento:visible").val(),
 		total_ventas: $(".total:visible").val()
 	}
 	}).done(function(respuesta){
@@ -740,7 +743,7 @@ function afterPrint() {
 	}
 	else{
 		
-		window.location.reload(true);
+		// window.location.reload(true);
 	}
 	
 	limpiarVenta();
