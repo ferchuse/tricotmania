@@ -125,6 +125,8 @@
 				$("#modal_edicion").modal("show")
 				$("#id_departamentos").val(respuesta.data.id_departamentos);                        
 				$("#nombre_departamentos").val(respuesta.data.nombre_departamentos);                        
+				$("#piezas_descuento").val(respuesta.data.piezas_descuento);                        
+				$("#porc_descuento").val(respuesta.data.porc_descuento);                        
 				
 			})
 		}
@@ -153,7 +155,7 @@
 				$boton.prop("disabled", false);
 				$icono.toggleClass("fa-save fa-spinner fa-spin"); 
 				$("#modal_edicion").modal("hide");
-				
+				window.location.reload(true);
 			});
 			// return false;
 		}		
