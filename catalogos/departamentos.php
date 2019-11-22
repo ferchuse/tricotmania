@@ -4,7 +4,7 @@
 	include("../conexi.php");
 	$link = Conectarse();
 	$menu_activo = "catalogos";
-	$consulta = "SELECT * FROM departamentos ";
+	$consulta = "SELECT * FROM departamentos ORDER BY nombre_departamentos";
 	$result = mysqli_query($link, $consulta);
 	
 	if($result){
@@ -59,14 +59,17 @@
     <section class="container">
 			<table class="table table-striped">
 				<tr class="success">
-					<td><strong>ID</strong></td>
 					<td><strong>Departamento</strong></td>
+					<td><strong>Piezas Descuento</strong></td>
+					<td><strong>% Descuento</strong></td>
 					<td><strong>Acciones</strong></td>
 				</tr>
 				<?php foreach($departamentos AS $i=>$fila){	?>
 					<tr class="">
-						<td><?php echo $fila["id_departamentos"] ?></td> 
+						
 						<td><?php echo $fila["nombre_departamentos"] ?></td> 
+						<td><?php echo $fila["piezas_descuento"] ?></td> 
+						<td><?php echo $fila["porc_descuento"] ?></td> 
 						<td>
 							<button class="btn btn-warning btn_editar" type="button" 
 							data-id_registro="<?php echo $fila["id_departamentos"]?>"

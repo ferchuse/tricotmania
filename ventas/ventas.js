@@ -245,11 +245,9 @@ $(document).ready( function onLoad(){
 	alertify.set('notifier','position', 'top-right');
 	
 	
-	$(".buscar").keyup( buscarDescripcion);
-	
 	//Autocomplete Productos https://github.com/devbridge/jQuery-Autocomplete
 	$("#buscar_producto").autocomplete({
-		serviceUrl: "control/productos_autocomplete.php",   
+		serviceUrl: "ventas/productos_autocomplete.php",   
 		onSelect: function alSeleccionarProducto(eleccion){
 			console.log("Elegiste: ",eleccion);
 			if(eleccion.data.unidad_productos == 'KG'){
@@ -439,7 +437,12 @@ function agregarProducto(producto){
 		}
 		console.log("El producto no existe, agregarlo a la tabla");
 		$fila_producto = `<tr class="bg-info">
+		
+		
 		<td class="col-sm-1">
+		<input type="number"  step="any" class="cantidad form-control text-right"  value='${producto['cantidad']}'>
+		
+		
 		<input hidden class="id_productos"  value="${producto['id_productos']}">
 		<input hidden class="unidad" value='${producto['unidad_productos']}'>
 		<input hidden class="descripcion" value='${producto['descripcion_productos']}'>
@@ -447,8 +450,11 @@ function agregarProducto(producto){
 		<input hidden class="precio_menudeo" value='${producto['precio_menudeo']}'>
 		<input hidden class="ganancia_porc" value='${producto['ganancia_menudeo_porc']}'>
 		<input hidden class="costo_proveedor" value='${producto['costo_proveedor']}'>
-		<input type="number"  step="any" class="cantidad form-control text-right"  value='${producto['cantidad']}'>
+		<input hidden class="porc_descuento" value='${producto['porc_descuento']}'>
+		<input hidden class="piezas_descuento" value='${producto['piezas_descuento']}'>
+		
 		</td>
+		
 		<td class="text-center">${producto['unidad_productos']}</td>
 		<td class="text-center">${producto['descripcion_productos']}</td>
 		<td class="col-sm-1"><input readonly type="number" class='precio form-control' value='${precio}'> </td>
@@ -456,9 +462,11 @@ function agregarProducto(producto){
 		<td class="col-sm-1">	
 		<div class='input-group'>
 		<input type="number" class="descuento form-control"   value='0'> 
-		
 		<span class='input-group-addon'><i class='fas fa-percent'></i></span>
 		</div>
+		</td>
+		<td class="col-sm-1">	
+		<input class="cant_descuento form-control" readonly  > 
 		</td>
 		<td class="col-sm-1">	
 		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_productos']}'> 
@@ -504,17 +512,38 @@ function agregarProducto(producto){
 
 function sumarImportes(){
 	console.log("sumarImportes");
+	
+	let subtotal = 0;
 	let total = 0;
 	let articulos = 0;
 	let importe = 0;
-	$(".tabla_venta:visible tbody tr").each(function(indice, fila ){
-		console.log("indice",indice )
-		console.log("producto",fila )
-		let cantidad = Number($(this).find(".cantidad").val());
-		let precio = Number($(this).find(".precio").val());
+	let ahorro = 0;
+	let porc_descuento = 0;
+	let total_descuento = 0;
+	$(".tabla_venta:visible tbody tr").each(function(indice, item ){
+		let fila = $(this);
+		let piezas_descuento = Number(fila.find(".piezas_descuento").val());
+		let porc_descuento = Number(fila.find(".porc_descuento").val());
+		let cantidad = Number(fila.find(".cantidad").val());
+		let precio = Number(fila.find(".precio").val());
 		
-		console.log("cantidad",cantidad )
-		console.log("precio",precio )
+		
+		if(cantidad >= piezas_descuento){
+			console.log("Aplicar promocion");
+			descuento = porc_descuento;
+		}
+		else{
+			console.log("No Aplica promocion");
+			descuento = 0;
+			
+		}
+		
+		importe= cantidad * precio;
+		subtotal+= importe;
+		ahorro = importe * descuento / 100;
+		total_descuento+= ahorro;
+		
+		
 		//Si la unidad es a granel solo contar 1 articulo
 		if($(this).find(".unidad").val() == 'KG'){
 			articulos+= 1;
@@ -523,112 +552,123 @@ function sumarImportes(){
 			articulos+= Math.round(cantidad);
 		}
 		
-		importe= cantidad * precio;
-		total+= importe;
 		
-		console.log("precio",precio )
 		$(this).find(".importe").val(importe.toFixed(2))
+		$(this).find(".descuento").val(descuento.toFixed(2))
+		$(this).find(".cant_descuento").val(ahorro.toFixed(2))
 	});
 	
-	$(".articulos:visible").val(articulos);
-	$(".total:visible").val(round(total, 0.5).toFixed(2));
-	$("#efectivo").val(round(total, 0.5).toFixed(2));
+	//preguntar sobre redondeo
+	
+	total = subtotal - total_descuento;
+	
+	// $(".articulos:visible").val(articulos);
+	// $(".subtotal:visible").val(round(subtotal, 0.5).toFixed(2));
+	// $(".total_descuento:visible").val(round(total_descuento, 0.5).toFixed(2));
+	// $(".total:visible").val(round(total, 0.5).toFixed(2));
+	// $("#efectivo").val(round(total, 0.5).toFixed(2));
 	// $("#total_pago").val(round(total, 0.5).toFixed(2));
 	
+	
+	$(".articulos:visible").val(articulos);
+	$(".subtotal:visible").val(subtotal.toFixed(2));
+	$(".total_descuento:visible").val(total_descuento.toFixed(2));
+	$(".total:visible").val(total.toFixed(2));
+	$("#efectivo").val(total.toFixed(2));
 }
 
 function guardarVenta(event){
 	// event.preventDefault();
-	console.log("guardarVenta", event.type);
-	console.log("event", event);
-	console.log("target", event.target);
+console.log("guardarVenta", event.type);
+console.log("event", event);
+console.log("target", event.target);
+
+var boton = $(this).find(":submit");
+var icono = boton.find('.fa');
+var articulos = $("#tabla_venta tbody tr").size();
+var productos = [];
+var task = $.Deferred();
+
+// Si el evento es por F12 cobrar o F6 Pendiente
+if(event.type == "submit"){
+	console.log("Cobrar");
 	
-	var boton = $(this).find(":submit");
-	var icono = boton.find('.fa');
-	var articulos = $("#tabla_venta tbody tr").size();
-	var productos = [];
-	var task = $.Deferred();
+	var estatus_ventas ="PAGADO" ;
+	var nombre_cliente =  $("#tabs_ventas li.active a .nombre_cliente").val()
+	event.preventDefault();
 	
-	// Si el evento es por F12 cobrar o F6 Pendiente
-	if(event.type == "submit"){
-		console.log("Cobrar");
+}
+else{
+	console.log("Pendiente");
+	var estatus_ventas ="PENDIENTE" ;
+	var nombre_cliente =  event;
+	
+}
+
+
+if($("body #id_usuarios").val() == ''){
+	
+	alertify.error("Elige un vendedor");
+	
+	task.reject();
+	return task.promise();
+}
+
+
+boton.prop('disabled',true);
+icono.toggleClass('fa-check fa-spinner fa-spin');
+
+//Agrega los productos al array que se envia
+$(".tabla_venta:visible tbody tr").each(function(index, item){
+	productos.push({
+		"id_productos": $(item).find(".id_productos").val(),
+		"cantidad": $(item).find(".cantidad").val(),
+		"precio": $(item).find(".precio").val(),
+		"descripcion": $(item).find(".descripcion").val(),
+		"importe": $(item).find(".importe").val(),
+		"existencia_anterior": $(item).find(".existencia_anterior").val(),
+		"costo_proveedor": $(item).find(".costo_proveedor").val()
 		
-		var estatus_ventas ="PAGADO" ;
-		var nombre_cliente =  $("#tabs_ventas li.active a .nombre_cliente").val()
-		event.preventDefault();
+	})
+});
+
+return $.ajax({
+	url: 'ventas/guardar.php',
+	method: 'POST',
+	dataType: 'JSON',
+	data:{
+		id_ventas: $('#tabs_ventas li.active').find(".id_ventas").val(),
+		id_usuarios: $('#id_usuarios').val(),
+		id_turnos:$('#id_turnos').val(),
+		articulos: $(".articulos:visible").val(),
+		"productos": productos, 
+		"efectivo": $("#efectivo").val(),
+		"estatus_ventas": estatus_ventas,
+		"nombre_cliente": nombre_cliente.toUpperCase(),
+		total_ventas: $(".total:visible").val()
+	}
+	}).done(function(respuesta){
+	if(respuesta.estatus_venta == "success"){
+		alertify.success('Venta Guardada');
+		//Resetea la venta
+		
+		
+		$("#modal_pago").modal("hide");
+		
+		limpiarVenta();
+		
+		// console.log("Venta Activa", $("#tabs_ventas>li.active input").val("Mostrador"));
+		// imprimirTicket( respuesta.id_ventas)
 		
 	}
-	else{
-		console.log("Pendiente");
-		var estatus_ventas ="PENDIENTE" ;
-		var nombre_cliente =  event;
-		
-	}
-	
-	
-	if($("body #id_usuarios").val() == ''){
-		
-		alertify.error("Elige un vendedor");
-		
-		task.reject();
-		return task.promise();
-	}
-	
-	
-	boton.prop('disabled',true);
+	}).fail(function(xhr, error, errnum){
+	alertify.error('Ocurrio un error' + error);
+	}).always(function(){
+	boton.prop('disabled',false);
 	icono.toggleClass('fa-check fa-spinner fa-spin');
-	
-	//Agrega los productos al array que se envia
-	$(".tabla_venta:visible tbody tr").each(function(index, item){
-		productos.push({
-			"id_productos": $(item).find(".id_productos").val(),
-			"cantidad": $(item).find(".cantidad").val(),
-			"precio": $(item).find(".precio").val(),
-			"descripcion": $(item).find(".descripcion").val(),
-			"importe": $(item).find(".importe").val(),
-			"existencia_anterior": $(item).find(".existencia_anterior").val(),
-			"costo_proveedor": $(item).find(".costo_proveedor").val()
-			
-		})
-	});
-	
-	return $.ajax({
-		url: 'ventas/guardar.php',
-		method: 'POST',
-		dataType: 'JSON',
-		data:{
-			id_ventas: $('#tabs_ventas li.active').find(".id_ventas").val(),
-			id_usuarios: $('#id_usuarios').val(),
-			id_turnos:$('#id_turnos').val(),
-			articulos: $(".articulos:visible").val(),
-			"productos": productos, 
-			"efectivo": $("#efectivo").val(),
-			"estatus_ventas": estatus_ventas,
-			"nombre_cliente": nombre_cliente.toUpperCase(),
-			total_ventas: $(".total:visible").val()
-		}
-		}).done(function(respuesta){
-		if(respuesta.estatus_venta == "success"){
-			alertify.success('Venta Guardada');
-			//Resetea la venta
-			
-			
-			$("#modal_pago").modal("hide");
-			
-			limpiarVenta();
-			
-			// console.log("Venta Activa", $("#tabs_ventas>li.active input").val("Mostrador"));
-			// imprimirTicket( respuesta.id_ventas)
-			
-		}
-		}).fail(function(xhr, error, errnum){
-		alertify.error('Ocurrio un error' + error);
-		}).always(function(){
-		boton.prop('disabled',false);
-		icono.toggleClass('fa-check fa-spinner fa-spin');
-	});
-	
-	TotalTurno();
+});
+
+TotalTurno();
 }
 
 
@@ -785,22 +825,16 @@ function aplicarMayoreoProducto(){
 }
 
 function aplicarDescuento(){
-	var $descuento;
-	var $precio, precio_descuento;
-	var fila =  $(this).closest("tr");
-	console.log("aplicarMayoreoProducto");
+	console.log("aplicarDescuento");
 	
-	$precio = Number(fila.find(".precio_menudeo").val());
-	$porc_descuento = Number(fila.find(".descuento").val());
+	// var fila =  $(this).closest("tr");
 	
-	ahorro = $precio * $porc_descuento / 100;
-	precio_descuento = $precio * (100 - $porc_descuento) / 100
+	// var importe = Number(fila.find(".importe").val());
+	// var porc_descuento = Number(fila.find(".descuento").val());
 	
-	console.log("precio_descuento", precio_descuento);
-	console.log("ahorro", ahorro);
+	// var ahorro = importe * porc_descuento / 100;
 	
-	fila.find(".precio").val(precio_descuento.toFixed(2));
-	
+	// fila.find(".cant_descuento").val(ahorro.toFixed(2));
 	
 	sumarImportes();
 }
@@ -820,20 +854,7 @@ if (window.matchMedia) {
 
 // window.onbeforeprint = beforePrint;
 //window.onafterprint = afterPrint;
-function buscarDescripcion(){
-	var indice = $(this).data("indice");
-	var valor_filtro = $(this).val();
-	
-	var num_rows = buscar(valor_filtro,'tabla_productos',indice);
-	
-	$("#cantidad_productos").text(num_rows);
-	
-	if(num_rows == 0){
-		$('#mensaje').html("<div class='alert alert-warning text-center'><strong>No se ha encontrado.</strong></div>");
-		}else{
-		$('#mensaje').html('');
-	}
-}
+
 
 function resetFondo(){
 	
