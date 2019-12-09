@@ -108,7 +108,7 @@ $(document).ready(function () {
 		$('#modal_productos').modal('show');
 	});
 	//--------CHECAR DUPLICADOS------
-	$('#codigo_productos').keyup(buscarRepetidos );
+	$('#codigo_productos').keydown(buscarRepetidos);
 	
 	
 	
@@ -387,12 +387,18 @@ function confirmaEliminar() {
 }
 
 function buscarRepetidos(ev) {
+	onsole.log("buscarRepetidos")
 	
 	if(ev.key == "Enter"){
 		console.log("Presionaste Enter");
 		return false;
 	}
+	if(ev.keyCode == "13"){
+		console.log("Presionaste 13");
+		return false;
+	}
 	
+	event.preventDefault();
 	var producto = $(this).val();
 	$.ajax({
 		url: '../control/checar_repetidos.php',
@@ -401,11 +407,12 @@ function buscarRepetidos(ev) {
 		data: { producto: producto }
 		}).done(function (respuesta) {
 		if (respuesta.repetidos > 0) {
-			$('#btn_formAlta').prop('disabled', true);
-			$('#respuesta_rep').text('(Existentente)');
-			} else {
-			$('#btn_formAlta').prop('disabled', false);
-			$('#respuesta_rep').text('');
+			// $('#btn_formAlta').prop('disabled', true);
+			alertify.error('Este código ya existe');
+		} 
+		else {
+			// $('#btn_formAlta').prop('disabled', false);
+			
 		}
 	});
 }
