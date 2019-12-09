@@ -6,7 +6,7 @@ function listaProductos() {
 	$boton.prop("disabled", true)
 	$icono.toggleClass("fa-search fa-spinner fa-spin");
 	$.ajax({
-		url: 'productos/productos2.php',
+		url: 'productos_json.php',
 		dataType: 'JSON',
 		data: $("#form_filtros").serializeArray()
 		}).done(function (respuesta) {
@@ -269,7 +269,7 @@ function cargarRegistro() {
 	boton.prop('disabled', true);
 	var id_productos = boton.data('id_producto');
 	$.ajax({
-		url: 'control/buscar_normal.php',
+		url: '../control/buscar_normal.php',
 		method: 'POST',
 		dataType: 'JSON',
 		data: { campo: 'id_productos', tabla: 'productos', id_campo: id_productos }
@@ -330,7 +330,7 @@ function guardarProducto(event) {
 	var formulario = $(this).serializeArray();
 	console.log("formulario: ", formulario)
 	$.ajax({
-		url: 'control/guardar_producto.php',
+		url: 'guardar.php',
 		dataType: 'JSON',
 		method: 'POST',
 		data: formulario
@@ -360,7 +360,7 @@ function confirmaEliminar() {
 	var id_producto = boton.data('id_producto');
 	function eliminarProductos() {
 		$.ajax({
-			url: 'control/eliminar_normal.php',
+			url: '../control/eliminar_normal.php',
 			method: 'POST',
 			dataType: 'JSON',
 			data: { tabla: 'productos', campo: 'id_productos', id_campo: id_producto }
@@ -385,7 +385,7 @@ function confirmaEliminar() {
 function buscarRepetidos() {
 	var producto = $(this).val();
 	$.ajax({
-		url: 'control/checar_repetidos.php',
+		url: '../control/checar_repetidos.php',
 		method: 'POST',
 		dataType: 'JSON',
 		data: { producto: producto }

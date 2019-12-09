@@ -1,9 +1,9 @@
 <?php
-	include("login/login_success.php");
-	include("conexi.php");
-	include("funciones/generar_select.php");
+	include("../login/login_success.php");
+	include("../conexi.php");
+	include("../funciones/generar_select.php");
 	$link = Conectarse();
-	$menu_activo = "producto";
+	$menu_activo = "productos";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,21 +18,22 @@
 		</style>
     <title>Productos</title>
 		
-		<?php include("styles.php");?>
+		<?php include("../styles_carpetas.php");?>
 		
 	</head>
   <body>
 		
-		<?php include("menu.php");?>
+		<?php include("../menu_carpetas.php");?>
 		
 		
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
-					<h2 class="text-center">Productos</h2>
-					<hr>
+					<h4 class="text-center">Productos</h4>
 				</div>
 			</div>
+			
+			<hr>
 			<div class="row">
 				<div class="col-md-12">
 					<form id="form_filtros" class="form-inline">
@@ -102,14 +103,14 @@
 				</div>
 			</div>
 		</div>
-		<form id="form_imprimir_precios" action="impresion/imprimir_precios.php">
+		<form id="form_imprimir_precios" action="../impresion/imprimir_precios.php">
 		</form>
-		<?php include('forms/productos.php'); ?>
-		<?php include('forms/existencias.php'); ?>
+		<?php include('../forms/productos.php'); ?>
+		<?php include('../forms/existencias.php'); ?>
 		
-		<?php  include('scripts.php'); ?>
-		<script src="js/productos.js"></script>
-		<script src="js/carrito.js"></script>
+		<?php  include('../scripts_carpetas.php'); ?>
+		<script src="catalogo.js"></script>
+		<script src="../js/carrito.js"></script>
 		<script src="https://unpkg.com/sticky-table-headers"></script>
 	</body>
 </html>

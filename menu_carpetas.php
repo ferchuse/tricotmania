@@ -28,7 +28,7 @@
 				?>
 				
 				<?php
-					if ($_COOKIE['nombre_usuarios'] == 'VANESSA') { 
+					if ($_COOKIE['nombre_usuarios'] == 'VANESSA') {
 					?>
 					<li class="dropdown <?php echo $menu_activo == "reportes" ? "active" : ''; ?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -57,7 +57,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="../reportes.php"><i class="fas fa-chart-bar"></i> Ventas Por Día</a>
+								<a href="../reportes"><i class="fas fa-chart-bar"></i> Ventas Por Día</a>
 							</li>
 							<li>
 								<a href="../inventarios/movimientos.php"><i class="fas fa-chart-bar"></i> Movimientos</a>
@@ -66,7 +66,7 @@
 					</li>
 					
 					<li class=" <?php echo $menu_activo == "producto" ? "active" : ''; ?>">
-						<a href="../productos.php">
+						<a href="../productos">
 							<i class="fa fa-list"></i> Productos
 						</a>
 					</li>
@@ -80,14 +80,17 @@
 								<a href="../catalogos/departamentos.php"><i class="fas fa-file-alt"></i> Departamentos</a>
 							</li>
 							<li>
-								<a href="../proveedores.php"><i class="fas fa-file-alt"></i> Proveedores</a>
+								<a href="../catalogos/subdepartamentos.php"><i class="fas fa-file-alt"></i> Subdepartamentos</a>
+							</li>
+							<li>
+								<a href="../catalogos/proveedores.php"><i class="fas fa-file-alt"></i> Proveedores</a>
 							</li>
 						</ul>
 					</li>
 					
 					<?php
 					}
-					if ($_COOKIE["permiso_usuarios"] == "caja" || $_COOKIE['permiso_usuarios'] == "administrador" || $_COOKIE['permiso_usuarios'] == "mostrador") {
+					if ($_COOKIE["permiso_usuarios"] == "caja" || $_COOKIE['permiso_usuarios'] == "administrador" ) {
 					?>
 					<li class="<?php echo $menu_activo == "resumen" ? "active" : ''; ?>">
 						<a href="../corte/resumen.php">
@@ -109,18 +112,6 @@
 					<li>
 						<a href="../usuarios.php"><i class="fa fa-user-plus "></i> Usuarios</a>
 					</li>
-					<li class="dropdown <?php echo $menu_activo == "control" ? "active" : ''; ?>">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fas fa-cog"></i> Configuración <strong class="caret"></strong>
-						</a>
-						<ul class="dropdown-menu">
-							
-							<li>
-								<a href="#">Versión 25-JUN-2019</a>
-							</li>
-						</ul>
-					</li>
-					
 					<?php
 					}
 				?>

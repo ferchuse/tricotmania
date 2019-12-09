@@ -23,7 +23,7 @@ function cargarPendientes(event){
 	console.log("content", $(".tab-content .cremeria").length);
 	
 	$.ajax({
-		url: "funciones/ventas_pendientes.php",
+		url: "../funciones/ventas_pendientes.php",
 		dataType: "JSON"
 	})
 	.done(renderPendientes);
@@ -247,7 +247,7 @@ $(document).ready( function onLoad(){
 	
 	//Autocomplete Productos https://github.com/devbridge/jQuery-Autocomplete
 	$("#buscar_producto").autocomplete({
-		serviceUrl: "ventas/productos_autocomplete.php",   
+		serviceUrl: "productos_autocomplete.php",   
 		onSelect: function alSeleccionarProducto(eleccion){
 			console.log("Elegiste: ",eleccion);
 			if(eleccion.data.unidad_productos == 'KG'){
@@ -293,7 +293,7 @@ $(document).ready( function onLoad(){
 			input.toggleClass('ui-autocomplete-loading');
 			var codigoProducto = $(this).val();
 			$.ajax({
-				url: "control/buscar_normal.php",
+				url: "../control/buscar_normal.php",
 				dataType: "JSON",
 				method: 'POST',
 				data: {tabla:'productos', campo:'codigo_productos', id_campo: codigoProducto}
@@ -460,13 +460,13 @@ function agregarProducto(producto){
 		<td class="col-sm-1"><input readonly type="number" class='precio form-control' value='${precio}'> </td>
 		<td class="col-sm-1"><input readonly type="number" class='importe form-control text-right' > </td>
 		<td class="col-sm-1">	
-		<div class='input-group'>
-		<input type="number" class="descuento form-control"   value='0'> 
-		<span class='input-group-addon'><i class='fas fa-percent'></i></span>
-		</div>
+			<div class='input-group'>
+				<input type="number" class="descuento form-control"   value='0'> 
+				<span class='input-group-addon'><i class='fas fa-percent'></i></span>
+			</div>
 		</td>
 		<td class="col-sm-1">	
-		<input class="cant_descuento form-control" readonly  > 
+			<input class="cant_descuento form-control" readonly  > 
 		</td>
 		<td class="col-sm-1">	
 		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_productos']}'> 
@@ -634,7 +634,7 @@ $(".tabla_venta:visible tbody tr").each(function(index, item){
 });
 
 return $.ajax({
-	url: 'ventas/guardar.php',
+	url: 'guardar.php',
 	method: 'POST',
 	dataType: 'JSON',
 	data:{
@@ -713,7 +713,7 @@ function imprimirTicket(id_ventas){
 	
 	
 	$.ajax({
-		url: "impresion/imprimir_venta.php",
+		url: "../impresion/imprimir_venta.php",
 		data:{
 			id_ventas : id_ventas
 		}
@@ -919,7 +919,7 @@ function CalcularComision (){
 function TotalTurno (){
 	console.log();
 	$.ajax({
-		url: "funciones/total_turno.php",
+		url: "../funciones/total_turno.php",
 		dataType: "JSON"
 		}).done(function (respuesta){
 		console.log(respuesta);
