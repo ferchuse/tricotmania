@@ -108,7 +108,7 @@ $(document).ready(function () {
 		$('#modal_productos').modal('show');
 	});
 	//--------CHECAR DUPLICADOS------
-	$('#codigo_productos').keydown(buscarRepetidos);
+	$('#codigo_productos').keyup(buscarRepetidos);
 	
 	
 	
@@ -389,14 +389,14 @@ function confirmaEliminar() {
 function buscarRepetidos(ev) {
 	onsole.log("buscarRepetidos")
 	
-	if(ev.key == "Enter"){
-		console.log("Presionaste Enter");
-		return false;
-	}
-	if(ev.keyCode == "13"){
-		console.log("Presionaste 13");
-		return false;
-	}
+	// if(ev.key == "Enter"){
+		// console.log("Presionaste Enter");
+		// return false;
+	// }
+	// if(ev.keyCode == "13"){
+		// console.log("Presionaste 13");
+		// return false;
+	// }
 	
 	event.preventDefault();
 	var producto = $(this).val();
