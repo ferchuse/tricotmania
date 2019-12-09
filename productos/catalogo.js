@@ -386,7 +386,13 @@ function confirmaEliminar() {
 	});
 }
 
-function buscarRepetidos() {
+function buscarRepetidos(ev) {
+	
+	if(ev.key == "Enter"){
+		console.log("Presionaste Enter");
+		return false;
+	}
+	
 	var producto = $(this).val();
 	$.ajax({
 		url: '../control/checar_repetidos.php',
