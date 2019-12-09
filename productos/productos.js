@@ -383,7 +383,7 @@ function confirmaEliminar() {
 }
 
 function buscarRepetidos(ev) {
-	onsole.log("buscarRepetidos")
+	console.log("buscarRepetidos")
 	
 	if(ev.key == "Enter"){
 		console.log("Presionaste Enter");
