@@ -398,7 +398,7 @@ function buscarRepetidos(ev) {
 		// return false;
 	// }
 	
-	event.preventDefault();
+	ev.preventDefault();
 	var producto = $(this).val();
 	$.ajax({
 		url: '../control/checar_repetidos.php',
