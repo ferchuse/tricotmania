@@ -11,6 +11,7 @@ function Conectarse()
 		$usuario="atoshka_admin";
 		$pass="Estambr3s@toshka";
 	}
+	
 	elseif($_SERVER["SERVER_NAME"] == "pruebas.tricotmania.com"){
 		$db="microsit_tricotmania";
 		$usuario="microsit_practicas";
@@ -35,7 +36,8 @@ function Conectarse()
 	
     if (!($link=mysqli_connect($host,$usuario,$pass)))
    {
-     die( "Error conectando a la base de datos.". mysqli_error($link));
+     die( "Error conectando a la base de datos.". mysqli_error($link). $_SERVER["SERVER_NAME"]);
+		 
    }
    
    if (!mysqli_select_db($link, $db))
