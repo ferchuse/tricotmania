@@ -14,7 +14,7 @@ function Conectarse()
 	
 	elseif($_SERVER["SERVER_NAME"] == "pruebas.tricotmania.com"){
 		$db="microsit_tricotmania";
-		$usuario="microsit_practicas";
+		$usuario="microsit_practic";
 		$pass="UAEH@2018";
 		$set_local = "SET time_zone = '-05:00'";
 		$set_names = "SET NAMES 'utf8'";
