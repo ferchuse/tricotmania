@@ -255,14 +255,11 @@
 				<button class="btn btn-warning btn-lg" FORM="" id="btn_pendiente">
 					F6 - Pendiente
 				</button>
-				<?php if ($_COOKIE["permiso_usuarios"] != "mostrador") { ?>
-					<button class="btn btn-success btn-lg" FORM="" id="cerrar_venta">
-						F12 - Cobrar
-					</button>
-					<?php
-						
-					}
-				?>
+				
+				<button class="btn btn-success btn-lg" FORM="" id="cerrar_venta">
+					F12 - Cobrar
+				</button>
+				
 			</div>
 		</div>
 		

@@ -20,7 +20,7 @@ function Conectarse()
 	}
 	
 	elseif($_SERVER["SERVER_NAME"] == "localhost"){
-		$db="tienda_atoshka";
+		$db="tricotmania";
 		$usuario="sistemas";
 		$pass="Glifom3dia";
 		$set_local = "SET time_zone = '-05:00'";

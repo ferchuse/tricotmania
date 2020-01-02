@@ -87,9 +87,9 @@
 								<input type="number" readonly name="turno" class="form-control col-sm-6" id="turno" placeholder="" required="" />
 								<input class="form-control col-sm-6" readonly id="cerrado" name="cerrado">
 							</div>
-							<div class="form-group">
+							<div class="form-group hidden">
 								<label for="password">Efectivo Inicial:</label>
-								<input type="number" value="0" step="0.01" name="efectivo_inicial" class="form-control " id="efectivo_inicial" placeholder="Efectivo inicial" required="" />
+								<input type="number" value="0" step="0.01" name="efectivo_inicial" class="form-control " id="efectivo_inicial" placeholder="Efectivo inicial" required="" disabled/>
 							</div>
 							
 							
