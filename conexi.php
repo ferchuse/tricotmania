@@ -11,7 +11,7 @@ function Conectarse()
 		$usuario="atoshka_admin";
 		$pass="Estambr3s@toshka";
 	}
-	elseif($_SERVER["SERVER_NAME"] == "estambresatoshka.com"){
+	elseif($_SERVER["SERVER_NAME"] == "pruebas.tricotmania.com"){
 		$db="microsit_tricotmania";
 		$usuario="microsit_practicas";
 		$pass="UAEH@2018";
