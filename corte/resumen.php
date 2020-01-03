@@ -220,7 +220,7 @@
 													
 													case 'PAGADO':
 													$fondo = "bg-success";
-													$total_efectivo += $efectivo;
+													$total_efectivo += $total_ventas;
 													$total_tarjeta += $tarjeta;
 													$total += $total_ventas;
 													break;
@@ -326,7 +326,7 @@
 							<div class="panel-footer h4">
 								
 								<?php
-									$saldo_final = $_COOKIE["efectivo_inicial"] + $total_efectivo + $totales["entradas"] - $totales["salidas"] - $totales["devoluciones"];
+									$saldo_final = $_COOKIE["efectivo_inicial"] + $total + $totales["entradas"] - $totales["salidas"] - $totales["devoluciones"];
 								?>
 								
 								<div class="row no-gutters">
@@ -339,7 +339,7 @@
 									<div class="col-xs-7">Ventas en Efectivo</div>
 									<div class="text-success col-xs-1 text-center">+</div>
 									<div class="text-success col-xs-1 text-center">$</div>
-									<div class="cantidad text-success col-xs-3 text-right"><?php echo number_format($total_efectivo, 2) ?></div>
+									<div class="cantidad text-success col-xs-3 text-right"><?php echo number_format($total, 2) ?></div>
 								</div>
 								
 								<div class="row no-gutters">
