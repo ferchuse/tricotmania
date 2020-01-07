@@ -460,13 +460,13 @@ function agregarProducto(producto){
 		<td class="col-sm-1"><input readonly type="number" class='precio form-control' value='${precio}'> </td>
 		<td class="col-sm-1"><input readonly type="number" class='importe form-control text-right' > </td>
 		<td class="col-sm-1">	
-			<div class='input-group'>
-				<input type="number" class="descuento form-control"   value='0'> 
-				<span class='input-group-addon'><i class='fas fa-percent'></i></span>
-			</div>
+	
+		<input type="number" class="descuento form-control"   value='0'> 
+	
+	
 		</td>
 		<td class="col-sm-1">	
-			<input class="cant_descuento form-control" readonly  > 
+		<input class="cant_descuento form-control"  > 
 		</td>
 		<td class="col-sm-1">	
 		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_productos']}'> 
@@ -489,8 +489,10 @@ function agregarProducto(producto){
 		
 		//Asigna Callbacks de eventos
 		$(".mayoreo").change(aplicarMayoreoProducto);
-		$(".descuento").change(aplicarDescuento);
-		$(".descuento").keyup(aplicarDescuento);
+		$(".descuento").change(sumarImportes);
+		$(".descuento").keyup(sumarImportes);
+		$(".cant_descuento ").change(sumarImportes);
+		$(".cant_descuento ").keyup(sumarImportes);
 		$(".cantidad").keyup(sumarImportes);
 		$(".cantidad").change(sumarImportes);
 		$("input").focus(function(){
@@ -510,10 +512,11 @@ function agregarProducto(producto){
 
 
 
-function sumarImportes(){
+function sumarImportes(event){
 	console.log("sumarImportes");
-	
+
 	let subtotal = 0;
+	let descuento = 0;
 	let total = 0;
 	let articulos = 0;
 	let importe = 0;
@@ -524,24 +527,53 @@ function sumarImportes(){
 		let fila = $(this);
 		let piezas_descuento = Number(fila.find(".piezas_descuento").val());
 		let porc_descuento = Number(fila.find(".porc_descuento").val());
+		let descuento = Number(fila.find(".descuento").val());
+		let cant_descuento = Number(fila.find(".cant_descuento").val());
 		let cantidad = Number(fila.find(".cantidad").val());
 		let precio = Number(fila.find(".precio").val());
 		
-		
-		if(cantidad >= piezas_descuento){
-			console.log("Aplicar promocion");
-			descuento = porc_descuento;
-		}
-		else{
-			console.log("No Aplica promocion");
-			descuento = 0;
-			
-		}
-		
 		importe= cantidad * precio;
 		subtotal+= importe;
-		ahorro = importe * descuento / 100;
+		
+		
+		if(event){
+			
+			console.log("event target", event.target);
+			
+			if($(event.target).hasClass("cant_descuento") ){
+			
+				console.log("Descuento por cantidad");
+				porc_descuento = cant_descuento * 100 / importe ;
+				ahorro = cant_descuento;
+				$(fila).find(".descuento").val(porc_descuento.toFixed(2))
+				
+			}
+			else{
+				
+				console.log("Descuento por porcentaje");
+				console.log("importe: ", importe);
+				console.log("porc_descuento", descuento);
+				
+				ahorro = importe * descuento / 100;
+				fila.find(".cant_descuento").val(ahorro.toFixed(2))
+				
+			}
+		}
+		
+		descuento = ahorro;
 		total_descuento+= ahorro;
+		
+		// if(cantidad >= piezas_descuento){
+		// console.log("Aplicar promocion");
+		// descuento = porc_descuento;
+		// }
+		// else{
+		// console.log("No Aplica promocion");
+		// descuento = 0;
+		
+		// }
+		
+		
 		
 		
 		//Si la unidad es a granel solo contar 1 articulo
@@ -554,8 +586,7 @@ function sumarImportes(){
 		
 		
 		$(this).find(".importe").val(importe.toFixed(2))
-		$(this).find(".descuento").val(descuento.toFixed(2))
-		$(this).find(".cant_descuento").val(ahorro.toFixed(2))
+		
 	});
 	
 	//preguntar sobre redondeo
@@ -580,98 +611,98 @@ function sumarImportes(){
 
 function guardarVenta(event){
 	// event.preventDefault();
-console.log("guardarVenta", event.type);
-console.log("event", event);
-console.log("target", event.target);
-
-var boton = $(this).find(":submit");
-var icono = boton.find('.fa');
-var articulos = $("#tabla_venta tbody tr").size();
-var productos = [];
-var task = $.Deferred();
-
-// Si el evento es por F12 cobrar o F6 Pendiente
-if(event.type == "submit"){
-	console.log("Cobrar");
+	console.log("guardarVenta", event.type);
+	console.log("event", event);
+	console.log("target", event.target);
 	
-	var estatus_ventas ="PAGADO" ;
-	var nombre_cliente =  $("#tabs_ventas li.active a .nombre_cliente").val()
-	event.preventDefault();
+	var boton = $(this).find(":submit");
+	var icono = boton.find('.fa');
+	var articulos = $("#tabla_venta tbody tr").size();
+	var productos = [];
+	var task = $.Deferred();
 	
-}
-else{
-	console.log("Pendiente");
-	var estatus_ventas ="PENDIENTE" ;
-	var nombre_cliente =  event;
-	
-}
-
-
-if($("body #id_usuarios").val() == ''){
-	
-	alertify.error("Elige un vendedor");
-	
-	task.reject();
-	return task.promise();
-}
-
-
-boton.prop('disabled',true);
-icono.toggleClass('fa-check fa-spinner fa-spin');
-
-//Agrega los productos al array que se envia
-$(".tabla_venta:visible tbody tr").each(function(index, item){
-	productos.push({
-		"id_productos": $(item).find(".id_productos").val(),
-		"cantidad": $(item).find(".cantidad").val(),
-		"precio": $(item).find(".precio").val(),
-		"descripcion": $(item).find(".descripcion").val(),
-		"importe": $(item).find(".importe").val(),
-		"existencia_anterior": $(item).find(".existencia_anterior").val(),
-		"costo_proveedor": $(item).find(".costo_proveedor").val()
+	// Si el evento es por F12 cobrar o F6 Pendiente
+	if(event.type == "submit"){
+		console.log("Cobrar");
 		
-	})
-});
-
-return $.ajax({
-	url: 'guardar.php',
-	method: 'POST',
-	dataType: 'JSON',
-	data:{
-		id_ventas: $('#tabs_ventas li.active').find(".id_ventas").val(),
-		id_usuarios: $('#id_usuarios').val(),
-		id_turnos:$('#id_turnos').val(),
-		articulos: $(".articulos:visible").val(),
-		"productos": productos, 
-		"efectivo": $("#efectivo").val(),
-		"estatus_ventas": estatus_ventas,
-		"nombre_cliente": nombre_cliente.toUpperCase(),
-		subtotal: $(".subtotal:visible").val(),
-		total_descuento: $(".total_descuento:visible").val(),
-		total_ventas: $(".total:visible").val()
-	}
-	}).done(function(respuesta){
-	if(respuesta.estatus_venta == "success"){
-		alertify.success('Venta Guardada');
-		//Resetea la venta
-		
-		
-		$("#modal_pago").modal("hide");
-		
-		limpiarVenta();
-		
-		// console.log("Venta Activa", $("#tabs_ventas>li.active input").val("Mostrador"));
-		// imprimirTicket( respuesta.id_ventas)
+		var estatus_ventas ="PAGADO" ;
+		var nombre_cliente =  $("#tabs_ventas li.active a .nombre_cliente").val()
+		event.preventDefault();
 		
 	}
-	}).fail(function(xhr, error, errnum){
-	alertify.error('Ocurrio un error' + error);
-	}).always(function(){
-	boton.prop('disabled',false);
+	else{
+		console.log("Pendiente");
+		var estatus_ventas ="PENDIENTE" ;
+		var nombre_cliente =  event;
+		
+	}
+	
+	
+	if($("body #id_usuarios").val() == ''){
+		
+		alertify.error("Elige un vendedor");
+		
+		task.reject();
+		return task.promise();
+	}
+	
+	
+	boton.prop('disabled',true);
 	icono.toggleClass('fa-check fa-spinner fa-spin');
-});
-
-TotalTurno();
+	
+	//Agrega los productos al array que se envia
+	$(".tabla_venta:visible tbody tr").each(function(index, item){
+		productos.push({
+			"id_productos": $(item).find(".id_productos").val(),
+			"cantidad": $(item).find(".cantidad").val(),
+			"precio": $(item).find(".precio").val(),
+			"descripcion": $(item).find(".descripcion").val(),
+			"importe": $(item).find(".importe").val(),
+			"existencia_anterior": $(item).find(".existencia_anterior").val(),
+			"costo_proveedor": $(item).find(".costo_proveedor").val()
+			
+		})
+	});
+	
+	return $.ajax({
+		url: 'guardar.php',
+		method: 'POST',
+		dataType: 'JSON',
+		data:{
+			id_ventas: $('#tabs_ventas li.active').find(".id_ventas").val(),
+			id_usuarios: $('#id_usuarios').val(),
+			id_turnos:$('#id_turnos').val(),
+			articulos: $(".articulos:visible").val(),
+			"productos": productos, 
+			"efectivo": $("#efectivo").val(),
+			"estatus_ventas": estatus_ventas,
+			"nombre_cliente": nombre_cliente.toUpperCase(),
+			subtotal: $(".subtotal:visible").val(),
+			total_descuento: $(".total_descuento:visible").val(),
+			total_ventas: $(".total:visible").val()
+		}
+		}).done(function(respuesta){
+		if(respuesta.estatus_venta == "success"){
+			alertify.success('Venta Guardada');
+			//Resetea la venta
+			
+			
+			$("#modal_pago").modal("hide");
+			
+			limpiarVenta();
+			
+			// console.log("Venta Activa", $("#tabs_ventas>li.active input").val("Mostrador"));
+			// imprimirTicket( respuesta.id_ventas)
+			
+		}
+		}).fail(function(xhr, error, errnum){
+		alertify.error('Ocurrio un error' + error);
+		}).always(function(){
+		boton.prop('disabled',false);
+		icono.toggleClass('fa-check fa-spinner fa-spin');
+	});
+	
+	TotalTurno();
 }
 
 
