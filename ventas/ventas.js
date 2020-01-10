@@ -769,8 +769,8 @@ function afterPrint() {
 	// window.location.reload(true);
 	
 	if(tipo_ticket == "cliente"){
-		tipo_ticket = "copia";
-		window.print();
+		// tipo_ticket = "copia";
+		// window.print();
 	}
 	else{
 		
