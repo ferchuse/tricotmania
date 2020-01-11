@@ -457,7 +457,9 @@ function agregarProducto(producto){
 		
 		<td class="text-center">${producto['unidad_productos']}</td>
 		<td class="text-center">${producto['descripcion_productos']}</td>
-		<td class="col-sm-1"><input readonly type="number" class='precio form-control' value='${precio}'> </td>
+		<td class="col-sm-1">
+			<input  type="number" class='precio form-control' value='${precio}'>
+		</td>
 		<td class="col-sm-1"><input readonly type="number" class='importe form-control text-right' > </td>
 		<td class="col-sm-1">	
 	
@@ -491,10 +493,16 @@ function agregarProducto(producto){
 		$(".mayoreo").change(aplicarMayoreoProducto);
 		$(".descuento").change(sumarImportes);
 		$(".descuento").keyup(sumarImportes);
+		
 		$(".cant_descuento ").change(sumarImportes);
 		$(".cant_descuento ").keyup(sumarImportes);
+		
 		$(".cantidad").keyup(sumarImportes);
 		$(".cantidad").change(sumarImportes);
+		
+		$(".precio").keyup(sumarImportes);
+		$(".precio").change(sumarImportes);
+		
 		$("input").focus(function(){
 			$(this).select();
 		});
