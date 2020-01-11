@@ -112,7 +112,7 @@
 				<td class=" text-right" colspan="3"><strong>SUBTOTAL:</strong></td>
 				<td class=" text-right"><?php echo "$" . $producto["subtotal"] ?></td>
 			</tr>
-			<tr>
+			<tr hidden>
 				<td class=" text-right" colspan="3"><strong>DESCUENTO:</strong></td>
 				<td class=" text-right"><?php echo "$" . $producto["total_descuento"] ?></td>
 			</tr>

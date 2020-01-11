@@ -477,8 +477,8 @@ function agregarProducto(producto){
 		<button title="Eliminar Producto" class="btn btn-danger btn_eliminar">
 		<i class="fa fa-trash"></i>
 		</button> 
-		<label class="custom_checkbox">
-		<input class="mayoreo" type="checkbox">
+		<label hidden  class="custom_checkbox">
+		<input  class="mayoreo" type="checkbox">
 		Mayoreo
 		<span class="checkmark"></span>
 		</label>
