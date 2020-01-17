@@ -563,10 +563,8 @@ function sumarImportes(event){
 		
 		//Imprime el tipo de precio y el precio unitario dependiento el numero de piezas
 		fila.find(".tipo_precio").html(obj_precio.tipo_precio);
-		fila.find(".precio").val(obj_precio.precio);
 		
-		importe= cantidad * obj_precio.precio;
-		subtotal+= importe;
+		
 		
 		
 		if(event){
@@ -575,30 +573,36 @@ function sumarImportes(event){
 			
 			if($(event.target).hasClass("cant_descuento") ){
 				
-				console.log("Descuento por cantidad");
-				porc_descuento = cant_descuento * 100 / importe ;
-				ahorro = cant_descuento;
-				$(fila).find(".descuento").val(porc_descuento.toFixed(2))
+				// console.log("Descuento por cantidad");
+				// porc_descuento = cant_descuento * 100 / importe ;
+				// ahorro = cant_descuento;
+				// $(fila).find(".descuento").val(porc_descuento.toFixed(2))
 				
 			}
 			else{
 				if($(event.target).hasClass("cantidad")){
+					fila.find(".precio").val(obj_precio.precio);
 					
 				}
 				else{
 					
-					console.log("Descuento por porcentaje");
-					console.log("importe: ", importe);
-					console.log("porc_descuento", descuento);
+					// console.log("Descuento por porcentaje");
+					// console.log("importe: ", importe);
+					// console.log("porc_descuento", descuento);
 					
-					ahorro = importe * descuento / 100;
-					fila.find(".cant_descuento").val(ahorro.toFixed(2))
+					// ahorro = importe * descuento / 100;
+					// fila.find(".cant_descuento").val(ahorro.toFixed(2))
 					
 				}
 				
 			}
 			
 		}
+		
+		let precio =  Number(fila.find(".precio").val());
+		
+		importe= cantidad * precio;
+		subtotal+= importe;
 		
 		descuento = ahorro;
 		total_descuento+= ahorro;
