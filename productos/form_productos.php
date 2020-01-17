@@ -49,16 +49,44 @@
 								
 							</div>
 							<div class="form-group ">
-								<label >Precio de Venta:</label>
-								
+								<label >Precio Público:</label>
 								<input placeholder="PRECIO" type="number" min="0"  step=".01" class="form-control" id="precio_menudeo" name="precio_menudeo">
-								
 							</div>
-							<div class="form-group ">
-								<label for="precio_mayoreo">Precio Mayoreo:</label>
-								
-								<input placeholder="" type="number" min="0.1"  step=".01" class="form-control" id="precio_mayoreo" name="precio_mayoreo">
+							
+							<div class="form-group row">
+								<div class="col-xs-6">
+									<label for="precio_mayoreo">Precio Mayoreo:</label>
+									<input placeholder="" type="number" min="0.1"  step=".01" class="form-control" id="precio_mayoreo" name="precio_mayoreo">
+								</div>	
+								<div class="col-xs-6">
+									<label for="piezas_mayoreo">A partir de:</label>
+									<input placeholder="" type="number"  class="form-control" id="piezas_mayoreo" name="piezas_mayoreo">
+								</div>
 							</div>  
+							
+							<div class="form-group row ">
+								<div class="col-xs-6">
+									<label for="precio_mayoreo">Precio Distribuidor:</label>
+									<input placeholder="" type="number" min="0.1"  step=".01" class="form-control" id="precio_dist" name="precio_dist">
+								</div>	
+								<div class="col-xs-6">
+									<label for="piezas_dist">A partir de:</label>
+									<input placeholder="" type="number"  class="form-control" id="piezas_dist" name="piezas_dist">
+								</div>
+							</div>  
+							
+							<div class="form-group row ">
+								<div class="col-xs-6">
+									<label for="precio_mayoreo">Precio Fábrica:</label>
+									<input placeholder="" type="number" min="0.1"  step=".01" class="form-control" id="precio_fabrica" name="precio_fabrica">
+								</div>	
+								<div class="col-xs-6">
+									<label for="piezas_dist">A partir de:</label>
+									<input placeholder="" type="number"  class="form-control" id="piezas_fabrica" name="piezas_fabrica">
+								</div>
+							</div>  
+							
+							
 							<div class="form-group ">
 								<label for="existencia_productos">Existencia:</label>
 								<input placeholder="Cantidad de productos en existencia" type="number" min="0" step="any" class="form-control" id="existencia_productos" name="existencia_productos">
@@ -195,4 +223,4 @@
 			</div>
 		</div>
 	</div>
-</form>
+</form>						

@@ -446,26 +446,31 @@ function agregarProducto(producto){
 		<input hidden class="id_productos"  value="${producto['id_productos']}">
 		<input hidden class="unidad" value='${producto['unidad_productos']}'>
 		<input hidden class="descripcion" value='${producto['descripcion_productos']}'>
-		<input hidden class="precio_mayoreo" value='${producto['precio_mayoreo']}'>
 		<input hidden class="precio_menudeo" value='${producto['precio_menudeo']}'>
+		<input hidden class="precio_mayoreo" value='${producto['precio_mayoreo']}'>
+		<input hidden class="precio_dist" value='${producto['precio_dist']}'>
+		<input hidden class="precio_fabrica" value='${producto['precio_fabrica']}'>
+		<input hidden class="piezas_mayoreo" value='${producto['piezas_mayoreo']}'>
+		<input hidden class="piezas_dist" value='${producto['piezas_dist']}'>
+		<input hidden class="piezas_fabrica" value='${producto['piezas_fabrica']}'>
 		<input hidden class="ganancia_porc" value='${producto['ganancia_menudeo_porc']}'>
 		<input hidden class="costo_proveedor" value='${producto['costo_proveedor']}'>
 		<input hidden class="porc_descuento" value='${producto['porc_descuento']}'>
-		<input hidden class="piezas_descuento" value='${producto['piezas_descuento']}'>
 		
 		</td>
 		
 		<td class="text-center">${producto['unidad_productos']}</td>
 		<td class="text-center">${producto['descripcion_productos']}</td>
 		<td class="col-sm-1">
-			<input  type="number" class='precio form-control' value='${precio}'>
+		<input  type="number" class='precio form-control' value='${precio}'>
+		<span class="tipo_precio">Precio Público</span>
 		</td>
 		<td class="col-sm-1"><input readonly type="number" class='importe form-control text-right' > </td>
 		<td class="col-sm-1">	
-	
+		
 		<input type="number" class="descuento form-control"   value='0'> 
-	
-	
+		
+		
 		</td>
 		<td class="col-sm-1">	
 		<input class="cant_descuento form-control"  > 
@@ -482,6 +487,7 @@ function agregarProducto(producto){
 		Mayoreo
 		<span class="checkmark"></span>
 		</label>
+		
 		</td>
 		</tr>`;
 		
@@ -520,9 +526,10 @@ function agregarProducto(producto){
 
 
 
-function sumarImportes(event){
-	console.log("sumarImportes");
 
+function sumarImportes(event){
+	console.log("sumarImportes()");
+	
 	let subtotal = 0;
 	let descuento = 0;
 	let total = 0;
@@ -531,6 +538,7 @@ function sumarImportes(event){
 	let ahorro = 0;
 	let porc_descuento = 0;
 	let total_descuento = 0;
+	
 	$(".tabla_venta:visible tbody tr").each(function(indice, item ){
 		let fila = $(this);
 		let piezas_descuento = Number(fila.find(".piezas_descuento").val());
@@ -538,9 +546,26 @@ function sumarImportes(event){
 		let descuento = Number(fila.find(".descuento").val());
 		let cant_descuento = Number(fila.find(".cant_descuento").val());
 		let cantidad = Number(fila.find(".cantidad").val());
-		let precio = Number(fila.find(".precio").val());
 		
-		importe= cantidad * precio;
+		let obj_producto = {
+			"precio_menudeo": fila.find(".precio_menudeo").val(),
+			"precio_mayoreo": fila.find(".precio_mayoreo").val(),
+			"precio_dist": fila.find(".precio_dist").val(),
+			"precio_fabrica": fila.find(".precio_fabrica").val(),
+			"piezas_mayoreo": fila.find(".piezas_mayoreo").val(),
+			"piezas_dist": fila.find(".piezas_dist").val(),
+			"piezas_fabrica": fila.find(".piezas_fabrica").val()
+			
+			
+		};
+		
+		let obj_precio = tipoPrecio(cantidad, obj_producto);
+		
+		//Imprime el tipo de precio y el precio unitario dependiento el numero de piezas
+		fila.find(".tipo_precio").html(obj_precio.tipo_precio);
+		fila.find(".precio").val(obj_precio.precio);
+		
+		importe= cantidad * obj_precio.precio;
 		subtotal+= importe;
 		
 		
@@ -549,7 +574,7 @@ function sumarImportes(event){
 			console.log("event target", event.target);
 			
 			if($(event.target).hasClass("cant_descuento") ){
-			
+				
 				console.log("Descuento por cantidad");
 				porc_descuento = cant_descuento * 100 / importe ;
 				ahorro = cant_descuento;
@@ -557,15 +582,22 @@ function sumarImportes(event){
 				
 			}
 			else{
-				
-				console.log("Descuento por porcentaje");
-				console.log("importe: ", importe);
-				console.log("porc_descuento", descuento);
-				
-				ahorro = importe * descuento / 100;
-				fila.find(".cant_descuento").val(ahorro.toFixed(2))
+				if($(event.target).hasClass("cantidad")){
+					
+				}
+				else{
+					
+					console.log("Descuento por porcentaje");
+					console.log("importe: ", importe);
+					console.log("porc_descuento", descuento);
+					
+					ahorro = importe * descuento / 100;
+					fila.find(".cant_descuento").val(ahorro.toFixed(2))
+					
+				}
 				
 			}
+			
 		}
 		
 		descuento = ahorro;
@@ -615,6 +647,39 @@ function sumarImportes(event){
 	$(".total_descuento:visible").val(total_descuento.toFixed(2));
 	$(".total:visible").val(total.toFixed(2));
 	$("#efectivo").val(total.toFixed(2));
+}
+
+function tipoPrecio(cantidad, producto){
+	console.log("tipoPrecio()", "Cantidad: ", cantidad, "Producto: ", producto);
+	
+	switch (true) {
+		case (cantidad >= producto.piezas_fabrica):
+		console.log("Fabrica");
+		tipo_precio = "Precio de Fábrica";
+		precio = producto.precio_fabrica;
+		break; 
+		case (cantidad >= producto.piezas_dist && cantidad  < producto.piezas_fabrica):
+		console.log("Distribuidor"); 
+		tipo_precio = "Precio Distribuidor";
+		precio = producto.precio_dist;
+		break;
+		case (cantidad >= producto.piezas_mayoreo && cantidad  < producto.piezas_dist):
+		console.log("Distribuidor"); 
+		tipo_precio = "Precio Mayoreo";
+		precio = producto.precio_mayoreo;
+		break;
+		default:
+		
+		console.log("Precio Público");
+		tipo_precio = "Precio Público";
+		precio = producto.precio_menudeo;
+		break;
+	}
+	
+	
+	
+	return {"precio" : precio, "tipo_precio": tipo_precio} ;
+	
 }
 
 function guardarVenta(event){

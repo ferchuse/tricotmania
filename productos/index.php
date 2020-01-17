@@ -72,9 +72,10 @@
 								<th class="text-center">Descripción</th>
 								<th class="text-center">Departamento</th>
 								<th class="text-center">Costo de Compra</th>
-								<th class="text-center">Ganancia</th>
-								<th class="text-center">Precio Venta</th>
+								<th class="text-center">Precio Público</th>
 								<th class="text-center">Precio Mayoreo</th>
+								<th class="text-center">Precio Distribuidor</th>
+								<th class="text-center">Precio Fábrica</th>
 								<th class="text-center">Mínimo</th>
 								<th class="text-center">Existencia</th>
 								<th class="text-center">Acciones</th>	
@@ -83,7 +84,7 @@
 								<th class="text-center">
 									<input type="text" class="form-control buscar_descripcion" data-indice="0" placeholder="Buscar descripcion">
 								</th>
-								<th colspan="8">
+								<th colspan="9">
 								</th>
 							</tr>
 						</thead>
