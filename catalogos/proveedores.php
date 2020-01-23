@@ -1,7 +1,7 @@
 <?php
 	
-	include("login/login_success.php");
-	include("conexi.php");
+	include("../login/login_success.php");
+	include("../conexi.php");
 	$link = Conectarse();
 	$menu_activo = "catalogos";
 	$consulta = "SELECT * FROM proveedores";
@@ -83,7 +83,7 @@
 			</section>
 
 			<?php include('../scripts_carpetas.php'); ?>
-			<?php include('forms/form_proveedores.php'); ?>
+			<?php include('form_proveedores.php'); ?>
 					
       <pre hidden id="debug">
         <?php print_r ($departamentos)?>
@@ -108,7 +108,7 @@
 				$boton.prop("disabled", true);
 				$icono.toggleClass("fa-edit fa-spinner fa-spin");				
 				$.ajax({ 
-					"url": "funciones/fila_select.php",
+					"url": "../funciones/fila_select.php",
 					"dataType": "JSON",
 					"data": {
 						"tabla": "proveedores",
@@ -134,7 +134,7 @@
 			$icono.toggleClass("fa-save fa-spinner fa-spin");				
 			console.log("guardarRegistro")
 			$.ajax({ 
-        "url": "control/guardar_catalogo.php",
+        "url": "guardar_catalogo.php",
         "dataType": "JSON",
         "method": "POST",
         "data": {
