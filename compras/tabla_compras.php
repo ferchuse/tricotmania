@@ -135,7 +135,7 @@
 						</h4>
 					</div>
 				</div>
-				<pre>
+				<pre hidden>
 					<?php echo $consultaVentas?>
 				</pre>
 			</div>
