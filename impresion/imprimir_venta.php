@@ -23,7 +23,7 @@
 
 
 <!-- Ticket -->
-<section style="margin-top: 25px; margin-bottom: 3px;" class="container ticket">
+<section style="margin-top: 25px; margin-bottom: 3px; margin-left: -30px;" class="ticket">
 	
 	<!-- Encabezado Ticket-->
 	<section>

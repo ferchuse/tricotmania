@@ -657,7 +657,7 @@ function tipoPrecio(cantidad, producto){
 	console.log("tipoPrecio()", "Cantidad: ", cantidad, "Producto: ", producto);
 	
 	switch (true) {
-		case (cantidad >= producto.piezas_fabrica):
+		case (cantidad >= producto.piezas_fabrica && producto.piezas_fabrica > 0):
 		console.log("Fabrica");
 		tipo_precio = "Precio de Fábrica";
 		precio = producto.precio_fabrica;
@@ -715,7 +715,7 @@ function guardarVenta(event){
 	}
 	
 	
-	if($("body #id_usuarios").val() == ''){
+	if($("#id_usuarios.form-control").val() == ''){
 		
 		alertify.error("Elige un vendedor");
 		
@@ -747,7 +747,7 @@ function guardarVenta(event){
 		dataType: 'JSON',
 		data:{
 			id_ventas: $('#tabs_ventas li.active').find(".id_ventas").val(),
-			id_usuarios: $('#id_usuarios').val(),
+			id_usuarios: $('#id_vendedores').val(),
 			id_turnos:$('#id_turnos').val(),
 			articulos: $(".articulos:visible").val(),
 			"productos": productos, 
