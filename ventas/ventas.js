@@ -715,7 +715,7 @@ function guardarVenta(event){
 	}
 	
 	
-	if($("#id_usuarios.form-control").val() == ''){
+	if($("#id_vendedores").val() == ''){
 		
 		alertify.error("Elige un vendedor");
 		
