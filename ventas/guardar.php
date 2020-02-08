@@ -8,7 +8,14 @@
 	$articulos_ventas = $_POST['articulos_ventas'];
 	$ganancia_venta = 0;
 	
-	
+	if($_POST["forma_pago"] == "efectivo"){
+		
+		$efectivo = $_POST["total_ventas"];
+	}
+	else{
+		
+		$tarjeta = $_POST["total_ventas"];
+	}
 	
 	$insertarVentas = "INSERT INTO ventas SET
 	id_ventas = '{$_POST["id_ventas"]}',
@@ -22,7 +29,8 @@
 	total_descuento = '{$_POST["total_descuento"]}',
 	total_ventas = '{$_POST["total_ventas"]}',
 	estatus_ventas = '{$_POST["estatus_ventas"]}',
-	efectivo = '{$_POST["efectivo"]}'
+	tarjeta_ventas = '{$tarjeta}',
+	efectivo = '{$efectivo}'
 	
 	ON DUPLICATE KEY UPDATE
 	
@@ -36,8 +44,8 @@
 	total_descuento = '{$_POST["total_descuento"]}',
 	total_ventas = '{$_POST["total_ventas"]}',
 	estatus_ventas = '{$_POST["estatus_ventas"]}',
-	efectivo = '{$_POST["efectivo"]}'
-	
+	tarjeta_ventas = '{$tarjeta}',
+	efectivo = '{$efectivo}'
 	";
 	
 	$respuesta["insertarVentas"] = $insertarVentas;

@@ -201,7 +201,7 @@ $(document).on('keydown', disableFunctionKeys);
 
 $(document).ready( function onLoad(){
 	
-	$('#imprimir').click(cobrarEImprimir);
+	// $('#imprimir').click(cobrarEImprimir);
 	
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		e.target // newly activated tab
@@ -350,7 +350,7 @@ $(document).ready( function onLoad(){
 	});
 	
 	
-	$('#cerrar_venta').click( cobrarEImprimir);
+	$('#cerrar_venta').click( cobrar);
 	
 	$("#codigo_producto").focus();
 }); 
@@ -749,6 +749,7 @@ function guardarVenta(event){
 			id_ventas: $('#tabs_ventas li.active').find(".id_ventas").val(),
 			id_usuarios: $('#id_vendedores').val(),
 			id_turnos:$('#id_turnos').val(),
+			forma_pago:$('.forma_pago:checked').val(),
 			articulos: $(".articulos:visible").val(),
 			"productos": productos, 
 			"efectivo": $("#efectivo").val(),

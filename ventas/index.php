@@ -86,14 +86,6 @@
 						</div>
 					</div>
 					
-					
-					<div class="col-sm-2">
-						<div class="form-group">
-							
-							<label> Vendedor:</label>
-							<?= generar_select($link, "usuarios", "id_usuarios", "nombre_usuarios", false, false, true, 0 , 0, "id_vendedores", "id_vendedores");?>
-						</div>
-					</div>
 				</form>
 			</div>
 			
