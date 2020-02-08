@@ -845,7 +845,7 @@ function beforePrint() {
 	//Antes de Imprimir
 }
 function afterPrint() {
-	// window.location.reload(true);
+	window.location.reload(true);
 	
 	if(tipo_ticket == "cliente"){
 		// tipo_ticket = "copia";
