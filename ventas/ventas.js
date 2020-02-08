@@ -181,6 +181,7 @@ function renderProductos(tab_index, venta){
 
 
 function cobrarEImprimir(evt){
+	console.log("cobrarEImprimir()")
 	evt.data = {"imprimir": true};
 	evt.type = "submit";
 	
@@ -201,7 +202,7 @@ $(document).on('keydown', disableFunctionKeys);
 
 $(document).ready( function onLoad(){
 	
-	// $('#imprimir').click(cobrarEImprimir);
+	$('#imprimir').click(cobrarEImprimir);
 	
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		e.target // newly activated tab
