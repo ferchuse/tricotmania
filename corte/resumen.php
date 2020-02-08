@@ -192,20 +192,20 @@
 								<div id="home" class="tab-pane fade in active">
 									<div style="height: 350px; overflow: auto;" class="panel-body" id="panel_ventas">
 										<div class="row text-center">
-											<div class="col-xs-1"> Turno</div>
-											<div class="col-xs-1"> Folio</div>
-											<div class="col-xs-1"> Hora</div>
-											<div class="col-xs-1"> Efectivo</div>
-											<div class="col-xs-1"> Tarjeta</div>
-											<div class="col-xs-1"> Total</div>
-											<div class="col-xs-2"> Estatus</div>
+											<div class="col-xs-1 "> <b>Turno </b></div>
+											<div class="col-xs-1"><b> Folio</b></div>
+											<div class="col-xs-1"> <b>Hora</b></div>
+											<div class="col-xs-1"> <b>Efectivo</b></div>
+											<div class="col-xs-1"> <b>Tarjeta</b></div>
+											<div class="col-xs-1"> <b>Total</b></div>
+											<div class="col-xs-2"> <b>Estatus</b></div>
 											<div class="col-xs-3 text-center hidden-xs"> Acciones</div>
 										</div>
 										
 										<?php
-											$total = 0;
-											$tarjeta = 0;
-											$total_efectivo = 0;
+											$suma_total = 0;
+											$suma_efectivo = 0;
+											$suma_tarjeta = 0;
 											
 											while ($row_ventas = mysqli_fetch_assoc($resultadoVentas)) {
 												extract($row_ventas);
@@ -221,9 +221,9 @@
 													
 													case 'PAGADO':
 													$fondo = "bg-success";
-													$total_efectivo += $row_ventas["efectivo"];
-													$total_tarjeta += $row_ventas["tarjeta_ventas"];
-													$total += $total_ventas;
+													$suma_efectivo += $row_ventas["efectivo"];
+													$suma_tarjeta += $row_ventas["tarjeta_ventas"];
+													$suma_total += $total_ventas;
 													break;
 												}
 												
@@ -387,7 +387,7 @@
 							<div class="panel-footer h4">
 								
 								<?php
-									$saldo_final = $_COOKIE["efectivo_inicial"] + $total + $totales["entradas"] - $totales["salidas"] - $totales["devoluciones"];
+									$saldo_final = $_COOKIE["efectivo_inicial"] + $suma_total + $totales["entradas"] - $totales["salidas"] - $totales["devoluciones"];
 								?>
 								
 								<div class="row no-gutters">
@@ -400,13 +400,13 @@
 									<div class="col-xs-3">Ventas en Efectivo</div>
 									<div class="text-success col-xs-1 text-center">+</div>
 									<div class="text-success col-xs-1 text-center">$</div>
-									<div class="cantidad text-success col-xs-1 text-right"><?php echo number_format($total_efectivo, 2) ?></div>
+									<div class="cantidad text-success col-xs-1 text-right"><?php echo number_format($suma_efectivo, 2) ?></div>
 								</div>
 								<div class="row no-gutters">
 									<div class="col-xs-3">Ventas con Tarjeta</div>
 									<div class="text-success col-xs-1 text-center">+</div>
 									<div class="text-success col-xs-1 text-center">$</div>
-									<div class="cantidad text-success col-xs-1 text-right"><?php echo number_format($total_tarjeta, 2) ?></div>
+									<div class="cantidad text-success col-xs-1 text-right"><?php echo number_format($suma_tarjeta, 2) ?></div>
 								</div>
 								<div class="row no-gutters">
 									<div class="col-xs-3">Entradas</div>
@@ -486,13 +486,13 @@
 					<div class="col-xs-6">Ventas en Efectivo</div>
 					<div class="text-success col-xs-1 text-center">+</div>
 					<div class="text-success col-xs-1 text-center">$</div>
-					<div class="cantidad text-success col-xs-3 text-right"><?php echo number_format($total_efectivo, 2) ?></div>
+					<div class="cantidad text-success col-xs-3 text-right"><?php echo number_format($suma_efectivo, 2) ?></div>
 				</div>
 				<div class="row no-gutters">
 					<div class="col-xs-6">Ventas con Tarjeta</div>
 					<div class="text-success col-xs-1 text-center">+</div>
 					<div class="text-success col-xs-1 text-center">$</div>
-					<div class="cantidad text-success col-xs-3 text-right"><?php echo number_format($total_tarjeta, 2) ?></div>
+					<div class="cantidad text-success col-xs-3 text-right"><?php echo number_format($suma_tarjeta, 2) ?></div>
 				</div>
 				
 				<div class="row no-gutters">
