@@ -98,7 +98,7 @@
 					<span class="badge">0</span>
 				</a>
 			</li>
-			<li>
+			<li hidden>
 				<a data-toggle="tab" href="#tab2">
 					<input  class="nombre_cliente" value="Cliente 2" >
 					<input type="hidden" class="id_ventas" value="">
@@ -106,7 +106,7 @@
 				</a>
 			</li>
 			
-			<li>
+			<li hidden>
 				<a data-toggle="tab" href="#tab3">
 					<input  class="nombre_cliente" value="Cliente 3" >
 					<input type="hidden" class="id_ventas" value="">
