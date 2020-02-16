@@ -468,10 +468,7 @@ function agregarProducto(producto){
 		</td>
 		<td class="col-sm-1"><input readonly type="number" class='importe form-control text-right' > </td>
 		<td class="col-sm-1">	
-		
 		<input type="number" class="descuento form-control"   value='0'> 
-		
-		
 		</td>
 		<td class="col-sm-1">	
 		<input class="cant_descuento form-control"  > 
