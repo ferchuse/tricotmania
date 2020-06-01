@@ -52,8 +52,11 @@ function Conectarse()
    
 	// mysqli_query($link, "SET NAMES 'utf8'") or die("Error Cambiando charset").mysqli_error($link);
 	
+	if($_SERVER["SERVER_NAME"] != "localhost"){
+		mysqli_query($link, "SET CHARACTER SET utf8") or die("Error en charset UTF8".mysqli_error($link));
 	
-	mysqli_query($link, "SET CHARACTER SET utf8") or die("Error en charset UTF8".mysqli_error($link));
+	}
+	
 	
    
    //ACTIVAR SI LA BASE DE DATOS NO ESTA EN UTF-8

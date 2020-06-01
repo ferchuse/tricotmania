@@ -1,5 +1,6 @@
 <?php
 	
+	
 	include("../login/login_success.php");
 	include("../conexi.php");
 	$link = Conectarse();
@@ -16,7 +17,7 @@
 		die("Error en la consulta $consulta". mysqli_error($link));
 	}
 	// echo "<script> console.log()"
-		
+	
 ?>
 
 <!DOCTYPE html>
@@ -44,15 +45,16 @@
 		</div>
     <section class="container">
 			<strong>
-				<h2>Proveedores</h2>
+				<h2>
+					Proveedores
+					
+					<button id="nuevo" type="button" class="btn btn-success pull-right" >
+						<i class="fa fa-plus"></i> Nuevo
+					</button>
+				</h2>
 			</strong>
 			<hr>
-			<!-- Button Modal Proveedores -->
-			<div class="col-md-12 text-right">
-				<button id="nuevo" type="button" class="btn btn-primary" >
-					<i class="fa fa-plus"></i> Proveedor
-				</button>
-			</div >
+		
 		</section>
     <br>
 		
@@ -61,18 +63,24 @@
 				<tr class="success">
 					<td><strong>ID</strong></td>
 					<td><strong>Proveedor</strong></td>
+					<td><strong>Telefono</strong></td>
+					<td><strong>Dias de Crédito</strong></td>
+					<td><strong>Saldo</strong></td>
 					<td><strong>Acciones</strong></td>
 				</tr>
 				<?php foreach($proveedores AS $i=>$fila){	?>
 					<tr class="">
 						<td><?php echo $fila["id_proveedores"] ?></td> 
 						<td><?php echo $fila["nombre_proveedores"] ?></td> 
+						<td><?php echo $fila["telefono"] ?></td> 
+						<td><?php echo $fila["dias_credito"] ?></td> 
+						<td><?php echo $fila["saldo"] ?></td> 
 						<td>
-								<button class="btn btn-warning btn_editar" type="button" 
-								data-id_registro="<?php echo $fila["id_proveedores"]?>"
-								>
-									<i class="fas fa-edit" ></i> Editar
-								</button>
+							<button class="btn btn-warning btn_editar" type="button" 
+							data-id_registro="<?php echo $fila["id_proveedores"]?>"
+							>
+								<i class="fas fa-edit" ></i> Editar
+							</button>
 							
 						</td> 
 					</tr>
@@ -80,16 +88,16 @@
 					}
 				?>
 			</table>
-			</section>
-
-			<?php include('../scripts_carpetas.php'); ?>
-			<?php include('form_proveedores.php'); ?>
-					
-      <pre hidden id="debug">
-        <?php print_r ($departamentos)?>
-        // <?php echo var_dump ($departamentos)?>
-      </pre>
-					
+		</section>
+		
+		<?php include('../scripts_carpetas.php'); ?>
+		<?php include('form_proveedores.php'); ?>
+		
+		<pre hidden id="debug">
+			<?php print_r ($departamentos)?>
+			// <?php echo var_dump ($departamentos)?>
+		</pre>
+		
 	</body>
 	<script>
 		$("#nuevo").click(function(){
@@ -101,31 +109,33 @@
 		$(".btn_editar").click(cargarDatos);
 		
 		function cargarDatos(event){
-				console.log("event", event);
-				let $boton = $(this);
-				let $icono = $(this).find(".fas");
-				let $id_registro = $(this).data("id_registro");				
-				$boton.prop("disabled", true);
-				$icono.toggleClass("fa-edit fa-spinner fa-spin");				
-				$.ajax({ 
-					"url": "../funciones/fila_select.php",
-					"dataType": "JSON",
-					"data": {
-						"tabla": "proveedores",
-						"id_campo": "id_proveedores",
-						"id_valor": $id_registro						
-						}
-					}).done( function alTerminar (respuesta){					
-						console.log("respuesta", respuesta);
-						$boton.prop("disabled", false);
-						$icono.toggleClass("fa-edit fa-spinner fa-spin"); 
-						$("#modal_edicion").modal("show")
-            $("#id_proveedores").val(respuesta.data.id_proveedores);                        
-            $("#nombre_proveedor").val(respuesta.data.nombre_proveedores);                        
-						
-					})
-		}
+			console.log("event", event);
+			let $boton = $(this);
+			let $icono = $(this).find(".fas");
+			let $id_registro = $(this).data("id_registro");				
+			$boton.prop("disabled", true);
+			$icono.toggleClass("fa-edit fa-spinner fa-spin");				
+			$.ajax({ 
+				"url": "../funciones/fila_select.php",
+				"dataType": "JSON",
+				"data": {
+					"tabla": "proveedores",
+					"id_campo": "id_proveedores",
+					"id_valor": $id_registro						
+				}
+				}).done( function alTerminar (respuesta){					
+				console.log("respuesta", respuesta);
+				$boton.prop("disabled", false);
+				$icono.toggleClass("fa-edit fa-spinner fa-spin"); 
+				$("#modal_edicion").modal("show")
+				$("#id_proveedores").val(respuesta.data.id_proveedores);                        
+				$("#nombre_proveedor").val(respuesta.data.nombre_proveedores);                        
+				$("#telefono").val(respuesta.data.telefono);                        
+				$("#dias_credito").val(respuesta.data.dias_credito);                        
 				
+			})
+		}
+		
 		function guardarRegistro(event){
       event.preventDefault()
       let $boton = $(this).find(':submit');
@@ -134,22 +144,17 @@
 			$icono.toggleClass("fa-save fa-spinner fa-spin");				
 			console.log("guardarRegistro")
 			$.ajax({ 
-        "url": "guardar_catalogo.php",
+        "url": "guardar_proveedores.php",
         "dataType": "JSON",
         "method": "POST",
-        "data": {
-            "tabla": "proveedores",
-            "id_campo": $("#id_proveedores").val(),
-            "name": $("#nombre_proveedor").val()
-            
-            }
+        "data": $("#form_edicion").serialize()
         }).done( function alTerminar (respuesta){
-            console.log("respuesta", respuesta);
-            $boton.prop("disabled", false);
-            $icono.toggleClass("fa-save fa-spinner fa-spin"); 
-            $("#modal_edicion").modal("hide");
-            window.location.reload(true);
-        });
+				console.log("respuesta", respuesta);
+				$boton.prop("disabled", false);
+				$icono.toggleClass("fa-save fa-spinner fa-spin"); 
+				$("#modal_edicion").modal("hide");
+				window.location.reload(true);
+			});
 			
 		}		
 	</script>

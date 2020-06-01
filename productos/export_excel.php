@@ -1,0 +1,77 @@
+<?php
+	include("../lib/SimpleXLSXGen.php");
+	
+	$xlsx = new SimpleXLSXGen();
+	
+	// $books = [
+	// ['ISBN', 'title', 'author', 'publisher', 'ctry' ],
+	// [618260307, 'The Hobbit', 'J. R. R. Tolkien', 'Houghton Mifflin', 'USA'],
+	// [908606664, 'Slinky Malinki', 'Lynley Dodd', 'Mallinson Rendel', 'NZ']
+	// ];
+	
+	include('../conexi.php');
+	$link = Conectarse();
+	
+	$arrResult = array();
+	
+	// if ($_GET["estatus_productos"]) {
+		// $estatus_productos = $_GET["estatus_productos"];
+		// } else {
+		// $estatus_productos = 'ACTIVO';
+	// }
+	
+	$consulta = "SELECT * FROM productos LEFT JOIN departamentos USING (id_departamentos)
+	";    
+	// if($_GET["id_departamentos"] != '') {        
+		// $consulta.= " AND  id_departamentos = '{$_GET["id_departamentos"]}'";
+	// }
+	// if($_GET["existencia"] != '') {        
+		// $consulta.= " AND existencia_productos < min_productos ";
+	// }
+	
+	// $consulta.="
+	// ORDER BY
+	// {$_GET["sort"]} {$_GET["order"]}
+
+	// ";
+	$result = mysqli_query($link,$consulta);
+
+if(!$result){
+		die("Error en $consulta" . mysqli_error($link) );
+    }else{
+		$num_rows = mysqli_num_rows($result);
+		if($num_rows != 0){
+			while($row = mysqli_fetch_assoc($result)){
+				$arrResult[] = $row;        
+				
+			}
+		}
+		else{
+			
+		}
+	}
+	
+
+	
+	$export= [["id_productos","Departamento", "Descripcion", "Precio", "precio_mayoreo", "existencia"]];
+	
+	foreach($arrResult as $i=> $producto){
+		// $semaforo = $producto["existencia"] < $producto["min_productos"] ? "bg-danger": "";
+		// $badge =  $producto["existencia"] < $producto["min_productos"] ? "danger": "success";
+		
+		$export[] = [$producto["id_productos"], $producto["descripcion_productos"], $producto["precio_menudeo"], $producto["precio_mayoreo"],  $producto["existencia_productos"]];
+			
+	}
+
+	print_r("<pre>");
+	print_r($export);
+	print_r("</pre>");
+	
+	$xlsx = SimpleXLSXGen::fromArray( $export );
+	// $xlsx->saveAs('productos.xlsx');
+	$xlsx->downloadAs('productos.xlsx');
+	// $xlsx->download();
+	
+	// SimpleXLSXGen::download() or SimpleXSLSXGen::downloadAs('table.xlsx');
+	// SimpleXSLSXGen::downloadAs('books.xlsx');
+?>

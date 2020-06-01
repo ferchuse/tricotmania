@@ -1,5 +1,5 @@
 <?php
-	
+	include("../funciones/generar_select.php");
 	include("../login/login_success.php");
 	include("../conexi.php");
 	$link = Conectarse();

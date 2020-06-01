@@ -8,13 +8,17 @@
 				</div>
 				<div class="modal-body">
 					<form>
-						<div class="form-group">
+						<div class="form-group hidden" >
 							<label for="id_departamentos">ID</label>
 							<input style="margin:10px 0;" readonly type="text" class="form-control" id="id_departamentos" name="id_departamentos" placeholder="">
 						</div>
 						<div class="form-group">
 							<label for="nombre_departamentos">Departamento</label>
 							<input style="margin:10px 0;" required type="text" class="form-control" id="nombre_departamentos" name="nombre_departamentos" placeholder="">
+						</div>
+						<div class="form-group">
+							<label for="nombre_departamentos">Proveedor</label>
+							<?= generar_select($link, "proveedores", "id_proveedores" , "nombre_proveedores");?>
 						</div>
 						<div class="form-group">
 							<label for="nombre_departamentos">Descuento a partir de:</label>

@@ -40,6 +40,11 @@ function listaProductos() {
 			>
 			<i class="fa fa-cart-plus"></i>
 			</button>
+			<button class="btn btn-info btn_historial" 
+			data-id_productos="${value.id_productos}"
+			>
+			<i class="fa fa-clock"></i>
+			</button>
 			</td>
 			</tr>  
 			`;
@@ -58,11 +63,34 @@ function listaProductos() {
 		$('.btn_eliminar').click( confirmaEliminar);
 		$('.btn_editar').click( cargarRegistro);
 		$('.btn_carrito').click(pedirCantidad);
+		$('.btn_historial').click(mostrarHistorial);
 		
 		
 		}).fail(function(xhr, error, ernum){
 		alertify.error("Ocurrio un Error" + errnum);
 		
+	});
+}
+
+function mostrarHistorial() {
+	// $('#form_productos')[0].reset();
+	var boton = $(this);
+	var icono = boton.find('.fa');
+	icono.toggleClass('fa-clock fa-spinner fa-spin');
+	boton.prop('disabled', true);
+	// var id_productos = 
+	$.ajax({
+		url: 'modal_historial.php',
+		method: 'get',
+		
+		data: { 'id_productos': boton.data('id_productos') }
+		}).done(function (respuesta) {
+		
+		$('#historial').html(respuesta);
+		$('#modal_historial').modal('show');
+		
+		icono.toggleClass('fa-clock fa-spinner fa-spin');
+		boton.prop('disabled', false);
 	});
 }
 function buscarCodigo() {

@@ -55,10 +55,13 @@
 					<button type="button" class="btn btn-success pull-right" id="btn_alta">
 						<i class="fa fa-plus"></i> Nuevo
 					</button>
-					<button type="submit" form="form_imprimir_precios" class="btn btn-info pull-right" form="btn_imprimir_precios">
+					<button hidden type="submit" form="form_imprimir_precios" class="btn btn-info pull-right hidden" form="btn_imprimir_precios">
 						<i class="fa fa-print"></i> Imprimir Precios  
 						(<span id="cant_seleccionados">0</span>)
 					</button>
+					<a class="btn btn-info pull-right" href="export_excel.php" target="_blank">
+						<i class="fa fa-file-excel"></i> Exportar  
+					</a>
 					
 				</div>
 			</div>
@@ -104,9 +107,12 @@
 			</div>
 		</div>
 		<form id="form_imprimir_precios" action="../impresion/imprimir_precios.php">
-		</form>
+		</form>|
+		<div id="historial">
+		</div>
 		<?php include('form_productos.php'); ?>
-		
+		<?php include('existencias.php'); ?>
+
 		<?php  include('../scripts_carpetas.php'); ?>
 		<script src="productos.js?v=<?= date("d-m-Y-H-i-s")?>"></script>
 		<script src="carrito.js"></script>

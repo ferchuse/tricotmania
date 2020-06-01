@@ -7,6 +7,9 @@ $consulta = "SELECT * FROM productos LEFT JOIN departamentos USING (id_departame
 if($_GET["id_departamentos"] != '') {        
     $consulta.= " AND  id_departamentos = '{$_GET["id_departamentos"]}'";
 }
+if($_GET["id_proveedores"] != '') {        
+    $consulta.= " AND  id_proveedores = '{$_GET["id_proveedores"]}'";
+}
 if($_GET["existencia"] != '') {        
     $consulta.= " AND existencia_productos < min_productos";
 } 

@@ -33,7 +33,7 @@ function agregarCarrito(event){
 	$icono.toggleClass('fa-save fa-spinner fa-spin ');
 	
 	$.ajax({
-		url: 'carrito/agregar_carrito.php',
+		url: '../carrito/agregar_carrito.php',
 		method: 'POST',
 		data: $form.serialize()
 		}).done(function (respuesta){
