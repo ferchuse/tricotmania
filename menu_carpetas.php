@@ -51,6 +51,11 @@
 							<i class="fas fa-shopping-cart"></i> Compras
 						</a>
 					</li>
+					<li class=" <?php echo $menu_activo == "proveedores" ? "active" : ''; ?>">
+						<a href="../proveedores/index.php">
+							<i class="fas fa-truck"></i> Proveedores
+						</a>
+					</li>
 					<li class="dropdown <?php echo $menu_activo == "reportes" ? "active" : ''; ?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fas fa-chart-bar"></i> Reportes <strong class="caret"></strong>

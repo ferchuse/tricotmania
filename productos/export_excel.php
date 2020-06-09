@@ -20,7 +20,7 @@
 		// $estatus_productos = 'ACTIVO';
 	// }
 	
-	$consulta = "SELECT * FROM productos LEFT JOIN departamentos USING (id_departamentos)
+	$consulta = "SELECT * FROM productos LEFT JOIN departamentos USING (id_departamentos) ORDER BY descripcion_productos  
 	";    
 	// if($_GET["id_departamentos"] != '') {        
 		// $consulta.= " AND  id_departamentos = '{$_GET["id_departamentos"]}'";
@@ -53,19 +53,33 @@ if(!$result){
 	
 
 	
-	$export= [["id_productos","Departamento", "Descripcion", "Precio", "precio_mayoreo", "existencia"]];
+	$export= [[
+	"id_productos",
+	"Departamento", 
+	"Descripcion",
+	"Precio", 
+	"precio_mayoreo",
+	"existencia"]
+	];
 	
 	foreach($arrResult as $i=> $producto){
 		// $semaforo = $producto["existencia"] < $producto["min_productos"] ? "bg-danger": "";
 		// $badge =  $producto["existencia"] < $producto["min_productos"] ? "danger": "success";
 		
-		$export[] = [$producto["id_productos"], $producto["descripcion_productos"], $producto["precio_menudeo"], $producto["precio_mayoreo"],  $producto["existencia_productos"]];
+		$export[] = [
+		$producto["id_productos"], 
+		$producto["nombre_departamentos"], 
+		$producto["descripcion_productos"], 
+		$producto["precio_menudeo"], 
+		$producto["precio_mayoreo"], 
+		$producto["existencia_productos"]
+		];
 			
 	}
 
-	print_r("<pre>");
-	print_r($export);
-	print_r("</pre>");
+	// print_r("<pre>");
+	// print_r($export);
+	// print_r("</pre>");
 	
 	$xlsx = SimpleXLSXGen::fromArray( $export );
 	// $xlsx->saveAs('productos.xlsx');
