@@ -6,7 +6,7 @@
 	$id_turnos = $_POST['id_turnos'];
 	$listaProductos = $_POST['productos'];
 	
-	$estatus_compras = $_POST["entrada_inventario"] ? "FINALIZADA" :  "PENDIENTE";
+	$estatus_compras = $_POST["entrada_inventario"] == "false" ? "FINALIZADA" :  "PENDIENTE";
 	
 	$insertar = "INSERT INTO compras SET
 	id_compras = '{$_POST["id_compras"]}',

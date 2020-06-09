@@ -63,7 +63,7 @@ while ($fila = mysqli_fetch_assoc($result)) {
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-3"><strong>Proveedor:</strong></div>
-                        <div class="col-sm-8"><?php echo $filas[0]["proveedor"] ?></div>
+                        <div class="col-sm-8"><?php echo $filas[0]["nombre_proveedores"] ?></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3"><strong>Fecha:</strong></div>

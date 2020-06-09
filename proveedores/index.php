@@ -76,8 +76,8 @@ badge-success" id="contar_registros">0</span></h3>
 		<?php include('../scripts_carpetas.php'); ?>
 		<?php include('form_cargos.php'); ?>
 		<?php include('form_clientes.php'); ?>
-		<script src="clientes.js"></script>
-		<script src="cargos.js"></script>
+		<script src="clientes.js?v=<?= date("YmdHis")?>"></script>
+		<script src="cargos.js?v=<?= date("YmdHis")?>"></script>
 		
 	</body>
 	

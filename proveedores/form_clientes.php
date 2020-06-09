@@ -15,14 +15,14 @@
 						</div>
 						<div class="form-group">
 							<label for="nombre_proveedor">Nombre Proveedor</label>
-							<input required type="text" class="form-control" id="nombre_proveedor" name="nombre_proveedor" placeholder="">
+							<input required type="text" class="form-control" id="nombre_proveedores" name="nombre_proveedores" placeholder="">
 						</div>
 						<div class="form-group">
 							<label for="nombre_proveedor">Telefono</label>
 							<input  type="tel" class="form-control" id="telefono" name="telefono" placeholder="">
 						</div>
 						<div class="form-group">
-							<label for="nombre_proveedor">Dias de Crédito</label>
+							<label for="dias_credito">Dias de Crédito</label>
 							<input   type="number" class="form-control" id="dias_credito" name="dias_credito" placeholder="">
 						</div>
 					</form> 

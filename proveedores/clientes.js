@@ -105,7 +105,7 @@ function cargarHistorial() {
 	
 	let boton = $(this);
 	let icono = boton.find(".fas");
-	let id_clientes = boton.data("id_registro");
+	let id_proveedores = boton.data("id_registro");
 	let nombre = boton.data("nombre");
 	
 	boton.prop("disabled", true);
@@ -114,7 +114,7 @@ function cargarHistorial() {
 	$.ajax({
 		url: "modal_historial.php",
 		data: {
-			"id_clientes": id_clientes
+			"id_proveedores": id_proveedores
 		}
 		
 		}).done(function (respuesta) {
@@ -231,7 +231,7 @@ function guardarCliente(event) {
 	icono.toggleClass("fa-save fa-spinner fa-spin");
 	
 	$.ajax({
-		url: "../clientes/guardar_clientes.php",
+		url: "guardar_proveedores.php",
 		method: "POST",
 		dataType: "JSON",
 		data: $("#form_edicion").serialize()
@@ -242,7 +242,7 @@ function guardarCliente(event) {
 			
 			alertify.success(respuesta.mensaje);
 			$("#modal_edicion").modal("hide");
-			listarClientes();
+			window.location.reload();
 		}
 		}).fail(function (xht, error, errnum) {
 		

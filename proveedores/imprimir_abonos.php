@@ -5,7 +5,7 @@
 	
 	
 	$consulta = "SELECT * FROM abonos
-	LEFT JOIN clientes USING (id_clientes)
+	LEFT JOIN proeedores USING (id_proveedores)
 	WHERE id_abonos={$_GET["id_registro"]}";
 	
 	$result = mysqli_query($link, $consulta);
@@ -20,7 +20,7 @@
 	}
 	
 	
-	$nombre_empresa= "GLIFO MEDIA";
+	$nombre_empresa= "TRICOTMANIA";
 	
 ?>
 

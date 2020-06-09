@@ -112,7 +112,7 @@
 											switch($transaccion["tabla"]){
 												case "compras":
 											?>
-											<a target="_blank" href="../compras/imprimir_ventas.php?id_registro=<?= $transaccion["id_transaccion"] ?>">
+											<a target="_blank" href="../compras/imprimir_compras.php?id_compras=<?= $transaccion["id_transaccion"] ?>">
 												<?php echo $transaccion["concepto"];?>
 											</a>
 											<?php
