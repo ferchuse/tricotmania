@@ -15,30 +15,30 @@
 	$arrResult = array();
 	
 	// if ($_GET["estatus_productos"]) {
-		// $estatus_productos = $_GET["estatus_productos"];
-		// } else {
-		// $estatus_productos = 'ACTIVO';
+	// $estatus_productos = $_GET["estatus_productos"];
+	// } else {
+	// $estatus_productos = 'ACTIVO';
 	// }
 	
 	$consulta = "SELECT * FROM productos LEFT JOIN departamentos USING (id_departamentos) ORDER BY descripcion_productos  
 	";    
-	if($_GET["limit"] != '') {        
-		$consulta.= " LIMIT  '{$_GET["limit"]}'";
+	if(isset($_GET["limit"])) {        
+		$consulta.= " LIMIT {$_GET["limit"]}";
 	}
 	// if($_GET["existencia"] != '') {        
-		// $consulta.= " AND existencia_productos < min_productos ";
+	// $consulta.= " AND existencia_productos < min_productos ";
 	// }
 	
 	// $consulta.="
 	// ORDER BY
 	// {$_GET["sort"]} {$_GET["order"]}
-
+	
 	// ";
 	$result = mysqli_query($link,$consulta);
-
-if(!$result){
+	
+	if(!$result){
 		die("Error en $consulta" . mysqli_error($link) );
-    }else{
+		}else{
 		$num_rows = mysqli_num_rows($result);
 		if($num_rows != 0){
 			while($row = mysqli_fetch_assoc($result)){
@@ -51,12 +51,13 @@ if(!$result){
 		}
 	}
 	
-
+	
 	
 	$export= [[
 	"id_productos",
 	"Departamento", 
 	"Descripcion",
+	"Costo", 
 	"Precio", 
 	"precio_mayoreo",
 	"existencia"]
@@ -69,14 +70,15 @@ if(!$result){
 		$export[] = [
 		$producto["id_productos"], 
 		$producto["nombre_departamentos"], 
-		$producto["descripcion_productos"], 
+		iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $producto["descripcion_productos"]) , 
+		$producto["costo_proveedor"], 
 		$producto["precio_menudeo"], 
 		$producto["precio_mayoreo"], 
 		$producto["existencia_productos"]
 		];
-			
+		
 	}
-
+	
 	// print_r("<pre>");
 	// print_r($export);
 	// print_r("</pre>");
