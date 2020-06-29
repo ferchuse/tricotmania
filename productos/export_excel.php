@@ -55,12 +55,15 @@
 	
 	$export= [[
 	"id_productos",
+	"codigo_barras",
 	"Departamento", 
 	"Descripcion",
 	"Costo", 
-	"Precio", 
-	"precio_mayoreo",
-	"existencia"]
+	"Precio Publico", 
+	"Mayoreo",
+	"Distribuidor",
+	"Fabrica",
+	"Existencia"]
 	];
 	
 	foreach($arrResult as $i=> $producto){
@@ -69,11 +72,14 @@
 		
 		$export[] = [
 		$producto["id_productos"], 
+		$producto["codigo_productos"], 
 		$producto["nombre_departamentos"], 
 		iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $producto["descripcion_productos"]) , 
 		$producto["costo_proveedor"], 
 		$producto["precio_menudeo"], 
 		$producto["precio_mayoreo"], 
+		$producto["precio_dist"], 
+		$producto["precio_fabrica"], 
 		$producto["existencia_productos"]
 		];
 		
