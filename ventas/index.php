@@ -278,7 +278,7 @@
 				.focus();
 			});
 		</script>
-		
+		<script src="lib/pos_print/websocket-printer.js" > </script>
 		<script src="ventas.js?v=<?= date("d-m-Y-H-i-s")?>"></script>
 		
 	</body>
