@@ -77,9 +77,9 @@ if(!$result){
 			
 	}
 
-	print_r("<pre>");
-	print_r($export);
-	print_r("</pre>");
+	// print_r("<pre>");
+	// print_r($export);
+	// print_r("</pre>");
 	
 	$xlsx = SimpleXLSXGen::fromArray( $export );
 	// $xlsx->saveAs('productos.xlsx');
