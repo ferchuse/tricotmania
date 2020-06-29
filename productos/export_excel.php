@@ -20,7 +20,7 @@
 		// $estatus_productos = 'ACTIVO';
 	// }
 	
-	$consulta = "SELECT * FROM productos LEFT JOIN departamentos USING (id_departamentos) ORDER BY descripcion_productos  
+	$consulta = "SELECT * FROM productos LEFT JOIN departamentos USING (id_departamentos) ORDER BY descripcion_productos   LIMIT 100
 	";    
 	// if($_GET["id_departamentos"] != '') {        
 		// $consulta.= " AND  id_departamentos = '{$_GET["id_departamentos"]}'";
