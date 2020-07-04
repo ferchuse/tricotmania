@@ -12,9 +12,13 @@ $id_valor = $_POST['id_valor'];
 
 $consulta = "DELETE  FROM $tabla WHERE $id_campo='$id_valor'";
 
+
+$respuesta['consulta'] = $consulta;
+
 if(mysqli_query($link,$consulta)){
 	$respuesta['estatus'] = 'success';
-}else{
+}
+else{
 	$respuesta['estatus'] = 'error';
 	$respuesta['error'] = 'Error en DB'.mysqli_error($link);
 }

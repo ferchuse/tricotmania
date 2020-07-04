@@ -90,6 +90,9 @@
 							<li>
 								<a href="../catalogos/proveedores.php"><i class="fas fa-file-alt"></i> Proveedores</a>
 							</li>
+							<li>
+								<a href="../calidades/index.php"><i class="fas fa-file-alt"></i> Calidades</a>
+							</li>
 						</ul>
 					</li>
 					

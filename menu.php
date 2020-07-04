@@ -85,6 +85,9 @@
 							<li>
 								<a href="proveedores.php"><i class="fas fa-file-alt"></i> Proveedores</a>
 							</li>
+							<li>
+								<a href="calidades.php"><i class="fas fa-file-alt"></i> Calidades</a>
+							</li>
 						</ul>
 					</li>
 					
