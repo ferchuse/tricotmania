@@ -557,7 +557,8 @@
 				
 			});
 		</script>
-		<script src="js/resumen.js"></script>
+		<script src="../lib/pos_print/websocket-printer.js" > </script>
+		<script src="js/resumen.js?v=<?= date("d-m-Y-H-i-s")?>"></script>
 		<script src="js/pagos.js"></script>
 		<script src="js/numerosLetras.js"></script>
 		<script src="js/egresos.js"></script>

@@ -1,5 +1,5 @@
 
-
+var printService = new WebSocketPrinter();
 
 $(document).ready( onLoad);
 
@@ -73,6 +73,8 @@ function cambiarFecha(){
 	$("#form_resumen").submit();
 	
 }
+
+
 function imprimirTicket(){
 	$("#arqueo").hide();
 	$("#resumen").hide();
@@ -85,18 +87,24 @@ function imprimirTicket(){
 	var icono = boton.find(".fa");
 	icono.toggleClass("fa-print fa-spinner fa-spin");
 	$.ajax({
-		url: "../impresion/imprimir_venta.php",
-		dataType: "HTML",
-		data:{ id_ventas:id_ventas}
-		}).done(function(respuesta){
-		$('#Pago').html(respuesta);
-		var total_f = $('#total_venta').val();
-		console.log("imprimir pago termina");
-		boton.prop("disabled",false);
+		url: "../ventas/imprimir_ticketpos.php" ,
+		data:{
+			"id_ventas" : id_ventas
+		}
+		}).done(function (respuesta){
+		
+		
+		printService.submit({
+			'type': 'LABEL',
+			'raw_content': respuesta
+		});
+		}).always(function(){
+		
+		boton.prop("disabled", false);
 		icono.toggleClass("fa-print fa-spinner fa-spin");
-		$('#total_text').text(NumeroALetras(total_f));
-		window.print();
+		
 	});
+	
 }
 
 

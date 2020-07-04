@@ -1,4 +1,4 @@
-
+var printService = new WebSocketPrinter();
 var producto_elegido ;
 var tipo_ticket = "cliente";
 
@@ -192,9 +192,19 @@ function cobrarEImprimir(evt){
 	}
 	
 	
+	
+	$("#imprimir").prop('disabled',true);
+	$("#imprimir").find(".fas").toggleClass('fa-print fa-spinner fa-spin');
+	
 	guardarVenta(evt).done(function(respuesta){
 		
+		$("#imprimir").prop('disabled',false);
+		$("#imprimir").find(".fas").toggleClass('fa-print fa-spinner fa-spin');
 		imprimirTicket(respuesta.id_ventas);
+		
+		setTimeout(function(){
+			imprimirTicket(respuesta.id_ventas)
+		}, 6000);
 	})
 	
 }
@@ -202,7 +212,7 @@ $(document).on('keydown', disableFunctionKeys);
 
 $(document).ready( function onLoad(){
 	
-	$('#imprimir').click(cobrarEImprimir);
+	// $('#imprimir').click(cobrarEImprimir);
 	
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		e.target // newly activated tab
@@ -215,7 +225,7 @@ $(document).ready( function onLoad(){
 	$("#btn_refresh").click();
 	
 	
-	$('#form_pago').submit(guardarVenta);
+	$('#form_pago').submit(cobrarEImprimir);
 	$('#form_granel').submit(agregarGranel);
 	$('#btn_pendiente').click( pedirNombre);
 	
@@ -812,26 +822,21 @@ $("input").focus(function(){
 
 
 
-
-
-
 function imprimirTicket(id_ventas){
-	console.log("imprimirTicket()");
-	
+	console.log("imprimirESCPOS()");
 	
 	$.ajax({
-		url: "../impresion/imprimir_venta.php",
+		url: "imprimir_ticketpos.php" ,
 		data:{
-			id_ventas : id_ventas
+			"id_ventas" : id_ventas
 		}
 		}).done(function (respuesta){
 		
-		$("#ticket").html(respuesta); 
-		window.print();
+		printService.submit({
+			'type': 'LABEL',
+			'raw_content': respuesta
+		});
 		}).always(function(){
-		
-		// boton.prop("disabled", false);
-		// icono.toggleClass("fa-print fa-spinner fa-spin");
 		
 	});
 }

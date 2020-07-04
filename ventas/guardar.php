@@ -29,7 +29,8 @@
 	total_descuento = '{$_POST["total_descuento"]}',
 	total_ventas = '{$_POST["total_ventas"]}',
 	estatus_ventas = '{$_POST["estatus_ventas"]}',
-	tarjeta_ventas = '{$tarjeta}',
+	
+	tarjeta = '{$tarjeta}',
 	efectivo = '{$efectivo}'
 	
 	ON DUPLICATE KEY UPDATE
@@ -44,7 +45,8 @@
 	total_descuento = '{$_POST["total_descuento"]}',
 	total_ventas = '{$_POST["total_ventas"]}',
 	estatus_ventas = '{$_POST["estatus_ventas"]}',
-	tarjeta_ventas = '{$tarjeta}',
+	
+	tarjeta = '{$tarjeta}',
 	efectivo = '{$efectivo}'
 	";
 	
