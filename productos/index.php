@@ -74,7 +74,7 @@
 							<tr>
 								<th class="text-center">Descripción</th>
 								<th class="text-center">Departamento</th>
-								<th class="text-center">Costo de Compra</th>
+								<th class="text-center">Calidad</th>
 								<th class="text-center">Precio Público</th>
 								<th class="text-center">Precio Mayoreo</th>
 								<th class="text-center">Precio Distribuidor</th>

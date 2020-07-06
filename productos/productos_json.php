@@ -3,7 +3,11 @@ header("Content-Type: application/json");
 include('../conexi.php');
 $link = Conectarse();
 $arrResult = array();
-$consulta = "SELECT * FROM productos LEFT JOIN departamentos USING (id_departamentos) WHERE 1";    
+$consulta = "SELECT * FROM productos 
+LEFT JOIN departamentos USING (id_departamentos) 
+LEFT JOIN calidades USING (id_calidades) 
+
+WHERE 1";    
 if($_GET["id_departamentos"] != '') {        
     $consulta.= " AND  id_departamentos = '{$_GET["id_departamentos"]}'";
 }

@@ -33,6 +33,10 @@
 								<label required for="id_departamentos">Departamento:</label>
 								<?php echo generar_select($link, "departamentos", "id_departamentos", "nombre_departamentos")?>
 							</div>
+							<div class="form-group">
+								<label required for="id_calidades">Calidad:</label>
+								<?php echo generar_select($link, "calidades", "id_calidades", "calidad")?>
+							</div>
 						</div>
 						
 						

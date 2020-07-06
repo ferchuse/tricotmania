@@ -13,11 +13,14 @@ function listaProductos() {
 		$.each(respuesta, function (index, value) {
 			bgClass = Number(value.existencia_productos) < Number(value.min_productos) ? "bg-danger" : " ";
 			
+			calidad = value.calidad ?  value.calidad : '';
+			departamento = value.nombre_departamentos ?  value.nombre_departamentos : '';
+			
 			tableTemplate += `
 			<tr class="${bgClass}">
 			<td class="text-center">${value.descripcion_productos}</td>
-			<td class="text-center">${value.nombre_departamentos} </td>
-			<td class="text-center">${value.costo_proveedor} </td>
+			<td class="text-center">${departamento} </td>
+			<td class="text-center">${calidad} </td>
 			<td class="text-center">${value.precio_menudeo} </td>
 			<td class="text-center">${value.precio_mayoreo} </td>                
 			<td class="text-center">${value.precio_dist} </td>
