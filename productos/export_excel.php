@@ -20,7 +20,11 @@
 	// $estatus_productos = 'ACTIVO';
 	// }
 	
-	$consulta = "SELECT * FROM productos LEFT JOIN departamentos USING (id_departamentos) ORDER BY descripcion_productos  
+	$consulta = "SELECT * FROM productos 
+	LEFT JOIN departamentos USING (id_departamentos) 
+	LEFT JOIN calidades USING (id_calidades) 
+	
+	ORDER BY descripcion_productos  
 	";    
 	if(isset($_GET["limit"])) {        
 		$consulta.= " LIMIT {$_GET["limit"]}";
@@ -57,6 +61,7 @@
 	"id_productos",
 	"codigo_barras",
 	"Departamento", 
+	"Calidad", 
 	"Descripcion",
 	"Costo", 
 	"Precio Publico", 
@@ -74,6 +79,7 @@
 		$producto["id_productos"], 
 		$producto["codigo_productos"], 
 		$producto["nombre_departamentos"], 
+		$producto["calidad"], 
 		iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $producto["descripcion_productos"]) , 
 		$producto["costo_proveedor"], 
 		$producto["precio_menudeo"], 
