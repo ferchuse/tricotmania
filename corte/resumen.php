@@ -222,7 +222,7 @@
 													case 'PAGADO':
 													$fondo = "bg-success";
 													$suma_efectivo += $row_ventas["efectivo"];
-													$suma_tarjeta += $row_ventas["tarjeta_ventas"];
+													$suma_tarjeta += $row_ventas["tarjeta"];
 													$suma_total += $total_ventas;
 													break;
 												}
@@ -233,7 +233,7 @@
 												<div class="col-xs-1"><?php echo $id_ventas; ?></div>
 												<div class="col-xs-1 text-center"><?php echo date("H:i", strtotime($hora_ventas)); ?></div>
 												<div class="col-xs-1"><?php echo "$" .$row_ventas["efectivo"] ?></div>
-												<div class="col-xs-1"><?php echo "$" . $row_ventas["tarjeta_ventas"] ?></div>
+												<div class="col-xs-1"><?php echo "$" . $row_ventas["tarjeta"] ?></div>
 												<div class="col-xs-1"><?php echo "$" . $total_ventas ?></div>
 												<div class="col-xs-2 text-center"><?php echo $estatus_ventas; ?></div>
 												<div class="col-xs-12 col-sm-3 text-right">
@@ -539,7 +539,7 @@
 		
 		<?php include('forms/modal_egresos.php'); ?>
 		<?php include('forms/form_arqueo.php'); ?>
-		
+		<?php include('imprimir_corte.php'); ?>
 		
 		<?php include('../scripts_carpetas.php'); ?>
 		
