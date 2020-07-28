@@ -68,11 +68,18 @@ function listaProductos() {
 		$('.btn_carrito').click(pedirCantidad);
 		$('.btn_historial').click(mostrarHistorial);
 		
+		contarRegistros();
 		
 		}).fail(function(xhr, error, ernum){
 		alertify.error("Ocurrio un Error" + errnum);
 		
 	});
+}
+
+function contarRegistros(){
+	
+	$('#count_rows').text($("#bodyProductos tr:visible").length);
+	
 }
 
 function mostrarHistorial() {
@@ -117,6 +124,8 @@ function buscarDescripcion() {
 		} else {
 		$('#mensaje').html('');
 	}
+	
+	contarRegistros();
 }
 
 
@@ -350,7 +359,35 @@ function buscar(filtro, table_id, indice) {
 function contarSeleccionados(){
 	console.log( $(".seleccionar:checked"));
 	$("#cant_seleccionados").text($(".seleccionar:checked").length);
+	
+	// $(".seleccionar:checked").each(function(){
+	// console.log("")
+	
+	
+	
+	// })
+	
+	var productos_seleccionados = $(".seleccionar:checked").map(function(){
+		
+		return $(this).val();
+	}).get().join(",");
+	
+	
+	$("#productos_seleccionados").val(productos_seleccionados);
+	
 }
+
+
+function checkAll(){
+	console.log("checkAll()");
+	
+	$(".seleccionar").prop("checked", $(this).prop("checked"));
+	
+	
+	contarSeleccionados();
+}
+
+$("#check_all").change(checkAll)
 
 function guardarProducto(event) {
 	event.preventDefault();
@@ -361,6 +398,9 @@ function guardarProducto(event) {
 	
 	var formulario = $(this).serializeArray();
 	console.log("formulario: ", formulario)
+	
+	updateMultiple();
+	
 	$.ajax({
 		url: 'guardar.php',
 		dataType: 'JSON',
@@ -382,6 +422,42 @@ function guardarProducto(event) {
 	});
 	
 }
+
+
+function updateMultiple() {
+
+	// var boton = $(this).find(':submit');
+	// var icono = boton.find('.fa');
+	// boton.prop('disabled', true);
+	// icono.toggleClass('fa-save fa-spinner fa-spin');
+	
+	// var formulario = $(this).serializeArray();
+	// console.log("formulario: ", formulario)
+	$.ajax({
+		url: 'update_multiple.php',
+		dataType: 'JSON',
+		method: 'POST',
+		data: $('#form_productos').serialize() + "&productos_seleccionados="+ $("#productos_seleccionados").val()
+		}).done(function (respuesta) {
+		console.log(respuesta);
+		// if (respuesta.estatus == "success") {
+			// alertify.success('Se ha guardado correctamente');
+			// $('#modal_productos').modal('hide');
+			listaProductos();
+			// } else {
+			// alertify.error('Error al guardar');
+			// console.log(respuesta.mensaje);
+		// }
+		}).always(function () {
+		// boton.prop('disabled', false);
+		// icono.toggleClass('fa-save fa-spinner fa-spin');
+	});
+	
+}
+
+
+
+
 function confirmaEliminar() {
 	
 	var boton = $(this);

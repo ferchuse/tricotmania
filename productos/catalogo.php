@@ -60,7 +60,7 @@
 						<i class="fa fa-print"></i> Imprimir Precios  
 						(<span id="cant_seleccionados">0</span>)
 					</button>
-					
+				
 				</div>
 			</div>
 			<br>

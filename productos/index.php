@@ -29,7 +29,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
-					<h2 class="text-center">Productos</h2>
+					<h2 class="text-center">Productos <span class="badge badge-success" id="count_rows"></span></h2>
 					<hr>
 				</div>
 			</div>
@@ -62,7 +62,7 @@
 					<a class="btn btn-info pull-right" href="export_excel.php" target="">
 						<i class="fa fa-file-excel"></i> Exportar  
 					</a>
-					
+					<input type="hidden" id="productos_seleccionados">
 				</div>
 			</div>
 			<br>
@@ -87,7 +87,10 @@
 								<th class="text-center">
 									<input type="text" autocomplete="off" name="descripcion_productos" form="form_filtros" class="form-control buscar_descripcion" data-indice="0" placeholder="Buscar descripcion">
 								</th>
-								<th colspan="9">
+								<th colspan="8">
+								</th>
+								<th >
+									<input type="checkbox" id="check_all">
 								</th>
 							</tr>
 						</thead>
@@ -107,7 +110,7 @@
 			</div>
 		</div>
 		<form id="form_imprimir_precios" action="../impresion/imprimir_precios.php">
-		</form>|
+		</form>
 		<div id="historial">
 		</div>
 		<?php include('form_productos.php'); ?>

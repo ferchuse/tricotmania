@@ -71,7 +71,7 @@
 							<div class="form-group row ">
 								<div class="col-xs-6">
 									<label for="precio_mayoreo">Precio Distribuidor:</label>
-									<input placeholder="" type="number" min="0.1"  step=".01" class="form-control" id="precio_dist" name="precio_dist">
+									<input placeholder="" type="number"  step=".01" class="form-control" id="precio_dist" name="precio_dist">
 								</div>	
 								<div class="col-xs-6">
 									<label for="piezas_dist">A partir de:</label>
@@ -82,7 +82,7 @@
 							<div class="form-group row ">
 								<div class="col-xs-6">
 									<label for="precio_mayoreo">Precio Fábrica:</label>
-									<input placeholder="" type="number" min="0.1"  step=".01" class="form-control" id="precio_fabrica" name="precio_fabrica">
+									<input placeholder="" type="number"   step=".01" class="form-control" id="precio_fabrica" name="precio_fabrica">
 								</div>	
 								<div class="col-xs-6">
 									<label for="piezas_dist">A partir de:</label>
