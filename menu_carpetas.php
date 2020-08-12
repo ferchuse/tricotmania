@@ -88,8 +88,11 @@
 								<a href="../catalogos/subdepartamentos.php"><i class="fas fa-file-alt"></i> Subdepartamentos</a>
 							</li>
 							<li>
-								<a href="../catalogos/proveedores.php"><i class="fas fa-file-alt"></i> Proveedores</a>
+								<a href="../proveedores/index.php">
+								<i class="fas fa-truck"></i> Proveedores
+							</a>
 							</li>
+							
 							<li>
 								<a href="../calidades/index.php"><i class="fas fa-file-alt"></i> Calidades</a>
 							</li>

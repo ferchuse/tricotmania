@@ -22,16 +22,16 @@
 							</div>
 							<div class="form-group">
 								<label for="">Importe:</label>
-								<input required class="form-control" type="number" name="importe" id="importe">
+								<input required class="form-control" type="number" name="importe" id="importe" step="any">
 							</div>
 							<div class="form-group">
 								<label for="">Saldo Anterior:</label>
-								<input  readonly  class="form-control" type="number" name="saldo_anterior" id="saldo_anterior">
+								<input  readonly  class="form-control" type="number" name="saldo_anterior" id="saldo_anterior" step="any">
 							</div>
 							
 							<div class="form-group">
 								<label for="">Saldo Restante:</label>
-								<input readonly class="form-control" type="number" name="saldo_restante" id="saldo_restante">
+								<input readonly class="form-control" type="number" name="saldo_restante" id="saldo_restante" step="any">
 							</div>
 							
 						</div>
