@@ -23,26 +23,26 @@
 <html lang="es">
 	
 	<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
 			#btn_buscar {
 			position: relative;
 			top: 25px;
 			}
 		</style>
-    <title>Departamentos</title>
+		<title>Departamentos</title>
 		
-    <?php include("../styles_carpetas.php"); ?>
+		<?php include("../styles_carpetas.php"); ?>
 		
 	</head>
 	
 	<body>
-    <div class="container-fluid">
+		<div class="container-fluid">
 			<?php include("../menu_carpetas.php"); ?>
 		</div>
-    <section class="container">
+		<section class="container">
 			<strong>
 				<h2>Departamentos</h2>
 			</strong>
@@ -54,9 +54,9 @@
 				</button>
 			</div >
 		</section>
-    <br>
+		<br>
 		
-    <section class="container">
+		<section class="container">
 			<table class="table table-striped">
 				<tr class="success">
 					<td><strong>Departamento</strong></td>
@@ -76,6 +76,10 @@
 							>
 								<i class="fas fa-edit" ></i> Editar
 							</button>
+							<button class="btn btn-danger btn_borrar" 
+							data-id_registro="<?php echo $fila["id_departamentos"]?>">
+								<i class="fa fa-trash"></i>
+							</button>
 							
 						</td> 
 					</tr>
@@ -83,7 +87,7 @@
 					}
 				?>
 			</table>
-		</section>
+			</section>
 		
 		
 		
@@ -102,6 +106,7 @@
 		
 		$("#form_edicion").submit(guardarRegistro);
 		$(".btn_editar").click(cargarDatos);
+		$(".btn_borrar").click(borrarRegistro);
 		
 		function cargarDatos(event){
 			console.log("event", event);
@@ -132,17 +137,17 @@
 		}
 		
 		function guardarRegistro(event){
-      event.preventDefault()
-      let $boton = $(this).find(':submit');
+			event.preventDefault()
+			let $boton = $(this).find(':submit');
 			let $icono = $(this).find(".fas");
-      $boton.prop("disabled", true);
+			$boton.prop("disabled", true);
 			$icono.toggleClass("fa-save fa-spinner fa-spin");
 			console.log("guardarRegistro")
 			$.ajax({ 
-        "url": "guardar_catalogo.php",
-        "dataType": "JSON",
-        "method": "POST",
-        "data": {
+				"url": "guardar_catalogo.php",
+				"dataType": "JSON",
+				"method": "POST",
+				"data": {
 					"tabla": "departamentos",
 					"id_campo": $("#id_departamentos").val(),
 					"name": $("#nombre_departamentos").val(),
@@ -150,7 +155,7 @@
 					"porc_descuento": $("#porc_descuento").val()
 					
 				}
-        }).done( function alTerminar (respuesta){
+				}).done( function alTerminar (respuesta){
 				console.log("respuesta", respuesta);
 				$boton.prop("disabled", false);
 				$icono.toggleClass("fa-save fa-spinner fa-spin"); 
@@ -159,5 +164,44 @@
 			});
 			// return false;
 		}		
+		
+		function borrarRegistro() {
+			console.log("borrarRegistro()");
+			let boton = $(this);
+			let icono = boton.find(".fas");
+			let id_registro = boton.data("id_registro");
+			
+			if(confirm("Esta Seguro?")){
+				
+				boton.prop("disabled", true);
+				icono.toggleClass("fa-trash fa-spinner fa-spin");
+				
+				$.ajax({
+					url: "../funciones/fila_delete.php",
+					method: "POST",
+					dataType: "JSON",
+					data: {
+						"tabla": "departamentos",
+						"id_campo": "id_departamentos",
+						id_valor: id_registro
+						
+					}
+					
+					}).done(function (respuesta) {
+					console.log("respuesta", respuesta);
+					
+					boton.closest("tr").remove();
+					
+					}).fail(function (xht, error, errnum) {
+					
+					alertify.error("Error", errnum);
+					}).always(function () {
+					boton.prop("disabled", false);
+					icono.toggleClass("fa-trash fa-spinner fa-spin");
+					
+				});
+			}
+			
+		}
 	</script>
 </html>

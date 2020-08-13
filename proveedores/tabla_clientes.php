@@ -71,7 +71,7 @@
 			<tr class="text-center">
 				<td><?php echo $cliente["nombre_proveedores"]; ?></td>
 			
-				<td>$<?php echo number_format($cliente["saldo"]); ?></td>
+				<td>$<?php echo number_format($cliente["saldo"],2); ?></td>
 				<td>
 					<button class="btn btn-success btn_cargos" data-id_registro="<?php echo $cliente["id_proveedores"] ?>" data-saldo="<?php echo $cliente["saldo"] ?>">
 						+ <i class="fa fa-dollar-sign"></i> Cargo
@@ -97,7 +97,7 @@
 			
 			<td colspan="" class="text-right">DEUDA TOTAL:</td>
 			
-			<td>$<?php echo number_format($total_deuda); ?></td>
+			<td>$<?php echo number_format($total_deuda,2); ?></td>
 			<td></td>
 			
 		</tr>

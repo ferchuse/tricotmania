@@ -24,26 +24,26 @@
 <html lang="es">
 	
 	<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
 			#btn_buscar {
 			position: relative;
 			top: 25px;
 			}
 		</style>
-    <title>Proveedores</title>
+		<title>Proveedores</title>
 		
-    <?php include("../styles_carpetas.php"); ?>
+		<?php include("../styles_carpetas.php"); ?>
 		
 	</head>
 	
 	<body>
-    <div class="container-fluid">
+		<div class="container-fluid">
 			<?php include("../menu_carpetas.php"); ?>
 		</div>
-    <section class="container">
+		<section class="container">
 			<strong>
 				<h2>
 					Proveedores
@@ -54,11 +54,11 @@
 				</h2>
 			</strong>
 			<hr>
-		
+			
 		</section>
-    <br>
+		<br>
 		
-    <section class="container">
+		<section class="container">
 			<table class="table table-striped">
 				<tr class="success">
 					<td><strong>ID</strong></td>
@@ -87,7 +87,7 @@
 					<?php
 					}
 				?>
-			</table>
+				</table>
 		</section>
 		
 		<?php include('../scripts_carpetas.php'); ?>
@@ -137,18 +137,18 @@
 		}
 		
 		function guardarRegistro(event){
-      event.preventDefault()
-      let $boton = $(this).find(':submit');
+			event.preventDefault()
+			let $boton = $(this).find(':submit');
 			let $icono = $(this).find(".fas");
-      $boton.prop("disabled", true);
+			$boton.prop("disabled", true);
 			$icono.toggleClass("fa-save fa-spinner fa-spin");				
 			console.log("guardarRegistro")
 			$.ajax({ 
-        "url": "guardar_proveedores.php",
-        "dataType": "JSON",
-        "method": "POST",
-        "data": $("#form_edicion").serialize()
-        }).done( function alTerminar (respuesta){
+				"url": "guardar_proveedores.php",
+				"dataType": "JSON",
+				"method": "POST",
+				"data": $("#form_edicion").serialize()
+				}).done( function alTerminar (respuesta){
 				console.log("respuesta", respuesta);
 				$boton.prop("disabled", false);
 				$icono.toggleClass("fa-save fa-spinner fa-spin"); 

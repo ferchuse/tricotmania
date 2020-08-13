@@ -197,7 +197,7 @@
 				<button type="button" class="btn btn-danger" data-dismiss="modal">
 					<i class="fa fa-times"></i> Cerrar
 				</button>
-				<button type="button" class="btn btn-info" onclick="window.print();">
+				<button hidden type="button" class="btn btn-info" onclick="window.print();">
 					<i class="fa fa-print"></i> Imprimir
 				</button>
 			</div>
