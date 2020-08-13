@@ -140,7 +140,7 @@
 										$cargos+=$transaccion["importe"];
 										$saldo+=$transaccion["importe"];
 									?>
-									<td>$<?php echo number_format($transaccion["importe"]);?></td>
+									<td>$<?php echo number_format($transaccion["importe"],2);?></td>
 									<td>-</td>
 									
 									<?php
@@ -152,13 +152,13 @@
 									?>
 									
 									<td>-</td>
-									<td>$<?php echo number_format($transaccion["importe"]);?></td>
+									<td>$<?php echo number_format($transaccion["importe"],2);?></td>
 									
 									<?php	
 									}
 									?>
 									
-									<td>$<?php echo number_format($saldo);?></td>
+									<td>$<?php echo number_format($saldo,2);?></td>
 									<td class="d-print-none">
 										<button class="btn btn-danger btn_borrar_transaccion" 
 										data-id_registro="<?php echo $transaccion["id_transaccion"]?>"
@@ -173,13 +173,13 @@
 								<?php
 								}
 							?>
-							<tfoot class="h5 text-white bg-secondary text-right">
-								<tr>
+							<tfoot class="h5 text-white bg-secondary">
+								<tr class="text-center bg-secondary">
 									<td>TOTALES:</td>
 									<td></td>
-									<td>$<?php echo number_format($cargos);?></td>
-									<td>$<?php echo number_format($abonos);?></td>
-									<td>$<?php echo number_format($saldo);?></td>
+									<td >$<?php echo number_format($cargos,2);?></td>
+									<td>$<?php echo number_format($abonos,2);?></td>
+									<td>$<?php echo number_format($saldo2,2);?></td>
 									
 								</tr>
 							</tfoot>

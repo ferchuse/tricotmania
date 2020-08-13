@@ -51,18 +51,20 @@ function alCargar(respuesta) {
 	$('.sort').click(ordenarTabla);
 	
 	$('.btn_cargos').click( function () {
+		var saldo_anterior = $(this).data('saldo');
 		$('#modal_cargos').modal('show');
 		$('#cargos_id_proveedores').val($(this).data('id_registro'));
-		$('#saldo_anterior').val($(this).data('saldo'));
+		$('#saldo_anterior').val(saldo_anterior.toFixed(2));
 		$('#tipo').val("cargos");
 		$("#titulo").text("Cargo");
 		
 	});
 	
 	$('.btn_abonos').click(function () {
+		var saldo_anterior = $(this).data('saldo');
 		$('#modal_cargos').modal('show');
 		$('#cargos_id_proveedores').val($(this).data('id_registro'));
-		$('#saldo_anterior').val($(this).data('saldo'));
+		$('#saldo_anterior').val(saldo_anterior.toFixed(2));
 		$('#tipo').val("abonos");
 		$('#titulo').text("Abono");
 		

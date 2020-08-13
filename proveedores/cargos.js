@@ -23,7 +23,7 @@ function calcula_saldo(e) {
 		saldo_restante = saldo_anterior - importe;
 	}
 	
-	$("#saldo_restante").val(saldo_restante);
+	$("#saldo_restante").val(saldo_restante.toFixed(2));
 }
 
 function guardarCargos(event) {
