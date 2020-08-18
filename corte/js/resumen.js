@@ -6,6 +6,7 @@ $(document).ready( onLoad);
 function onLoad(event){
 	
 	$('#fecha_ventas').change(cambiarFecha);
+	
 	$('#btn_ingreso').click(nuevoIngreso);
 	$('#btn_cerrar_turno').click(confirmaCerrarTurno );
 	$('#btn_resumen').click( imprimirCorte);
@@ -71,6 +72,54 @@ function guardarIngreso(event, value){
 }
 
 
+function cambiaFormaPago(event){
+	console.log("cambiaFormaPago()")
+	
+	
+	var forma_pago = $(this).val();
+	var total = $("#total").text();
+	
+	if(forma_pago == "efectivo"){
+		
+		var efectivo = total;
+		var tarjeta = 0;
+	}
+	else{
+		
+		var tarjeta = total;
+		var efectivo = 0;
+	}
+	
+	
+	$.ajax({
+		url: '../funciones/fila_update.php',
+		method: 'POST',
+		dataType: 'JSON',
+		data:  {
+			"tabla": "ventas",
+			"id_campo": "id_ventas",
+			"id_valor": $("#id_ventas").text(),
+			"valores": [
+				{"name": "forma_pago", "value": forma_pago },
+				{"name": "efectivo", "value": efectivo },
+				{"name": "tarjeta", "value": tarjeta }
+			]
+		}
+		}).done( function(respuesta){
+		if(respuesta.estatus == 'success'){
+			alertify.success('Guardado correctamente');
+			window.location.reload(true);
+		}
+		else{
+			alertify.error('Ha ocuurido un error');
+			console.log(respuesta.mensaje);
+		}
+		}).always(function(){
+		
+	});
+}
+
+
 
 function cambiarFecha(){
 	
@@ -88,9 +137,12 @@ function imprimirTicket(){
 	
 	console.log("btn_ticketPago");
 	var id_ventas = $(this).data("id_ventas");
-	var boton = $(this).prop("disabled",true);
+	var boton = $(this);
 	var icono = boton.find(".fa");
+	
+	boton.prop("disabled",true)
 	icono.toggleClass("fa-print fa-spinner fa-spin");
+	
 	$.ajax({
 		url: "../ventas/imprimir_ticketpos.php" ,
 		data:{
@@ -125,12 +177,12 @@ function confirmaCancelarVenta(event) {
 	
 	
 	alertify.confirm()
-  .setting({
-    'reverseButtons': true,
+	.setting({
+		'reverseButtons': true,
 		'labels' :{ok:"SI", cancel:'NO'},
-    'title': "Confirmar" ,
-    'message': "¿Deseas cancelar esta venta?" ,
-    'onok':cancelarVenta
+		'title': "Confirmar" ,
+		'message': "¿Deseas cancelar esta venta?" ,
+		'onok':cancelarVenta
 	}).show();
 	
 	
@@ -170,13 +222,13 @@ function confirmaCancelarIngreso(event) {
 	
 	
 	alertify.confirm()
-  .setting({
-    'reverseButtons': true,
+	.setting({
+		'reverseButtons': true,
 		'labels' :{ok:"SI", cancel:'NO'},
-    'title': "Confirmar" ,
-    'message': "¿Deseas cancelar esta Entrada?" ,
-    'onok':cancelarIngreso,
-    'oncancel': function(){
+		'title': "Confirmar" ,
+		'message': "¿Deseas cancelar esta Entrada?" ,
+		'onok':cancelarIngreso,
+		'oncancel': function(){
 			boton.prop('disabled', false);
 			
 		}
@@ -225,7 +277,7 @@ function verTicket(){
 		$('#ver_venta').html(respuesta);
 		$('#modal_ticket').modal("show");
 		
-		
+		$("#modal_ticket").on("change", '.forma_pago', cambiaFormaPago);
 		
 		boton.prop("disabled",false);
 		icono.toggleClass("fa-print fa-spinner fa-spin");
@@ -238,12 +290,12 @@ function confirmaCerrarTurno(){
 	
 	
 	alertify.confirm()
-  .setting({
-    'reverseButtons': true,
+	.setting({
+		'reverseButtons': true,
 		'labels' :{ok:"SI", cancel:'NO'},
-    'title': "Confirmar" ,
-    'message': "¿Desea cerrar el turno?" ,
-    'onok':cerrarTurno
+		'title': "Confirmar" ,
+		'message': "¿Desea cerrar el turno?" ,
+		'onok':cerrarTurno
 	}).show();
 }
 
