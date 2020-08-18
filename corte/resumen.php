@@ -12,15 +12,19 @@
 	}
 	if (isset($_GET["fecha_ventas"])) {
 		$fecha_corte = $_GET["fecha_ventas"];
+		
 		} else {
 		$fecha_corte = date("Y-m-d");
 	}
 	if (isset($_GET["tipo_corte"])) {
 		$tipo_corte = $_GET["tipo_corte"];
 	} 
-	else 	{
+	else 	
+	{
 		$tipo_corte = "turno";
 	}
+	
+	$tipo_corte = "dia";
 	
 	$consulta_turno = "SELECT * FROM turnos WHERE cerrado='0'";
 	$result_turno = mysqli_query($link, $consulta_turno);
@@ -46,7 +50,26 @@
 		";
 		
 		$consulta_egresos = "SELECT * FROM egresos LEFT JOIN catalogo_egresos USING(id_catalogo_egresos) WHERE fecha_egresos =  '$fecha_corte'";
+		
+		
 		$consulta_ingresos= "SELECT * FROM ingresos WHERE fecha_ingresos =  '$fecha_corte'";
+		
+		if(isset($_GET["id_usuarios"]) && $_GET["id_usuarios"] != ''){
+			$consulta_totales = "SELECT * FROM
+			
+			(SELECT SUM(cantidad_ingresos) AS entradas FROM ingresos WHERE estatus_ingresos='ACTIVO' AND fecha_ingresos = '$fecha_corte' ) AS tabla_entradas,
+			(SELECT SUM(cantidad_egresos) AS salidas FROM egresos WHERE estatus_egresos='ACTIVO' AND fecha_egresos = '$fecha_corte'  ) AS tabla_salidas,
+			(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' AND fecha_ventas = '$fecha_corte' AND id_usuarios = {$_GET["id_usuarios"]}) AS tabla_ventas,
+			(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND fecha_ventas = '$fecha_corte' AND id_usuarios = {$_GET["id_usuarios"]}) AS tabla_importe
+			";
+			
+			$consulta_ventas = "SELECT * FROM ventas LEFT JOIN usuarios USING(id_usuarios) 
+			WHERE fecha_ventas = '$fecha_corte' 
+			AND id_usuarios = {$_GET["id_usuarios"]}
+			
+			ORDER BY id_ventas DESC
+			";
+		}
 	} 
 	else {
 		
@@ -58,13 +81,13 @@
 		
 		(SELECT SUM(cantidad_ingresos) AS entradas FROM ingresos WHERE estatus_ingresos='ACTIVO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_entradas,
 		(SELECT SUM(cantidad_egresos) AS salidas FROM egresos WHERE estatus_egresos='ACTIVO'  AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_salidas,
-		(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_ventas,
-		(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_importe
-		";
-		
-		$consulta_egresos = "SELECT * FROM egresos LEFT JOIN catalogo_egresos USING(id_catalogo_egresos) WHERE id_turnos = '{$_COOKIE["id_turnos"]}' ORDER BY hora_egresos";
-		
-		$consulta_ingresos= "SELECT * FROM ingresos WHERE id_turnos =  '{$_COOKIE["id_turnos"]}'";
+	(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_ventas,
+	(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_importe
+	";
+	
+	$consulta_egresos = "SELECT * FROM egresos LEFT JOIN catalogo_egresos USING(id_catalogo_egresos) WHERE id_turnos = '{$_COOKIE["id_turnos"]}' ORDER BY hora_egresos";
+	
+	$consulta_ingresos= "SELECT * FROM ingresos WHERE id_turnos =  '{$_COOKIE["id_turnos"]}'";
 	}
 	
 	
@@ -137,6 +160,10 @@
 								<label>Inicio Turno: </label>
 								<input readonly type="time" class="form-control" value="<?php echo $fila_turno["hora_inicios"]; ?>" id="inicio_turno">
 							</div>
+							<div class="form-group">
+								<label>Vendedor: </label>
+								<?php echo generar_select($link, "usuarios", "id_usuarios", "nombre_usuarios", true, false, false, $_GET["id_usuarios"])  ?>
+							</div>
 						</form>
 						<?php
 						}
@@ -198,6 +225,7 @@
 											<div class="col-xs-1"> <b>Efectivo</b></div>
 											<div class="col-xs-1"> <b>Tarjeta</b></div>
 											<div class="col-xs-1"> <b>Total</b></div>
+											<div class="col-xs-1"> <b>Vendedor</b></div>
 											<div class="col-xs-2"> <b>Estatus</b></div>
 											<div class="col-xs-3 text-center hidden-xs"> Acciones</div>
 										</div>
@@ -235,6 +263,7 @@
 												<div class="col-xs-1"><?php echo "$" .$row_ventas["efectivo"] ?></div>
 												<div class="col-xs-1"><?php echo "$" . $row_ventas["tarjeta"] ?></div>
 												<div class="col-xs-1"><?php echo "$" . $total_ventas ?></div>
+												<div class="col-xs-1"><?php echo $row_ventas["nombre_usuarios"] ?></div>
 												<div class="col-xs-2 text-center"><?php echo $estatus_ventas; ?></div>
 												<div class="col-xs-12 col-sm-3 text-right">
 													

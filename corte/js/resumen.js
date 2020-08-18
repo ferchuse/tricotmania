@@ -6,6 +6,7 @@ $(document).ready( onLoad);
 function onLoad(event){
 	
 	$('#fecha_ventas').change(cambiarFecha);
+	$('#form_resumen #id_usuarios').change(filtrarUsuario);
 	
 	$('#btn_ingreso').click(nuevoIngreso);
 	$('#btn_cerrar_turno').click(confirmaCerrarTurno );
@@ -124,6 +125,13 @@ function cambiaFormaPago(event){
 function cambiarFecha(){
 	
 	$("#id_turnos").prop("disabled", true);
+	$("#form_resumen").submit();
+	
+}
+
+function filtrarUsuario(){
+	
+	
 	$("#form_resumen").submit();
 	
 }
