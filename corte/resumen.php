@@ -81,13 +81,13 @@
 		
 		(SELECT SUM(cantidad_ingresos) AS entradas FROM ingresos WHERE estatus_ingresos='ACTIVO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_entradas,
 		(SELECT SUM(cantidad_egresos) AS salidas FROM egresos WHERE estatus_egresos='ACTIVO'  AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_salidas,
-	(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_ventas,
-	(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_importe
-	";
-	
-	$consulta_egresos = "SELECT * FROM egresos LEFT JOIN catalogo_egresos USING(id_catalogo_egresos) WHERE id_turnos = '{$_COOKIE["id_turnos"]}' ORDER BY hora_egresos";
-	
-	$consulta_ingresos= "SELECT * FROM ingresos WHERE id_turnos =  '{$_COOKIE["id_turnos"]}'";
+		(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_ventas,
+		(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_importe
+		";
+		
+		$consulta_egresos = "SELECT * FROM egresos LEFT JOIN catalogo_egresos USING(id_catalogo_egresos) WHERE id_turnos = '{$_COOKIE["id_turnos"]}' ORDER BY hora_egresos";
+		
+		$consulta_ingresos= "SELECT * FROM ingresos WHERE id_turnos =  '{$_COOKIE["id_turnos"]}'";
 	}
 	
 	
@@ -108,7 +108,25 @@
 	}
 	
 	
+	$consulta_productos = "SELECT
+	SUM(cantidad) as cantidad,
+	descripcion,
+	SUM(importe) as importe
+	FROM
+	ventas
+	LEFT JOIN ventas_detalle USING (id_ventas)
+	WHERE
+	fecha_ventas = '$fecha_corte'
+	AND estatus_ventas <> 'CANCELADO'
+	GROUP BY id_productos
+	ORDER BY importe DESC
+	";
 	
+	$result = mysqli_query($link, $consulta_productos);
+	
+	while ($fila = mysqli_fetch_assoc($result)) {
+		$productos_vendidos[] = $fila;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -211,6 +229,7 @@
 							<ul class="nav nav-pills nav-justified">
 								<li class="active"><a data-toggle="pill" href="#home">Ventas</a></li>
 								<li class=""><a data-toggle="pill" href="#menu1">Entradas de Efectivo</a></li>
+								<li class=""><a data-toggle="pill" href="#tab_productos">Productos Vendidos</a></li>
 								<li class=""><a data-toggle="pill" href="#tab_egresos">Egresos</a></li>
 								
 							</ul>
@@ -350,6 +369,48 @@
 											<?php
 											}
 										?>
+									</div>
+								</div>
+								<div id="tab_productos" class="tab-pane fade">
+									<div class="panel panel-primary hidden-print" >
+										
+										<div style="height: 350px; overflow: auto;" class="panel-body" id="panel_egresos">
+											
+											<div class="row text-center">
+												<div class="col-xs-1">Cantidad</div>
+												<div class="col-xs-3">Descripción</div>
+												<div class="col-xs-1">Importe</div>
+											</div>
+											
+											<?php 
+												// echo $consulta_productos;
+												foreach ($productos_vendidos as $producto) {
+													$cantidad_productos+= $producto["cantidad"];
+													$importe_productos+= $producto["importe"];
+												?>
+												
+												<div class="row 
+												text-center " style="line-height:35px; margin-bottom: 5px;">
+													<div class="col-sm-1"><?php echo number_format($producto["cantidad"]); ?></div>
+													<div class="col-sm-3"><?php echo $producto["descripcion"]; ?></div>
+													<div class="col-sm-2"><?php echo number_format($producto["importe"],2); ?></div>
+													
+													<?php  ?>
+													
+												</div>
+												<?php
+												}
+											?>
+											
+										</div>
+										<div class="panel-footer">
+											<h3>
+												<b>TOTAL:</b>
+												<?php
+													echo "<strong>" . "$" . number_format($importe_productos, 2) . "</strong>";
+												?>
+											</h3>
+										</div>
 									</div>
 								</div>
 								
