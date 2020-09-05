@@ -259,19 +259,32 @@
 												switch ($estatus_ventas) {
 													
 													case 'CANCELADO':
-													$fondo = "bg-danger";
+													// $fondo = "bg-danger";
 													break;
 													
 													case 'PENDIENTE':
-													$fondo = "bg-warning";
+													// $fondo = "bg-warning";
 													break;
 													
 													case 'PAGADO':
-													$fondo = "bg-success";
+													
 													$suma_efectivo += $row_ventas["efectivo"];
 													$suma_tarjeta += $row_ventas["tarjeta"];
 													$suma_total += $total_ventas;
 													break;
+													
+													
+												}
+												
+												if($row_ventas["tarjeta"] > 0){
+													
+													$fondo = "bg-success";
+													$tarjeta = "$" .$row_ventas["tarjeta"];
+													
+												}
+												else{
+													$fondo = "";
+													$tarjeta = "";
 												}
 												
 											?>
@@ -280,7 +293,7 @@
 												<div class="col-xs-1"><?php echo $id_ventas; ?></div>
 												<div class="col-xs-1 text-center"><?php echo date("H:i", strtotime($hora_ventas)); ?></div>
 												<div class="col-xs-1"><?php echo "$" .$row_ventas["efectivo"] ?></div>
-												<div class="col-xs-1"><?php echo "$" . $row_ventas["tarjeta"] ?></div>
+												<div class="col-xs-1"><?php echo $tarjeta?></div>
 												<div class="col-xs-1"><?php echo "$" . $total_ventas ?></div>
 												<div class="col-xs-1"><?php echo $row_ventas["nombre_usuarios"] ?></div>
 												<div class="col-xs-2 text-center"><?php echo $estatus_ventas; ?></div>
