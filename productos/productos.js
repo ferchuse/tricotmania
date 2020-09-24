@@ -381,7 +381,7 @@ function contarSeleccionados(){
 function checkAll(){
 	console.log("checkAll()");
 	
-	$(".seleccionar").prop("checked", $(this).prop("checked"));
+	$(".seleccionar:visible").prop("checked", $(this).prop("checked"));
 	
 	
 	contarSeleccionados();
