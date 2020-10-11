@@ -60,10 +60,13 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="reportes.php"><i class="fas fa-chart-bar"></i> Ventas Por Día</a>
+								<a href="reportes"> Ventas Por Dia</a>
 							</li>
 							<li>
-								<a href="inventarios/movimientos.php"><i class="fas fa-chart-bar"></i> Movimientos</a>
+								<a href="reportes/ventas_vendedor.php"> Ventas por Vendedor</a>
+							</li>
+							<li>
+								<a href="inventarios/movimientos.php"> Movimientos</a>
 							</li>
 						</ul>
 					</li>

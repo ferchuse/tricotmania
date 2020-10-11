@@ -95,22 +95,22 @@
 					<a data-toggle="tab" href="#tab1">
 						<input class="nombre_cliente" value="Cliente 1" >
 						<input type="hidden" class="id_ventas" value="">
-						<span class="badge">0</span>
+						<span class="badge hidden">0</span>
 					</a>
 				</li>
-				<li  class="hidden" hidden>
-					<a class="d-none" hidden data-toggle="tab" href="#tab2">
+				<li  >
+					<a  data-toggle="tab" href="#tab2">
 						<input  class="nombre_cliente" value="Cliente 2" >
 						<input type="hidden" class="id_ventas" value="">
-						<span class="badge">0</span>
+						<span class="badge hidden">0</span>
 					</a>
 				</li>
 				
 				<li >
-					<a class="hidden" hidden data-toggle="tab" href="#tab3">
+					<a  data-toggle="tab" href="#tab3">
 						<input  class="nombre_cliente" value="Cliente 3" >
 						<input type="hidden" class="id_ventas" value="">
-						<span class="badge">0</span>
+						<span class="badge hidden">0</span>
 					</a>
 				</li>
 				

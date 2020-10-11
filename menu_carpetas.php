@@ -62,11 +62,15 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="../reportes"><i class="fas fa-chart-bar"></i> Ventas Por Día</a>
+								<a href="../reportes"> Ventas Por Día</a>
 							</li>
 							<li>
-								<a href="../inventarios/movimientos.php"><i class="fas fa-chart-bar"></i> Movimientos</a>
+								<a href="../reportes/ventas_vendedor.php">Ventas por Vendedor</a>
 							</li>
+							<li>
+								<a href="../inventarios/movimientos.php"> Movimientos</a>
+							</li>	
+							
 						</ul>
 					</li>
 					
@@ -89,8 +93,8 @@
 							</li>
 							<li>
 								<a href="../proveedores/index.php">
-								<i class="fas fa-truck"></i> Proveedores
-							</a>
+									<i class="fas fa-truck"></i> Proveedores
+								</a>
 							</li>
 							
 							<li>
