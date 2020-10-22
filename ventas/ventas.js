@@ -219,6 +219,7 @@ $(document).ready( function onLoad(){
 		e.relatedTarget // previous active tab
 	})
 	
+	$('.total_descuento').keyup(calcularDescuento);
 	$('.bg-info').keydown(navegarFilas);
 	$('#btn_refresh').click(cargarPendientes);
 	
@@ -505,11 +506,11 @@ function agregarProducto(producto){
 		
 		//Asigna Callbacks de eventos
 		$(".mayoreo").change(aplicarMayoreoProducto);
-		$(".descuento").change(sumarImportes);
-		$(".descuento").keyup(sumarImportes);
+		// $(".descuento").change(calcularDescuento);
+		// $(".descuento").keyup(calcularDescuento);
 		
-		$(".cant_descuento ").change(sumarImportes);
-		$(".cant_descuento ").keyup(sumarImportes);
+		// $(".cant_descuento ").change(calcularDescuento);
+		// $(".cant_descuento ").keyup(calcularDescuento);
 		
 		$(".cantidad").keyup(sumarImportes);
 		$(".cantidad").change(sumarImportes);
@@ -533,6 +534,61 @@ function agregarProducto(producto){
 }
 
 
+function calcularDescuento(event){
+	
+	console.log("calcularDescuento()");
+	
+	let porc_descuento = Number($(".total_descuento:visible").val());
+	let subtotal = Number($(".subtotal:visible").val())
+	
+	ahorro = subtotal * porc_descuento / 100;
+	console.log("ahorro", ahorro);
+	
+	let total = subtotal - ahorro;
+	
+	$(".total_ahorro:visible").val(ahorro.toFixed(2));
+	$(".total:visible").val(total.toFixed(2));
+	
+	// fila.find(".cant_descuento").val(ahorro.toFixed(2))
+	
+	// let fila = $(this).closest("tr");
+	// let importe = $(fila).find(".importe");
+	// $(this).val()
+	// console.log("event target", event.target);
+	
+	// if($(event.target).hasClass("cant_descuento") ){
+	// let cant_descuento = Number($(this).val())
+	// console.log("Descuento por cantidad");
+	// porc_descuento = cant_descuento * 100 / importe ;
+	// ahorro = cant_descuento;
+	// $(fila).find(".descuento").val(porc_descuento.toFixed(2))
+	
+	// }
+	// else{
+	// if($(event.target).hasClass("cantidad")){
+	// fila.find(".precio").val(obj_precio.precio);
+	
+	// }
+	// else{
+	
+	
+	// console.log("Descuento por porcentaje");
+	// console.log("importe: ", importe);
+	// console.log("porc_descuento" );
+	
+	// let porc_descuento = Number($(this).val())
+	
+	// ahorro = importe * porc_descuento / 100;
+	// fila.find(".cant_descuento").val(ahorro.toFixed(2))
+	
+	// }
+	
+	// }
+	
+	// sumarImportes();
+	
+	
+}
 
 
 function sumarImportes(event){
@@ -575,37 +631,6 @@ function sumarImportes(event){
 		
 		
 		
-		if(event){
-			
-			console.log("event target", event.target);
-			
-			if($(event.target).hasClass("cant_descuento") ){
-				
-				// console.log("Descuento por cantidad");
-				// porc_descuento = cant_descuento * 100 / importe ;
-				// ahorro = cant_descuento;
-				// $(fila).find(".descuento").val(porc_descuento.toFixed(2))
-				
-			}
-			else{
-				if($(event.target).hasClass("cantidad")){
-					fila.find(".precio").val(obj_precio.precio);
-					
-				}
-				else{
-					
-					// console.log("Descuento por porcentaje");
-					// console.log("importe: ", importe);
-					// console.log("porc_descuento", descuento);
-					
-					// ahorro = importe * descuento / 100;
-					// fila.find(".cant_descuento").val(ahorro.toFixed(2))
-					
-				}
-				
-			}
-			
-		}
 		
 		let precio =  Number(fila.find(".precio").val());
 		
@@ -613,7 +638,8 @@ function sumarImportes(event){
 		subtotal+= importe;
 		
 		descuento = ahorro;
-		total_descuento+= ahorro;
+		// total_descuento+= ahorro;
+		// total_descuento+= ahorro;
 		
 		// if(cantidad >= piezas_descuento){
 		// console.log("Aplicar promocion");
@@ -641,9 +667,7 @@ function sumarImportes(event){
 		
 	});
 	
-	//preguntar sobre redondeo
 	
-	total = subtotal - total_descuento;
 	
 	// $(".articulos:visible").val(articulos);
 	// $(".subtotal:visible").val(round(subtotal, 0.5).toFixed(2));
@@ -656,7 +680,16 @@ function sumarImportes(event){
 	$(".nav-tabs .active .badge").text(articulos);
 	$(".articulos:visible").val(articulos);
 	$(".subtotal:visible").val(subtotal.toFixed(2));
-	$(".total_descuento:visible").val(total_descuento.toFixed(2));
+	
+	calcularDescuento();
+	
+	let total_ahorro = Number($(".total_ahorro:visible").val())
+	
+	//preguntar sobre redondeo
+	
+	total = subtotal - total_ahorro;
+	
+	// $(".total_descuento:visible").val(total_descuento.toFixed(2));
 	$(".total:visible").val(total.toFixed(2));
 	$("#efectivo").val(total.toFixed(2));
 }

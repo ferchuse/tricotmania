@@ -26,7 +26,7 @@
 			display: block;
 			overflow: auto;
 			overflow-x: hidden;
-			height: 300px;
+			height: 290px;
 			width: 100%;
 			padding: 5px;
 			}
@@ -147,12 +147,14 @@
 							
 							<div class="col-sm-9 col-6  text-right ">
 								<label class="venta lbl_totales"  for="">Subtotal:</label>  <br>
-								<label class="venta lbl_totales" for="">Descuento:</label>  <br>
+								<label class="venta lbl_totales" for="">% Descuento:</label>  <br>
+								<label class="venta lbl_totales" for="">Ahorro:</label>  <br>
 								<label class="venta lbl_totales" for="">Total:</label> 
 							</div>
 							<div class="col-sm-2 col-6  venta">
 								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
-								<input readonly type="text" class="form-control text-right venta total_descuento" value="0">
+								<input  type="text" class="form-control text-right venta total_descuento" value="0" step="any">
+								<input readonly type="text" class="form-control text-right venta total_ahorro" value="0">
 								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>
 						</div>
@@ -190,12 +192,14 @@
 							
 							<div class="col-sm-9 col-6  text-right ">
 								<label class="venta lbl_totales"  for="">Subtotal:</label>  <br>
-								<label class="venta lbl_totales" for="">Descuento:</label>  <br>
+								<label class="venta lbl_totales" for="">% Descuento:</label>  <br>
+								<label class="venta lbl_totales" for="">Ahorro: </label>  <br>
 								<label class="venta lbl_totales" for="">Total:</label> 
 							</div>
 							<div class="col-sm-2 col-6  venta">
 								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
-								<input readonly type="text" class="form-control text-right venta total_descuento" value="0">
+								<input  type="text" class="form-control text-right venta total_descuento" value="0">
+								<input readonly type="text" class="form-control text-right venta total_ahorro" value="0">
 								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>
 						</div>
@@ -232,11 +236,13 @@
 							<div class="col-sm-9 col-6  text-right ">
 								<label class="venta lbl_totales"  for="">Subtotal:</label>  <br>
 								<label class="venta lbl_totales" for="">Descuento:</label>  <br>
+								<label class="venta lbl_totales" for="">Ahorro:</label>  <br>
 								<label class="venta lbl_totales" for="">Total:</label> 
 							</div>
 							<div class="col-sm-2 col-6  venta">
 								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
-								<input readonly type="text" class="form-control text-right venta total_descuento" value="0">
+								<input  type="text" class="form-control text-right venta total_descuento" value="0">
+								<input readonly type="text" class="form-control text-right venta total_ahorro" value="0">
 								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>
 						</div>
