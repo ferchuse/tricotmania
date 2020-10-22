@@ -40,9 +40,9 @@
 	}
 	$respuesta.="\n\n";
 	if($fila_venta[0]["forma_pago"] == "efectivo"){
-		$respuesta.="Subtotal:     $ ". $producto["subtotal"]."\n";
-		$respuesta.="Descuento:  % ".$fila_venta[0]["total_descuento"]."\n";
-		$respuesta.="Total:     $ ". $producto["total_ventas"]."\n";
+		$respuesta.="Subtotal:      $ ". $producto["subtotal"]."\n";
+		$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
+		$respuesta.="Total:         $ ". $producto["total_ventas"]."\n";
 		
 		
 	}
