@@ -425,7 +425,15 @@ function guardarProducto(event) {
 
 
 function updateMultiple() {
-
+	var cant_seleccionados = $("#productos_seleccionados").val().split(",").length
+	if(confirm("Actualizar "+  cant_seleccionados +" Productos?")){
+		
+		
+	}
+	else{
+		return false;
+	}
+	
 	// var boton = $(this).find(':submit');
 	// var icono = boton.find('.fa');
 	// boton.prop('disabled', true);
@@ -441,16 +449,16 @@ function updateMultiple() {
 		}).done(function (respuesta) {
 		console.log(respuesta);
 		// if (respuesta.estatus == "success") {
-			// alertify.success('Se ha guardado correctamente');
-			// $('#modal_productos').modal('hide');
-			listaProductos();
-			// } else {
-			// alertify.error('Error al guardar');
-			// console.log(respuesta.mensaje);
+		// alertify.success('Se ha guardado correctamente');
+		// $('#modal_productos').modal('hide');
+		listaProductos();
+		// } else {
+		// alertify.error('Error al guardar');
+		// console.log(respuesta.mensaje);
 		// }
 		}).always(function () {
-		// boton.prop('disabled', false);
-		// icono.toggleClass('fa-save fa-spinner fa-spin');
+	// boton.prop('disabled', false);
+	// icono.toggleClass('fa-save fa-spinner fa-spin');
 	});
 	
 }
