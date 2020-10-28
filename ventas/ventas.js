@@ -627,7 +627,11 @@ function sumarImportes(event){
 		
 		//Imprime el tipo de precio y el precio unitario dependiento el numero de piezas
 		fila.find(".tipo_precio").html(obj_precio.tipo_precio);
-		fila.find(".precio").val(obj_precio.precio);
+		
+		if(obj_precio.precio > 0){
+			
+			fila.find(".precio").val(obj_precio.precio);
+		}
 		
 		
 		
