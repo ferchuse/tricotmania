@@ -628,12 +628,45 @@ function sumarImportes(event){
 		//Imprime el tipo de precio y el precio unitario dependiento el numero de piezas
 		fila.find(".tipo_precio").html(obj_precio.tipo_precio);
 		
-		if(obj_precio.precio > 0){
+		
+		
+		if(event){
 			
-			fila.find(".precio").val(obj_precio.precio);
+			console.log("event target", event.target);
+			
+			if($(event.target).hasClass("cant_descuento") ){
+				
+				// console.log("Descuento por cantidad");
+				// porc_descuento = cant_descuento * 100 / importe ;
+				// ahorro = cant_descuento;
+				// $(fila).find(".descuento").val(porc_descuento.toFixed(2))
+				
+			}
+			else{
+				
+				// if(obj_precio.precio > 0){
+				
+				// fila.find(".precio").val(obj_precio.precio);
+				// }
+				if($(event.target).hasClass("cantidad")){
+					if(obj_precio.precio > 0){
+						fila.find(".precio").val(obj_precio.precio);
+					}
+				}
+				else{
+					
+					// console.log("Descuento por porcentaje");
+					// console.log("importe: ", importe);
+					// console.log("porc_descuento", descuento);
+					
+					// ahorro = importe * descuento / 100;
+					// fila.find(".cant_descuento").val(ahorro.toFixed(2))
+					
+					}
+					
+				}
+				
 		}
-		
-		
 		
 		
 		
