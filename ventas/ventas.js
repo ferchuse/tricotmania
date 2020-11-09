@@ -649,9 +649,9 @@ function sumarImportes(event){
 				// fila.find(".precio").val(obj_precio.precio);
 				// }
 				if($(event.target).hasClass("cantidad")){
-					if(obj_precio.precio > 0){
-						fila.find(".precio").val(obj_precio.precio);
-					}
+					// if(obj_precio.precio > 0){
+						// fila.find(".precio").val(obj_precio.precio);
+					// }
 				}
 				else{
 					

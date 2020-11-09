@@ -4,7 +4,7 @@
 	include("../conexi.php");
 	$link = Conectarse();
 	
-	$menu_activo = "clientes";
+	$menu_activo = "proveedores";
 	
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<title>Clientes</title>
+		<title>Proveedores</title>
 		
 		<?php include("../styles_carpetas.php"); ?>
 		<style>

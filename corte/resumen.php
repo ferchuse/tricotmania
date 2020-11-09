@@ -49,7 +49,10 @@
 		(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND fecha_ventas = '$fecha_corte') AS tabla_importe
 		";
 		
-		$consulta_egresos = "SELECT * FROM egresos LEFT JOIN catalogo_egresos USING(id_catalogo_egresos) WHERE fecha_egresos =  '$fecha_corte'";
+		$consulta_egresos = "SELECT * FROM egresos
+		LEFT JOIN catalogo_egresos USING(id_catalogo_egresos) 
+		LEFT JOIN proveedores USING(id_proveedores) 
+		WHERE fecha_egresos =  '$fecha_corte'";
 		
 		
 		$consulta_ingresos= "SELECT * FROM ingresos WHERE fecha_ingresos =  '$fecha_corte'";
@@ -58,7 +61,7 @@
 			$consulta_totales = "SELECT * FROM
 			
 			(SELECT SUM(cantidad_ingresos) AS entradas FROM ingresos WHERE estatus_ingresos='ACTIVO' AND fecha_ingresos = '$fecha_corte' ) AS tabla_entradas,
-			(SELECT SUM(cantidad_egresos) AS salidas FROM egresos WHERE estatus_egresos='ACTIVO' AND fecha_egresos = '$fecha_corte'  ) AS tabla_salidas,
+			#(SELECT SUM(cantidad_egresos) AS salidas FROM egresos WHERE estatus_egresos='ACTIVO' AND fecha_egresos = '$fecha_corte'  ) AS tabla_salidas,
 			(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' AND fecha_ventas = '$fecha_corte' AND id_usuarios = {$_GET["id_usuarios"]}) AS tabla_ventas,
 			(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND fecha_ventas = '$fecha_corte' AND id_usuarios = {$_GET["id_usuarios"]}) AS tabla_importe
 			";
@@ -490,7 +493,7 @@
 							<div class="panel-footer h4">
 								
 								<?php
-									$saldo_final = $_COOKIE["efectivo_inicial"] + $suma_total + $totales["entradas"] - $totales["salidas"] - $totales["devoluciones"];
+									$saldo_final = $_COOKIE["efectivo_inicial"] + $suma_total + $totales["entradas"];
 								?>
 								
 								<div class="row no-gutters">
@@ -523,6 +526,22 @@
 									<div class="text-danger col-xs-1 text-center">$</div>
 									<div class="cantidad text-danger col-xs-1 text-right"><?php echo number_format($totales["salidas"], 2); ?></div>
 								</div>
+								<br>
+								<?php foreach($lista_egresos as $egreso){?>
+									<div class="row no-gutters">
+										<div class="col-xs-3 small pl-4">
+											&nbsp&nbsp&nbsp&nbsp&nbsp<?= $egreso["nombre_proveedores"]?>
+										</div>
+										<div class="text-danger col-xs-1 text-center">-</div>
+										<div class="small text-danger col-xs-1 text-center">$</div>
+										<div class=" small text-danger col-xs-1 text-right">
+											<?php echo number_format($egreso["cantidad_egresos"], 2); ?>
+										</div>
+									</div>
+									<?php 
+									}
+								?>
+								<br>
 								<div class="row no-gutters">
 									<div class="col-xs-3">Devoluciones en Efectivo</div>
 									<div class="text-danger col-xs-1 text-center">-</div>
@@ -605,11 +624,27 @@
 					<div class="cantidad text-success col-xs-3 text-right"><?php echo number_format($totales["entradas"], 2); ?></div>
 				</div>
 				<div class="row no-gutters">
-					<div class="col-xs-6">Salidas</div>
+					<div class="col-xs-3">Salidas</div>
 					<div class="text-danger col-xs-1 text-center">-</div>
 					<div class="text-danger col-xs-1 text-center">$</div>
-					<div class="cantidad text-danger col-xs-3 text-right"><?php echo number_format($totales["salidas"], 2); ?></div>
+					<div class="cantidad text-danger col-xs-1 text-right"><?php echo number_format($totales["salidas"], 2); ?></div>
 				</div>
+				<br>
+				<?php foreach($lista_egresos as $egreso){?>
+					<div class="row no-gutters">
+						<div class="col-xs-3 small pl-4">
+							&nbsp&nbsp&nbsp&nbsp&nbsp<?= $egreso["nombre_proveedores"]?>
+						</div>
+						<div class="text-danger col-xs-1 text-center">-</div>
+						<div class="small text-danger col-xs-1 text-center">$</div>
+						<div class=" small text-danger col-xs-1 text-right">
+							<?php echo number_format($egreso["cantidad_egresos"], 2); ?>
+						</div>
+					</div>
+					<?php 
+					}
+				?>
+				<br>
 				<div class="row no-gutters">
 					<div class="col-xs-6">Devoluciones</div>
 					<div class="text-danger col-xs-1 text-center">-</div>

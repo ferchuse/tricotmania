@@ -15,10 +15,16 @@
 								<label  for="" >Categoria:</label>
 								<?php echo generar_select($link, "catalogo_egresos", "id_catalogo_egresos", "tipo_egreso", false, false, true)?>
 							</div>
+							
+							<div class="form-group">
+								<label  for="" >Proveedor:</label>
+								<?php echo generar_select($link, "proveedores", "id_proveedores", "nombre_proveedores", false, false, true)?>
+							</div>
 							<div class="form-group">
 								<label  for="descripcion_egresos" class="text-center">Descripcion:</label>
 								<input required type="text" class="form-control" name="descripcion_egresos" id="descripcion_egresos">
 							</div>
+							
 							<div class="form-group">
 								<label  for="cantidad_egresos" class="text-center">Cantidad:</label>
 								<input required  type="number" min="0" step="any" class="form-control" name="cantidad_egresos" id="cantidad_egresos">
