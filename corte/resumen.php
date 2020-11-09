@@ -88,7 +88,11 @@
 		(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_importe
 		";
 		
-		$consulta_egresos = "SELECT * FROM egresos LEFT JOIN catalogo_egresos USING(id_catalogo_egresos) WHERE id_turnos = '{$_COOKIE["id_turnos"]}' ORDER BY hora_egresos";
+		$consulta_egresos = "SELECT * FROM egresos 
+		LEFT JOIN catalogo_egresos USING(id_catalogo_egresos) 
+		LEFT JOIN proveedores USING(id_proveedores) 
+		WHERE id_turnos = '{$_COOKIE["id_turnos"]}' 
+		ORDER BY hora_egresos";
 		
 		$consulta_ingresos= "SELECT * FROM ingresos WHERE id_turnos =  '{$_COOKIE["id_turnos"]}'";
 	}
@@ -530,7 +534,9 @@
 								<?php foreach($lista_egresos as $egreso){?>
 									<div class="row no-gutters">
 										<div class="col-xs-3 small pl-4">
+											&nbsp&nbsp(<?= $egreso["tipo_egreso"]?>)
 											&nbsp&nbsp&nbsp&nbsp&nbsp<?= $egreso["nombre_proveedores"]?>
+											&nbsp&nbsp&nbsp&nbsp&nbsp<?= $egreso["descripcion_egresos"]?> <br>
 										</div>
 										<div class="text-danger col-xs-1 text-center">-</div>
 										<div class="small text-danger col-xs-1 text-center">$</div>
@@ -633,7 +639,9 @@
 				<?php foreach($lista_egresos as $egreso){?>
 					<div class="row no-gutters">
 						<div class="col-xs-3 small pl-4">
+							&nbsp&nbsp&nbsp&nbsp&nbsp<?= $egreso["tipo_egreso"]?>
 							&nbsp&nbsp&nbsp&nbsp&nbsp<?= $egreso["nombre_proveedores"]?>
+							
 						</div>
 						<div class="text-danger col-xs-1 text-center">-</div>
 						<div class="small text-danger col-xs-1 text-center">$</div>

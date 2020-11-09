@@ -18,10 +18,10 @@
 							
 							<div class="form-group">
 								<label  for="" >Proveedor:</label>
-								<?php echo generar_select($link, "proveedores", "id_proveedores", "nombre_proveedores", false, false, true)?>
+								<?php echo generar_select($link, "proveedores", "id_proveedores", "nombre_proveedores")?>
 							</div>
 							<div class="form-group">
-								<label  for="descripcion_egresos" class="text-center">Descripcion:</label>
+								<label  for="descripcion_egresos" class="text-center">Concepto:</label>
 								<input required type="text" class="form-control" name="descripcion_egresos" id="descripcion_egresos">
 							</div>
 							
