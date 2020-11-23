@@ -153,7 +153,7 @@
 							</div>
 							<div class="col-sm-2 col-6  venta">
 								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
-								<input  type="text" class="form-control text-right venta total_descuento" value="0" step="any">
+								<input  type="text" class="form-control text-right venta total_descuento" value="0" step="any" readonly>
 								<input readonly type="text" class="form-control text-right venta total_ahorro" value="0">
 								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>
@@ -198,7 +198,7 @@
 							</div>
 							<div class="col-sm-2 col-6  venta">
 								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
-								<input  type="text" class="form-control text-right venta total_descuento" value="0" step="any">
+								<input  type="text" class="form-control text-right venta total_descuento" value="0" step="any" readonly>
 								<input readonly type="text" class="form-control text-right venta total_ahorro" value="0">
 								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>
@@ -241,7 +241,7 @@
 							</div>
 							<div class="col-sm-2 col-6  venta">
 								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
-								<input  type="text" class="form-control text-right venta total_descuento" value="0" step="any">
+								<input  type="text" class="form-control text-right venta total_descuento" value="0" step="any" readonly>
 								<input readonly type="text" class="form-control text-right venta total_ahorro" value="0">
 								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>

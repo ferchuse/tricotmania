@@ -637,9 +637,9 @@ function sumarImportes(event){
 			if($(event.target).hasClass("cant_descuento") ){
 				
 				// console.log("Descuento por cantidad");
-				// porc_descuento = cant_descuento * 100 / importe ;
-				// ahorro = cant_descuento;
-				// $(fila).find(".descuento").val(porc_descuento.toFixed(2))
+				porc_descuento = cant_descuento * 100 / importe ;
+				ahorro = cant_descuento;
+				$(fila).find(".descuento").val(porc_descuento.toFixed(2))
 				
 			}
 			else{
@@ -649,9 +649,11 @@ function sumarImportes(event){
 				// fila.find(".precio").val(obj_precio.precio);
 				// }
 				if($(event.target).hasClass("cantidad")){
-					// if(obj_precio.precio > 0){
-						// fila.find(".precio").val(obj_precio.precio);
-					// }
+					//Descuento por piezas de mayoreo
+					console.log("Descuento por piezas de mayoreo")
+					if(obj_precio.precio > 0){
+						fila.find(".precio").val(obj_precio.precio);
+					}
 				}
 				else{
 					
