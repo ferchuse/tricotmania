@@ -137,7 +137,7 @@
 		<?php include('../scripts_carpetas.php'); ?>
 		<?php include('../forms/modal_venta.php'); ?>
 		<?php include('../forms/modal_granel.php'); ?>
-		<script src="compras.js"></script>
+		<script src="compras.js?v=1234"></script>
 		
 	</body>
 </html>					
