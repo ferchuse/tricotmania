@@ -11,6 +11,9 @@ function afterPrint() {
 	
 }
 
+$(window).on('beforeunload', function(){
+		return '¿Estás seguro que deseas salir?';
+	});
 //Funciona a llamar si ha terminado de imprimir
 if (window.matchMedia) {
 	var mediaQueryList = window.matchMedia('print');
