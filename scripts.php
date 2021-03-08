@@ -8,3 +8,4 @@
 <script src="lib/tableExport.js"></script>
 <script src="lib/dinero.min.js"></script>
 <script src="js/menu.js"></script>
+<script>$.ajaxSetup({ cache: false });</script>

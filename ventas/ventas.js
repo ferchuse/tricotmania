@@ -506,11 +506,11 @@ function agregarProducto(producto){
 		
 		//Asigna Callbacks de eventos
 		$(".mayoreo").change(aplicarMayoreoProducto);
-		// $(".descuento").change(calcularDescuento);
-		// $(".descuento").keyup(calcularDescuento);
+		$(".descuento").change(calcularDescuento);
+		$(".descuento").keyup(calcularDescuento);
 		
-		// $(".cant_descuento ").change(calcularDescuento);
-		// $(".cant_descuento ").keyup(calcularDescuento);
+		$(".cant_descuento ").change(calcularDescuento);
+		$(".cant_descuento ").keyup(calcularDescuento);
 		
 		$(".cantidad").keyup(sumarImportes);
 		$(".cantidad").change(sumarImportes);
@@ -552,37 +552,37 @@ function calcularDescuento(event){
 	// fila.find(".cant_descuento").val(ahorro.toFixed(2))
 	
 	// let fila = $(this).closest("tr");
-	// let importe = $(fila).find(".importe");
+	// let importe = $(fila).find(".importe").val();
 	// $(this).val()
 	// console.log("event target", event.target);
 	
 	// if($(event.target).hasClass("cant_descuento") ){
-	// let cant_descuento = Number($(this).val())
-	// console.log("Descuento por cantidad");
-	// porc_descuento = cant_descuento * 100 / importe ;
-	// ahorro = cant_descuento;
-	// $(fila).find(".descuento").val(porc_descuento.toFixed(2))
-	
+		// let cant_descuento = Number($(this).val())
+		// console.log("Descuento por cantidad");
+		// porc_descuento = cant_descuento * 100 / importe ;
+		// ahorro = cant_descuento;
+		// $(fila).find(".descuento").val(porc_descuento.toFixed(2))
+		
 	// }
 	// else{
-	// if($(event.target).hasClass("cantidad")){
-	// fila.find(".precio").val(obj_precio.precio);
-	
-	// }
-	// else{
-	
-	
-	// console.log("Descuento por porcentaje");
-	// console.log("importe: ", importe);
-	// console.log("porc_descuento" );
-	
-	// let porc_descuento = Number($(this).val())
-	
-	// ahorro = importe * porc_descuento / 100;
-	// fila.find(".cant_descuento").val(ahorro.toFixed(2))
-	
-	// }
-	
+		// if($(event.target).hasClass("cantidad")){
+			// fila.find(".precio").val(obj_precio.precio);
+			
+		// }
+		// else{
+			
+			
+			// console.log("Descuento por porcentaje");
+			// console.log("importe: ", importe);
+			console.log("porc_descuento" );
+			
+			// let porc_descuento = Number($(this).val())
+			
+			// ahorro = importe * porc_descuento / 100;
+			// fila.find(".cant_descuento").val(ahorro.toFixed(2))
+			
+		// }
+		
 	// }
 	
 	// sumarImportes();
@@ -629,7 +629,7 @@ function sumarImportes(event){
 		fila.find(".tipo_precio").html(obj_precio.tipo_precio);
 		
 		
-		
+		/*
 		if(event){
 			
 			console.log("event target", event.target);
@@ -664,13 +664,13 @@ function sumarImportes(event){
 					// ahorro = importe * descuento / 100;
 					// fila.find(".cant_descuento").val(ahorro.toFixed(2))
 					
-					}
-					
 				}
 				
+			}
+			
 		}
 		
-		
+		*/
 		
 		let precio =  Number(fila.find(".precio").val());
 		
@@ -721,7 +721,7 @@ function sumarImportes(event){
 	$(".articulos:visible").val(articulos);
 	$(".subtotal:visible").val(subtotal.toFixed(2));
 	
-	calcularDescuento();
+	// calcularDescuento();
 	
 	let total_ahorro = Number($(".total_ahorro:visible").val())
 	
