@@ -629,7 +629,8 @@ function sumarImportes(event){
 		fila.find(".tipo_precio").html(obj_precio.tipo_precio);
 		
 		
-		/*
+		// Descuento por piezas
+		
 		if(event){
 			
 			console.log("event target", event.target);
@@ -669,8 +670,6 @@ function sumarImportes(event){
 			}
 			
 		}
-		
-		*/
 		
 		let precio =  Number(fila.find(".precio").val());
 		
