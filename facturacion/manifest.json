@@ -1,0 +1,28 @@
+{
+  "short_name": "Facturación",
+  "name": "Facturacion Glifo Media",
+  "icons": [
+		{
+      "src": "img/icono-1x.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "img/icono-2x.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "img/icono-4x.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "index.php?launcher=true",
+	"background_color": "# <option value="2">Recarga</option>
+												",
+	"display": "standalone",
+	"theme_color": "#2196F3"
+
+
+}

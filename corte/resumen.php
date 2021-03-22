@@ -210,7 +210,13 @@
 						<i class="fa fa-print"></i> Imprimir Corte
 					</button>
 					
+					<form id="form_facturar" target="_blank" action="../facturacion/facturas_nueva.php">
+					</form>
 					<form class="mt-3">
+						<button form="form_facturar" disabled id="facturar" class="btn btn-info btn-sm float-right" type="submit">
+							<i class="fas fa-qrcode"></i> Facturar <span id="cant_seleccionados"></span>
+						</button>
+						<input form="form_facturar" type="" id="folios_seleccionados" name="folios" >
 						<button class="btn btn-default hidden-print" type="submit" title="Corte de Cajero" name="tipo_corte" value="cajero">
 							<i class="fas fa-cut"></i> Corte de Cajero
 						</button>
@@ -309,6 +315,7 @@
 													<?php
 														if ($estatus_ventas != "PENDIENTE") {
 														?>
+														<input type="checkbox" class="seleccionar" value='<?php echo $row_ventas['id_ventas']?>'>
 														<button class="btn btn-info btn_ticketPago" title="Reimprimir Ticket" type="button" data-id_ventas="<?php echo $id_ventas; ?>">
 															<i class="fa fa-print"></i>
 														</button>
@@ -325,9 +332,7 @@
 														<button class="btn btn-danger btn_cancelar " title="Cancelar Venta" type="button" data-id_ventas="<?php echo $id_ventas; ?>">
 															<i class="fa fa-times"></i>
 														</button>
-														<button class="btn btn-warning btn_devolucion hidden" title="Devolver Venta" type="button" data-id_ventas="<?php echo $id_ventas; ?>">
-															<i class="fas fa-undo"></i>
-														</button>
+														
 														<?php
 														}
 													?>

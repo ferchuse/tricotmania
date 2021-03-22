@@ -94,6 +94,14 @@
 						</ul>
 					</li>
 					
+					<li class="nav-item">
+						<a class="nav-link" href="../facturacion/facturas.php">
+							<i class="fas fa-qrcode"></i> Facturación
+							<span class="badge badge-secondary"></span>
+							
+						</a>
+					</li>
+					
 					<?php
 					}
 					if ($_COOKIE["permiso_usuarios"] == "caja" || $_COOKIE['permiso_usuarios'] == "administrador" || $_COOKIE['permiso_usuarios'] == "mostrador") {

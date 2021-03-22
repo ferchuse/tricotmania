@@ -1,0 +1,12 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+@media print{
+	img{
+		position: absolute;
+		top: -9px;
+		width: 9%;
+	} 
+}

@@ -16,12 +16,48 @@ function onLoad(event){
 	
 	$('.btn_ticketPago').click(imprimirTicket );
 	$('.btn_ver').click(verTicket);
+	$('#panel_ventas').on("click", ".seleccionar",  contarSeleccionados);
 	$('#panel_ventas').on("click", ".btn_cancelar",  confirmaCancelarVenta);
 	$('#panel_ingresos').on("click", ".btn_cancelar",  confirmaCancelarIngreso);
 	
 	
 }
 
+
+function contarSeleccionados(){
+	console.log( ("contarSeleccionados()"));
+	$("#cant_seleccionados").text($(".seleccionar:checked").length);
+	
+	
+	var folios = $(".seleccionar:checked").map(function(){
+		return $(this).val();
+	}).get().join(",");
+	
+	
+	$("#folios_seleccionados").val(folios);
+	console.log( ("folios") , folios);	
+	
+	if($(".seleccionar:checked").length > 0 ){
+		$("#facturar").prop("disabled", false);
+	}
+	else{
+		$("#facturar").prop("disabled", true);
+	}
+}
+
+function checkAll(){
+	console.log("checkAll");
+	if($(this).prop("checked")){
+		$(".seleccionar").prop("checked", true);
+	}
+	else{
+		
+		$(".seleccionar").prop("checked", false);
+		
+	}
+	contarSeleccionados();
+	
+}
 
 function imprimirCorte(event){
 	// $("#ticket").hide();
