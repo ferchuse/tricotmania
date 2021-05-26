@@ -68,6 +68,16 @@
 	$respuesta.= "\nTEL: 54911478\n";
 	$respuesta.= "15 DIAS PARA CAMBIOS o DEVOLUCIONES \n\n";
 	$respuesta.= "GRACIAS POR SU COMPRA\n\n";
+	
+	//barcode
+	
+	$barcode= sprintf("%02s","00").sprintf("%04s","0000").sprintf("%06s",$fila_venta[0]["id_ventas"]);
+	
+	$respuesta.=chr(29)."h".chr(80).chr(29)."H".chr(2).chr(29)."k".chr(2).$barcode.chr(0);
+	
+	
+	
+	
 	$respuesta.= "\x1b"."d".chr(1); // Blank line
 	// $respuesta.= "aSeguro de Viajero\n"; // Blank line
 	$respuesta.= "\x1b"."d".chr(1). "\n"; // Blank line
