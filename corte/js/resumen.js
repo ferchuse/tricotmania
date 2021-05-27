@@ -20,8 +20,98 @@ function onLoad(event){
 	$('#panel_ventas').on("click", ".btn_cancelar",  confirmaCancelarVenta);
 	$('#panel_ingresos').on("click", ".btn_cancelar",  confirmaCancelarIngreso);
 	
+	$('#form_pago').submit(cobrarEImprimir);
+	$('#buscar_venta').keyup(buscarVenta);
+}
+
+function buscarVenta(event){
+	
+	if(event.key == "Enter"){
+		var id_ventas = $(this).val();
+		$.ajax({
+			url: 'consultas/buscar_venta.php',
+			method: 'GET',
+			dataType: 'JSON',
+			data:  {
+				"id_ventas": id_ventas
+				
+			}
+			}).done( function(respuesta){
+			if(respuesta.num_rows == 0){
+				
+				alertify.error("Venta no encontrada");
+				return false;
+			}
+			
+			if(respuesta.venta.estatus_ventas == 'PENDIENTE'){
+				//mostrar Modal de Cobro
+				
+				$("#subtotal").val(respuesta.venta.total_ventas)
+				$("#efectivo").val(respuesta.venta.total_ventas)
+				$("#pago").val(respuesta.venta.total_ventas)
+				cobrar();
+				
+			}
+			else{
+				alertify.error('Esta folio se encuentra ' + respuesta.venta.estatus_ventas );
+				
+			}
+			}).always(function(){
+			
+		});
+		
+	}
+}
+
+
+
+function cobrarEImprimir(evt){
+	console.log("cobrarEImprimir()")
+	evt.data = {"imprimir": true};
+	evt.type = "submit";
+	
+	if($(".tabla_venta:visible tbody tr").length == 0){
+		
+		alertify.error('No hay productos');
+		return false;
+	}
+	
+	
+	
+	$("#imprimir").prop('disabled',true);
+	$("#imprimir").find(".fas").toggleClass('fa-print fa-spinner fa-spin');
+	
+	guardarVenta(evt).done(function(respuesta){
+		
+		$("#imprimir").prop('disabled',false);
+		$("#imprimir").find(".fas").toggleClass('fa-print fa-spinner fa-spin');
+		imprimirTicket(respuesta.id_ventas);
+		
+		setTimeout(function(){
+			imprimirTicket(respuesta.id_ventas)
+		}, 6000);
+	})
 	
 }
+
+function cobrar(){
+	console.log("cobrar()")
+	$("#modal_cobrar").modal("show");
+	
+	$("#efectivo").val($(".total:visible").val());
+	$("#tarjeta").val($(".total:visible").val());
+	$("#pago").val($("#efectivo").val());
+	$("#pago").focus();
+	calculaCambio();
+}
+
+function calculaCambio(){
+	let efectivo = $("#efectivo").val();
+	let pago = $("#pago").val();
+	let cambio = pago - efectivo;
+	$("#cambio").val(cambio.toFixed(2));
+}									
+
 
 
 function contarSeleccionados(){

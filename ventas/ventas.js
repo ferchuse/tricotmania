@@ -365,7 +365,25 @@ $(document).ready( function onLoad(){
 	$('#cerrar_venta').click( cobrar);
 	
 	$("#codigo_producto").focus();
+	$(".activar_descuento").change(activarDescuento);
 }); 
+
+
+function activarDescuento(event){
+	console.log("activarDescuento()")
+	
+	
+	if(prompt("Contraseña Adminstrador") == "tricot"){
+		$(this).closest(".row").find(".total_descuento").prop("readonly", !$(this).prop("checked"))
+	}
+	else{
+		alertify.error("Contraseña Incorrecta")
+		event.preventDefault()
+		return false;
+	}
+	
+}
+
 
 function cobrar(){
 	
@@ -557,32 +575,32 @@ function calcularDescuento(event){
 	// console.log("event target", event.target);
 	
 	// if($(event.target).hasClass("cant_descuento") ){
-		// let cant_descuento = Number($(this).val())
-		// console.log("Descuento por cantidad");
-		// porc_descuento = cant_descuento * 100 / importe ;
-		// ahorro = cant_descuento;
-		// $(fila).find(".descuento").val(porc_descuento.toFixed(2))
-		
+	// let cant_descuento = Number($(this).val())
+	// console.log("Descuento por cantidad");
+	// porc_descuento = cant_descuento * 100 / importe ;
+	// ahorro = cant_descuento;
+	// $(fila).find(".descuento").val(porc_descuento.toFixed(2))
+	
 	// }
 	// else{
-		// if($(event.target).hasClass("cantidad")){
-			// fila.find(".precio").val(obj_precio.precio);
-			
-		// }
-		// else{
-			
-			
-			// console.log("Descuento por porcentaje");
-			// console.log("importe: ", importe);
-			console.log("porc_descuento" );
-			
-			// let porc_descuento = Number($(this).val())
-			
-			// ahorro = importe * porc_descuento / 100;
-			// fila.find(".cant_descuento").val(ahorro.toFixed(2))
-			
-		// }
-		
+	// if($(event.target).hasClass("cantidad")){
+	// fila.find(".precio").val(obj_precio.precio);
+	
+	// }
+	// else{
+	
+	
+	// console.log("Descuento por porcentaje");
+	// console.log("importe: ", importe);
+	console.log("porc_descuento" );
+	
+	// let porc_descuento = Number($(this).val())
+	
+	// ahorro = importe * porc_descuento / 100;
+	// fila.find(".cant_descuento").val(ahorro.toFixed(2))
+	
+	// }
+	
 	// }
 	
 	// sumarImportes();
@@ -649,10 +667,14 @@ function sumarImportes(event){
 				
 				// fila.find(".precio").val(obj_precio.precio);
 				// }
+				
+				//Descuento por piezas de mayoreo
+				
 				if($(event.target).hasClass("cantidad")){
-					//Descuento por piezas de mayoreo
+					
 					console.log("Descuento por piezas de mayoreo")
 					if(obj_precio.precio > 0){
+					//Descomentar esta linea para activar descuento por piezas descuento de mayoreo
 						fila.find(".precio").val(obj_precio.precio);
 					}
 				}
@@ -719,6 +741,8 @@ function sumarImportes(event){
 	$(".nav-tabs .active .badge").text(articulos);
 	$(".articulos:visible").val(articulos);
 	$(".subtotal:visible").val(subtotal.toFixed(2));
+	
+	//Descomentar para activar descuento global
 	
 	// calcularDescuento();
 	
@@ -1119,4 +1143,4 @@ function calculaCambio(){
 	let pago = $("#pago").val();
 	let cambio = pago - efectivo;
 	$("#cambio").val(cambio);
-}	
+}			

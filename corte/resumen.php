@@ -189,6 +189,10 @@
 								<label>Vendedor: </label>
 								<?php echo generar_select($link, "usuarios", "id_usuarios", "nombre_usuarios", true, false, false, $_GET["id_usuarios"])  ?>
 							</div>
+							<div class="form-group">
+								<label>Folio: </label>
+								<input type="number" class="form-control"  name="id_ventas" id="buscar_venta" >
+							</div>
 						</form>
 						<?php
 						}
@@ -691,6 +695,7 @@
 		<?php include('forms/modal_egresos.php'); ?>
 		<?php include('forms/form_arqueo.php'); ?>
 		<?php include('imprimir_corte.php'); ?>
+		<?php include('modal_cobrar.php'); ?>
 		
 		<?php include('../scripts_carpetas.php'); ?>
 		
