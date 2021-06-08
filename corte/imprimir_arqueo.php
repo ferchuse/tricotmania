@@ -40,12 +40,12 @@
 		$respuesta.= "Usuario:  " . $_COOKIE["nombre_usuarios"]."\n";
 		$respuesta.= "Denom    Cantidad       Importe \n";
 		foreach($denominaciones as $i => $denominacion){
-			$respuesta.= str_pad($denominacion, 10)." ". str_pad(number_format($filas[$denominacion]), 10, " ", STR_PAD_BOTH ). "  $" .str_pad(number_format($filas[$denominacion] * $denominacion),8," ", STR_PAD_LEFT )."\n" ;
+			$respuesta.= "$".str_pad($denominacion, 10)." ". str_pad(number_format($filas[$denominacion]), 10, " ", STR_PAD_BOTH ). "  $" .str_pad(number_format($filas[$denominacion] * $denominacion),8," ", STR_PAD_LEFT )."\n" ;
 			
 			
 		}
 		
-		$respuesta.= "IMPORTE TOTAL           $". number_format($filas["importe"])."\n";
+		$respuesta.= "\nIMPORTE TOTAL           $". number_format($filas["importe"])."\n";
 		
 		// $respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
 		// $respuesta.= "GRACIAS POR SU COMPRA";
