@@ -155,10 +155,20 @@ function imprimirCorte(event){
 	// $("#resumen").addClass("visible-print");
 	// window.print();
 	
-	printService.submit({
-		'type': 'LABEL',
-		'raw_content': $("#corte_b64").val()
-	});
+
+	
+	var password = prompt("Ingresa Contraseña", "");
+	if (password == "tricot") {
+		printService.submit({
+			'type': 'LABEL',
+			'raw_content': $("#corte_b64").val()
+		});
+	}
+	else{
+		alert("Contraseña Incorrecta")
+	}
+	
+	
 }
 
 

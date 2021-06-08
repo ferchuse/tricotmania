@@ -28,6 +28,16 @@
 	$respuesta.= "Ventas con Tarjeta: +$" .number_format($suma_tarjeta, 2)."\n";
 	$respuesta.= "Entradas:           +$" .number_format($totales["entradas"], 2)."\n";
 	$respuesta.= "Salidas:            -$" .number_format($totales["salidas"], 2)."\n";
+	
+	
+	foreach($lista_egresos as $egreso){
+		
+		$respuesta.= $egreso["nombre_proveedores"]." ".number_format($egreso["cantidad_egresos"], 2);
+		// $respuesta.=  $egreso["descripcion_egresos"] ." \n";
+		
+	
+		
+	}
 	$respuesta.= "__________________________\n";
 	$respuesta.= "Saldo Final:         $" .number_format($saldo_final, 2)."\n";
 	
@@ -45,5 +55,5 @@
 	$corte = base64_encode ( $respuesta);
 	echo "<textarea HIDDEN id='corte_b64'>$corte</textarea>";
 	
-?>
-
+	?>
+	
