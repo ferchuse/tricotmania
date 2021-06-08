@@ -100,8 +100,10 @@ function imprimirArqueo(nuevo_id){
 		}
 		}).done(function (respuesta){
 		
-		$("#arqueo").html(respuesta);
-		window.print();
+		printService.submit({
+			'type': 'LABEL',
+			'raw_content': respuesta
+		});
 		}).always(function(){
 		
 		

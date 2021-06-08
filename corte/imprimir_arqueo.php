@@ -10,7 +10,7 @@
 	
 	LEFT JOIN usuarios USING(id_usuarios)
 	WHERE id_arqueo= '{$_GET['id_registro']}'";
-  
+	
 	
 	$result = mysqli_query($link,$consulta);
 	if($result){
@@ -28,83 +28,42 @@
 			
 		}
 		
-	?> 
-	<div >
-		<legend>Arqueo</legend> 
-		<div class="row mb-2">
-			<div class="col-xs-4">
-				<b >Fecha:</b>
-			</div>	 
-			<div class="col-xs-8">			
-				<?php echo date("d/m/Y", strtotime($filas["fecha_arqueo"]));?>
-			</div>
-		</div>
-		<div class="row mb-2">
-			<div class="col-xs-4">
-				<b >Hora:</b>
-			</div>	 
-			<div class="col-xs-8">			
-				<?php echo $filas["hora_arqueo"];?>
-			</div>
-		</div>
-		<div class="row mb-2">
-			<div class="col-xs-4">
-				<b >Usuario:</b>
-			</div>	 
-			<div class="col-xs-8">			
-				<?php echo $filas["nombre_usuarios"]?>
-			</div>
-		</div>
-			<div class="row mb-2">
-				<div class="col-xs-4">
-					<b >Denom.</b> 
-				</div>	 
-				<div class="col-xs-3">			
-					<b >Cantidad</b> 
-				</div>
-				<div class="col-xs-4">			
-					<b >Importe</b> 
-				</div>
-			</div>
-		<?php foreach($denominaciones as $i => $denominacion){?>
-			<div class="row mb-2">
-				<div class="col-xs-4">
-					<b >$<?php echo $denominacion;?>:</b> 
-				</div>	 
-				<div class="col-xs-3 text-right">			
-					<?php echo number_format($filas[$denominacion]);?>
-				</div>
-				<div class="col-xs-4 text-right">			
-					<?php echo number_format($filas[$denominacion] * $denominacion);?>
-				</div>
-			</div>
-			<?php
-			}
-		?>
-		
-			<hr>
-			<div class="row mb-2">
-				<div class="col-xs-6">
-					<b >IMPORTE TOTAL:</b> 
-				</div>	 
-				<div class="col-xs-5 text-right">			
-					$<?php echo number_format($filas["importe"])?>
-				</div>
-			</div>
-		</div>
-		<br>
-		<hr>
-		<div style="page-break-after:always;"></div>
 		
 		
-		<?php
+		$respuesta = "";
+		
+		$respuesta.=   "\x1b"."@";
+		$respuesta.= "\x1b"."E".chr(1); // Bold
+		$respuesta.= "        Arqueo    \n";
+		$respuesta.= "Fecha:     ".date("d/m/Y", strtotime($filas["fecha_arqueo"]))."\n";
+		$respuesta.= "Hora:      ".$filas["hora_arqueo"]."\n";
+		$respuesta.= "Usuario:  " . $_COOKIE["nombre_usuarios"]."\n";
+		$respuesta.= "Denom    Cantidad       Importe \n";
+		foreach($denominaciones as $i => $denominacion){
+			$respuesta.= str_pad($denominacion, 10)." ". str_pad(number_format($filas[$denominacion]), 10, " ", STR_PAD_BOTH ). "  $" .str_pad(number_format($filas[$denominacion] * $denominacion),8," ", STR_PAD_LEFT )."\n" ;
 			
 			
 		}
-		else {
-			echo "Error en ".$consulta.mysqli_Error($link);
-			
-		}
+		
+		$respuesta.= "IMPORTE TOTAL           $". number_format($filas["importe"])."\n";
+		
+		// $respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
+		// $respuesta.= "GRACIAS POR SU COMPRA";
+		$respuesta.= "\x1b"."d".chr(1); // Blank line
+		
+		$respuesta.= "\x1b"."d".chr(1). "\n"; // Blank line
+		$respuesta.= "VA"; // Cut
 		
 		
-	?>	
+		
+		echo base64_encode ( $respuesta);
+		
+		
+	}
+	else {
+		echo "Error en ".$consulta.mysqli_Error($link);
+		
+	}
+	
+	
+?>	
