@@ -32,7 +32,7 @@
 	
 	foreach($lista_egresos as $egreso){
 		
-		$respuesta.= $egreso["tipo_egreso"]." \n".$egreso["descripcion_egresos"]. "  ".number_format($egreso["cantidad_egresos"], 2).  " \n";
+		$respuesta.= $egreso["tipo_egreso"]." \n".$egreso["descripcion_egresos"]. "  ".str_pad("$".number_format($egreso["cantidad_egresos"], 2), 8 ," ", STR_PAD_LEFT ) .  " \n";
 		// $respuesta.=  $egreso["descripcion_egresos"] ." \n";
 		
 	
