@@ -66,7 +66,7 @@
 	// $respuesta.= "\nTOTAL: $" .$fila_venta[0]["total_ventas"]."\n".chr(10).chr(13);
 	$respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
 	$respuesta.= "\nTEL: 54911478\n";
-	// $respuesta.= "15 DIAS PARA CAMBIOS o DEVOLUCIONES \n\n";
+	 $respuesta.= "15 DIAS PARA CAMBIOS \n\n";
 	$respuesta.= "GRACIAS POR SU COMPRA\n\n";
 	
 	//barcode
