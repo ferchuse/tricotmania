@@ -18,7 +18,8 @@
 	$respuesta.=  "\x1b"."E".chr(0); // Not Bold
 	$respuesta.=  "\x1b"."@" .chr(10).chr(13);
 	$respuesta.= "Resumen del Dia:      ". date("d/m/Y"). "\n";
-	$respuesta.= "Hora:       " .date("H:i:s")."\n";
+	$respuesta.= "Hora:                 " .date("H:i:s")."\n";
+	// $respuesta.= "Turno:                 " .date("H:i:s")."\n";
 	$respuesta.= "Usuario:              " . $_COOKIE["nombre_usuarios"]."\n";
 	// $respuesta.= "Inicio Turno:         " .date("H:i:s", strtotime($hora_inicios))."\n";
 	// $respuesta.= "Fin Turno:            " .date("H:i:s", strtotime($hora_fin))."\n";
@@ -32,7 +33,7 @@
 	
 	foreach($lista_egresos as $egreso){
 		
-		$respuesta.= $egreso["tipo_egreso"]." \n".$egreso["descripcion_egresos"]. "  ".str_pad("$".number_format($egreso["cantidad_egresos"], 2), 8 ," ", STR_PAD_LEFT ) .  " \n";
+		$respuesta.= $egreso["tipo_egreso"]." \n".$egreso["descripcion_egresos"]. "  ".str_pad("$".number_format($egreso["cantidad_egresos"], 2), 15 ," ", STR_PAD_LEFT ) .  " \n";
 		// $respuesta.=  $egreso["descripcion_egresos"] ." \n";
 		
 	
