@@ -33,7 +33,7 @@
 	}
 	
 	$respuesta["datos_factura"] = $datos_factura;
-	$respuesta["datos_factura"]["archivo_pdf"] = "https://estambresatoshka.com/atoshka/facturacion/facturacion/".$datos_factura["url_pdf"];
+	$respuesta["datos_factura"]["archivo_pdf"] = "https://tricotmania.com/facturacion/facturacion/".$datos_factura["url_pdf"];
 	
 	//generar pdf
 	$dompdf = new Dompdf();
@@ -69,7 +69,7 @@
 	
 	
 	function get_factura_html($datos_factura){
-		$url = 'https://estambresatoshka.com/atoshka/facturacion/facturacion/plantilla_pdf.php';
+		$url = 'https://tricotmania.com/facturacion/facturacion/plantilla_pdf.php';
 		
 		$ch = curl_init(); //ajax
 		curl_setopt($ch, CURLOPT_URL, $url); //url
