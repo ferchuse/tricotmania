@@ -18,7 +18,7 @@
 	
 	
 	if(isset($_GET["folios"])) { 
-		$productos = copyProductos($link, $_GET["id_ventas"]);
+		$productos = copyProductos($link, $_GET["folios"]);
 		
 	}
 	
@@ -51,17 +51,15 @@
 		
 		$consulta = "SELECT
 		SUM(cantidad) AS cantidad,
-		GROUP_CONCAT(codigo_productos,'/', cantidad, ' ') AS codigo_productos,
-		nombre_departamentos AS descripcion_productos,
+		descripcion AS descripcion_productos,
 		precio,
-		SUM(importe) AS importe,
-		SUM(cant_descuento) AS cant_descuento
+		SUM(importe) AS importe
 		FROM
 		ventas_detalle
 		LEFT JOIN productos USING (id_productos)
 		LEFT JOIN departamentos USING (id_departamentos)
 		WHERE
-		id_ventas = $id_ventas
+		id_ventas IN ($id_ventas)
 		GROUP BY
 		id_departamentos";
 		$respuesta["consulta"] = $consulta;
@@ -473,6 +471,8 @@
 											<?php 
 												$traslados = 0;
 												$subtotal = 0;
+												
+												print_r($productos);
 												foreach ($productos["productos"] as $i => $producto){
 													
 													$iva = round($producto["precio"] * .16, 2); 
