@@ -1,5 +1,12 @@
 var filtros = $("#form_filtros").serialize();
-	
+
+function buscarCliente(event) {
+	var value = $(this).val().toLowerCase();
+	$("#lista_facturas tr").filter(function() {
+		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+}	
+
 $(document).ready(function() {
 	
 	cargarTabla(filtros);
@@ -20,12 +27,7 @@ $(document).ready(function() {
 		
 	});
 	
-	function buscarCliente(event) {
-		var value = $(this).val().toLowerCase();
-		$("#lista_facturas tr").filter(function() {
-			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-		});
-	}
+	
 	
 	//--------FILTRO--------
 	
@@ -54,44 +56,44 @@ $(document).ready(function() {
 		cargarTabla(filtros);
 		console.log(filtros);
 	});
+
+
+
+$("#form_pago").submit( guardarPago );
+
+
+$("#form_correo").submit(  function enviarCorreo(event){
 	
+	var boton = $(this).find(":submit");
+	var icono = boton.find(".fa");
 	
+	event.preventDefault();
+	icono.toggleClass("fa-envelope fa-spinner fa-spin");
+	boton.prop('disabled', true);
 	
-	$("#form_pago").submit( guardarPago );
-	
-	
-	$("#form_correo").submit(  function enviarCorreo(event){
-		
-		var boton = $(this).find(":submit");
-		var icono = boton.find(".fa");
-		
-		event.preventDefault();
-		icono.toggleClass("fa-envelope fa-spinner fa-spin");
-		boton.prop('disabled', true);
-		
-		$.ajax({
-			url: 'facturacion/enviar_factura.php',
-			dataType: 'JSON',
-			method: 'GET',
-			data:$("#form_correo").serialize()
-			}).done(function(respuesta){
-			console.log("Respuesta Correo", respuesta);
-			if(respuesta.estatus_correo == "success"){
-				
-				alertify.success("Se ha enviado correctamente"); 
-				$("#modal_correo").modal("hide");
-			}
-			else{
-				alertify.error("Ocurrio un error" +  respuesta.mensaje_correo); 
-				
-			}			
-			}).always(function(){
-			icono.toggleClass("fa-envelope fa-spinner fa-spin");
-			boton.prop('disabled', false);
+	$.ajax({
+		url: 'facturacion/enviar_factura.php',
+		dataType: 'JSON',
+		method: 'GET',
+		data:$("#form_correo").serialize()
+		}).done(function(respuesta){
+		console.log("Respuesta Correo", respuesta);
+		if(respuesta.estatus_correo == "success"){
 			
-		});
+			alertify.success("Se ha enviado correctamente"); 
+			$("#modal_correo").modal("hide");
+		}
+		else{
+			alertify.error("Ocurrio un error" +  respuesta.mensaje_correo); 
+			
+		}			
+		}).always(function(){
+		icono.toggleClass("fa-envelope fa-spinner fa-spin");
+		boton.prop('disabled', false);
 		
 	});
+	
+});
 });
 
 function cargarTabla(filtros) {
