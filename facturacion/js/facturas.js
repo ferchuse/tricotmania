@@ -56,44 +56,46 @@ $(document).ready(function() {
 		cargarTabla(filtros);
 		console.log(filtros);
 	});
-
-
-
-$("#form_pago").submit( guardarPago );
-
-
-$("#form_correo").submit(  function enviarCorreo(event){
 	
-	var boton = $(this).find(":submit");
-	var icono = boton.find(".fa");
 	
-	event.preventDefault();
-	icono.toggleClass("fa-envelope fa-spinner fa-spin");
-	boton.prop('disabled', true);
 	
-	$.ajax({
-		url: 'facturacion/enviar_factura.php',
-		dataType: 'JSON',
-		method: 'GET',
-		data:$("#form_correo").serialize()
-		}).done(function(respuesta){
-		console.log("Respuesta Correo", respuesta);
-		if(respuesta.estatus_correo == "success"){
-			
+	$("#form_pago").submit( guardarPago );
+	
+	
+	$("#form_correo").submit(  function enviarCorreo(event){
+		
+		var boton = $(this).find(":submit");
+		var icono = boton.find(".fa");
+		
+		event.preventDefault();
+		icono.toggleClass("fa-envelope fa-spinner fa-spin");
+		boton.prop('disabled', true);
+		
+		$.ajax({
+			url: 'facturacion/enviar_factura.php',
+			dataType: 'JSON',
+			method: 'GET',
+			data:$("#form_correo").serialize()
+			}).done(function(respuesta){
+			console.log("Respuesta Correo", respuesta);
 			alertify.success("Se ha enviado correctamente"); 
 			$("#modal_correo").modal("hide");
-		}
-		else{
-			alertify.error("Ocurrio un error" +  respuesta.mensaje_correo); 
+			// if(respuesta.estatus_correo == "success"){
 			
-		}			
-		}).always(function(){
-		icono.toggleClass("fa-envelope fa-spinner fa-spin");
-		boton.prop('disabled', false);
+			// alertify.success("Se ha enviado correctamente"); 
+			// $("#modal_correo").modal("hide");
+			// }
+			// else{
+			// alertify.error("Ocurrio un error" +  respuesta.mensaje_correo); 
+			
+			// }			
+			}).always(function(){
+			icono.toggleClass("fa-envelope fa-spinner fa-spin");
+			boton.prop('disabled', false);
+			
+		});
 		
 	});
-	
-});
 });
 
 function cargarTabla(filtros) {
@@ -117,6 +119,8 @@ function cargarTabla(filtros) {
 			$("#correo").val($(this).data("correo"));
 			$("#url_xml").val($(this).data("url_xml"));
 			$("#url_pdf").val($(this).data("url_pdf"));
+			$("#correo_folio").val($(this).data("folio"));
+			$("#correo_nombre").val($(this).data("nombre"));
 			
 			$("#modal_correo").modal("show");
 			

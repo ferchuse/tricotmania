@@ -569,16 +569,16 @@ function facturar(event){
 						}).done(function(respuesta){
 						console.log("Respuesta Correo", respuesta);
 						window.location.href = "facturas.php";
-						if(respuesta["estatus_correo"] == "success"){
-							$("#mensaje_correo").find(".fa").toggleClass('fa-spinner fa-spin fa-check');	
+						// if(respuesta["estatus_correo"] == "success"){
+							// $("#mensaje_correo").find(".fa").toggleClass('fa-spinner fa-spin fa-check');	
 							
-							alertify.success("Factura Enviada Correctamente");
-							window.location.href = "facturas.php";
-						}
-						else{
-							$("#mensaje_correo").find(".fa").toggleClass('fa-spinner fa-spin fa-times');	
-							alertify.error(respuesta.mensaje_correo);
-						}
+							// alertify.success("Factura Enviada Correctamente");
+							// window.location.href = "facturas.php"; 
+						// }
+						// else{
+							// $("#mensaje_correo").find(".fa").toggleClass('fa-spinner fa-spin fa-times');	
+							// alertify.error(respuesta.mensaje_correo);
+						// }
 						}).fail(function(xhr, error, errnum){
 						alertify.error("Error" + error);
 						

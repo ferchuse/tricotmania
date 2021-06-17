@@ -117,7 +117,13 @@
 					<button class="btn btn-danger btn_cancelar <?php echo $cancelada == '1' ? "hidden" : ''; ?>" type="button" title="Cancelar Factura" data-uuid="<?= $row["uuid"]; ?>" data-id_facturas="<?php echo $id_facturas; ?>">
 						<i class="fa fa-times" ></i>
 					</button>
-					<button class="btn btn-primary btn_correo" type="button" title="Enviar por Correo" data-correo="<?php echo $correo_clientes; ?>" data-url_xml="<?php echo $url_xml;?>" data-url_pdf="<?php echo $url_pdf;?>"> <i class="fa fa-envelope" ></i>
+					<button class="btn btn-primary btn_correo" type="button" title="Enviar por Correo" data-correo="<?php echo $correo_clientes; ?>" 
+					data-folio="<?php echo $folio_facturas;?>" 
+					data-nombre="<?php echo $razon_social_clientes;?>" 
+					data-url_xml="<?php echo $url_xml;?>" 
+					data-url_pdf="<?php echo $url_pdf;?>"
+					> 
+					<i class="fa fa-envelope" ></i>
 					</button>
 					<a class="btn btn-info" target="_blank" type="button" title="Ver PDF" href="facturacion/<?php echo $url_pdf; ?>">
 						<i class="fa fa-file-pdf-o"></i>

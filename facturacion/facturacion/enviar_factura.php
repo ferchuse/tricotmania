@@ -1,4 +1,8 @@
 ﻿<?php
+	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+	header("Cache-Control: post-check=0, pre-check=0", false);
+	header("Pragma: no-cache");
+	
 	require_once(__DIR__ . '/../../lib/sendinblue/vendor/autoload.php');
 	require_once(__DIR__ . '/../../conexi.php');
 	
@@ -74,7 +78,7 @@
 	// echo json_encode($attachement);
 	try {
 		$result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-		// print_r($result);
+		print_r($result);
 		echo json_encode($result, true);
 		
 		} catch (Exception $e) {

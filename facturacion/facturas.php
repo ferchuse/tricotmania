@@ -132,6 +132,8 @@
 								<input  type="text" required name="correo" id="correo" class="form-control minus" >
 								<input type="hidden" name="url_xml" id="url_xml" class="form-control" >
 								<input type="hidden" name="url_pdf" id="url_pdf" class="form-control" >
+								<input type="hidden" name="folio" id="correo_folio" class="form-control" >
+								<input type="hidden" name="nombre" id="correo_nombre" class="form-control" >
 							</div>
 						</div>
 						
