@@ -5,7 +5,7 @@
 	$link = Conectarse();
 	
 	
-	$api_key = file_get_contents("../../lib/sendinblue/keys.txt");
+	// $api_key = file_get_contents("../../lib/sendinblue/keys.txt");
 	
 	//busca api key
 	$consulta_emisor	= "SELECT * FROM emisores
