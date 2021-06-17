@@ -45,7 +45,7 @@
 	
 	
 	
-		
+	
 	function copyProductos($link,$id_ventas){
 		$respuesta = [];
 		
@@ -136,7 +136,7 @@
 	
 	function getProductos($link,$id_emisores ){
 		$respuesta = "";
-		$query = "SELECT * FROM productos 
+		$query = "SELECT * FROM productos_sat
 		FULL JOIN productos_emisor USING(id_productos) 
 		WHERE id_emisores = '$id_emisores'
 		ORDER BY descripcion_productos
@@ -439,10 +439,10 @@
 											<div class="col-sm-1" >
 												<label>CANTIDAD</label>
 											</div>
-											<div class="col-sm-1 hidden" >
+											<div class="col-sm-1 " >
 												<label>UNIDAD</label>
 											</div>
-											<div class="col-sm-2 hidden" >
+											<div class="col-sm-2 " >
 												<label>CLAVE</label>
 											</div>
 											<div class="col-sm-4" >
@@ -472,7 +472,7 @@
 												$traslados = 0;
 												$subtotal = 0;
 												
-												print_r($productos);
+												// print_r($productos);
 												foreach ($productos["productos"] as $i => $producto){
 													
 													$iva = round($producto["precio"] * .16, 2); 
@@ -486,26 +486,26 @@
 														<div class="col-sm-1">
 															<input required type="number" min="0" step=".01"  name="cantidad[]" class="form-control cantidad conceptos" value="<?php echo $producto["cantidad"]?>">
 														</div>	
-														<div class="col-sm-1 hidden">
-															<input required readonly name="clave_unidad[] " class="form-control clave_unidad conceptos" value="H87">
-															
-															<!--<select required  name="clave_unidad[] " class="form-control clave_unidad conceptos">
+														<div class="col-sm-1 ">
+															<input required type="" readonly name="clave_unidad[] " class="form-control clave_unidad conceptos" value="H87">
+														<!--	
+															<select required  name="clave_unidad[] " class="form-control clave_unidad conceptos">
 																<option value="">Elige...</option>
-																<?php //echo  getUnidades($link,$id_emisores );?>
-																</select>
-															-->
+																<?php //getUnidades($link,$id_emisores );?>
+															</select>
+														-->	
 															<input type="text" class="nombre_unidades hidden" name="nombre_unidades[]" value="Pieza" >
 															
 														</div>	
-														<div class="col-sm-2 hidden">
-															<input readonly required  name="clave_producto[]" class="form-control  conceptos" value="11151700">
+														<div class="col-sm-2 ">
 															
-															<!-- 
-																<select required  name="clave_producto[]" class="form-control  conceptos">
+															
+															
+															<select required  name="clave_producto[]" class="form-control  conceptos">
 																<option value="">Elige...</option>
-																<?php //echo  getProductos($link,$id_emisores );?>
-																</select>
-															-->
+																<?php echo  getProductos($link,$id_emisores );?>
+															</select>
+															
 															
 														</div>
 														<div class="form-group col-sm-4">
@@ -722,7 +722,7 @@
 											
 										</div>
 										<div class="row">
-											<div class="col-sm-3 col-sm-offset-4 text-right">
+											<div class="col-sm-3 col-sm-offset-6 text-right">
 												<label>SUBTOTAL:</label>
 											</div>
 											<div class="col-sm-1">
@@ -730,15 +730,15 @@
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-3 col-sm-offset-4 text-right">
+											<div class="col-sm-3 col-sm-offset-6 text-right">
 												<label>DESCUENTO:</label>
 											</div>
 											<div class="col-sm-1">
-												<input  type="number" step=".01" class="form-control" name="descuento_total" id="descuento_total">
+												<input disabled type="number" step=".01" class="form-control" name="descuento_total" id="descuento_total">
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-3 col-sm-offset-4 text-right">
+											<div class="col-sm-3 col-sm-offset-6 text-right">
 												<label>TRASLADADOS:</label> 
 											</div>
 											<div class="col-sm-1">
@@ -746,7 +746,7 @@
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-3 col-sm-offset-4 text-right">
+											<div class="col-sm-3 col-sm-offset-6 text-right">
 												<label>RETENIDOS:</label>
 											</div>
 											<div class="col-sm-1">
@@ -754,7 +754,7 @@
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-3 col-sm-offset-4 text-right">
+											<div class="col-sm-3 col-sm-offset-6 text-right">
 												<label>TOTAL:</label>
 											</div>
 											<div class="col-sm-1">
@@ -763,7 +763,7 @@
 										</div>
 										<hr> 
 										<label class="pull-right">
-											<input type="checkbox" name="modo_pruebas" value="SI"> MODO PRUEBAS
+											<input type="checkbox" name="modo_pruebas" value="SI" checked> MODO PRUEBAS
 										</label>
 										<div id="mensaje_error" class="alert alert-danger hidden">
 											
