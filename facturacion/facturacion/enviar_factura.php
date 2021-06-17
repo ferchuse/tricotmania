@@ -1,62 +1,110 @@
 ﻿<?php
-header("Content-Type: application/json");
-require 'lib/phpmailer/PHPMailerAutoload.php';
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
-$respuesta = array();
-session_start();
-
-$correo_clientes = isset($_GET["correo"]) ? $_GET["correo"] : "sistemas@glifo.mx";
-$url_xml = isset($_GET["url_xml"]) ? $_GET["url_xml"] : 'timbrados/A2000.xml';
-$url_pdf = isset($_GET["url_pdf"]) ? $_GET["url_pdf"] : 'timbrados/A2000.pdf';
-
-$nombre_emisor = $_SESSION["razon_social_emisores"];
-
-$mail = new PHPMailer;
-$mail->CharSet = 'UTF-8';
-// $mail->Encoding = 'base64';
-
-// $mail->isSMTP();                                    
-// $mail->Host = 'smtp.live.com';  
-// $mail->SMTPAuth = true;                              
-// $mail->Username = 'facturacion@glifo.mx';                
-// $mail->Password = 'glifo951';                            
-// $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-// $mail->Port = 587;                                    
-// $mail->SMTPDebug = 0;                            //Activa depuracion SMTP
-
-$mail->setFrom('facturacion@glifo.micrositio.mx', 'Facturacion Glifo Media');
-// $mail->addAddress($correo_clientes);     // Destinatario
-// $mail->addBCC("contacto@innovaasesoria.com");     // Copia Oculta
-$lista_correos = explode("," ,$correo_clientes ) ;
-$respuesta["lista_correos"] = $lista_correos;
-foreach($lista_correos as $index => $correo){
-	$mail->addAddress($correo); 
-}
-$mail->addBCC("sistemas@glifo.mx"); 
-// $mail->addBCC("colegiocovarrubias@gmail.com");     //  Copia Oculta
-
-$mail->addReplyTo("sistemas@glifo.mx", "Glifo Media");      // Add attachments
-$mail->addAttachment($url_xml);        // Add attachments
-$mail->addAttachment($url_pdf);         // Add attachments
-// $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-$mail->isHTML(true);                                  // Set email format to HTML
-
-$mail->Subject = 'Facturación Glifo Media';
-$mail->Body    = "<center><b>$nombre_emisor le envia la factura $url_pdf</b> </center>
-<hr>
-<small><a href='www.glifo.mx'>glifo.mx</a></small>
-";
-$mail->AltBody = "Adjunto Factura  ";
-
-if(!$mail->send()) {
-		$respuesta["estatus_correo"] = "error";
-		$respuesta["mensaje_correo"] = 'No se envio el correo.'. $mail->ErrorInfo;
-		 
-} else {
-		$respuesta["estatus_correo"] = "success";
-		$respuesta["mensaje_correo"] = "Correo Enviado Correctamente";
-		 
-}
-
-echo json_encode($respuesta);
+	require_once(__DIR__ . '/../../lib/sendinblue/vendor/autoload.php');
+	require_once(__DIR__ . '/../../conexi.php');
+	
+	$link = Conectarse();
+	
+	
+	$api_key = file_get_contents("../../lib/sendinblue/keys.txt");
+	
+	//busca api key
+	$consulta_emisor	= "SELECT * FROM emisores
+	WHERE id_emisores = '1'";
+	
+	$result = mysqli_query($link, $consulta_emisor);
+	
+	if($result && mysqli_num_rows($result)){
+		$respuesta["consulta_facturas_estatus"] = "success";
+		while($fila = mysqli_fetch_assoc($result)){
+			$emisor = $fila;
+		}
+		
+	}
+	else{
+		
+		echo mysqli_error($link);
+		echo $consulta_facturas;
+	}
+	
+	$api_key = $emisor["api_sendinblue"];
+	
+	// Configure API key authorization: api-key
+	$config = SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $api_key);
+	
+	$apiInstance = new SendinBlue\Client\Api\TransactionalEmailsApi(
+	
+    new GuzzleHttp\Client(),
+    $config
+	);
+	$sendSmtpEmail = new \SendinBlue\Client\Model\SendSmtpEmail(); // \SendinBlue\Client\Model\SendSmtpEmail | Values to send a transactional email
+	
+	$contactos = array();
+	$lista_correos = explode("," ,$_GET["correo"] ) ;
+	
+	foreach($lista_correos as $index => $correo){
+		$contactos[] = array('email'=>strtolower($correo), 'name'=>$_GET["nombre"]);
+	}
+	
+	$sendSmtpEmail['to'] = $contactos;
+	
+	$sendSmtpEmail['templateId'] = 6;
+	$sendSmtpEmail['params'] = array(
+	'folio'=> $_GET["folio"],
+	'url_pdf'=> "https://www.tricotmania.com/facturacion/facturacion/". $_GET["url_pdf"],
+	'url_xml'=> "https://www.tricotmania.com/facturacion/facturacion/". $_GET["url_xml"]
+	);
+	
+	// $adjunto =  __DIR__ .'/'. $_GET["url_pdf"];
+	// $adjunto = "https://www.pakmailejercito.com.mx/sistema/facturacion/facturacion/". $_GET["url_pdf"];
+	// print_r($adjunto);
+	// print_r("<br>");
+	// $pdfdocPath = __DIR__ .'/'. $_GET["url_pdf"];
+	// print_r($pdfdocPath);
+	// $b64Doc = chunk_split(base64_encode(file_get_contents($pdfdocPath)));
+	
+	// $attachement = new \SendinBlue\Client\Model\SendSmtpEmailAttachment();
+    // $attachement['url']= $adjunto;
+    // $attachement['name']= $_GET["url_pdf"];
+    // $attachement['content']= $b64Doc ;
+    // $sendSmtpEmail['attachment']= $attachement;
+    // $sendSmtpEmail['headers'] = array('Content-Type'=>'application/pdf','Content-Disposition'=>'attachment','filename'=>$_GET["url_pdf"],"charset"=>"utf-8");
+	
+	
+	// $sendSmtpEmail['headers'] = array('X-Mailin-custom'=>'custom_header_1:custom_value_1|custom_header_2:custom_value_2');
+	// echo json_encode($attachement);
+	try {
+		$result = $apiInstance->sendTransacEmail($sendSmtpEmail);
+		// print_r($result);
+		echo json_encode($result, true);
+		
+		} catch (Exception $e) {
+		echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
+	}
+	
+	exit();
+	/*
+		
+		// PHP SDK: https://github.com/sendinblue/APIv3-php-library
+		require_once(__DIR__ . '/vendor/autoload.php');
+		
+		// Configure API key authorization: api-key
+		$config = SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+		
+		$apiInstance = new SendinBlue\Client\Api\ContactsApi(
+		// If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+		// This is optional, `GuzzleHttp\Client` will be used as default.
+		new GuzzleHttp\Client(),
+		$config
+		);
+		$createContact = new \SendinBlue\Client\Model\CreateContact(); // \SendinBlue\Client\Model\CreateContact | Values to create a contact
+		$createContact['email'] = 'john@doe.com';
+		
+		try {
+		$result = $apiInstance->createContact($createContact);
+		print_r($result);
+		} catch (Exception $e) {
+		echo 'Exception when calling ContactsApi->createContact: ', $e->getMessage(), PHP_EOL;
+		}
+		
+	*/
 ?>
