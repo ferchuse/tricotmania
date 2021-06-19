@@ -48,8 +48,9 @@
 	}
 	elseif($fila_venta[0]["forma_pago"] == "tarjeta"){
 		
-		$respuesta.="Subtotal:  $ ". $fila_venta[0]["subtotal_ventas"]."\n";
-		$respuesta.="Comision:  $ ".$fila_venta[0]["comision"]."\n";
+		$respuesta.="Subtotal:  $ ". $fila_venta[0]["subtotal"]."\n";
+		// $respuesta.="Comision:  $ ".$fila_venta[0]["comision"]."\n";
+		$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
 		$respuesta.="Total:     $ ".$fila_venta[0]["tarjeta"]."\n";
 		
 	}
