@@ -351,6 +351,8 @@ $(document).ready( function onLoad(){
 	});
 	$("#modal_pago").on("shown.bs.modal", function alMostrarPago() { 
 		$("#efectivo").focus();
+		$(".forma_pago").eq(0).click();
+		console.log("eq.0", $(".forma_pago").eq(0))
 	});
 	
 	$("#cantidad").on("keyup", calcularGranel)
@@ -674,7 +676,7 @@ function sumarImportes(event){
 					
 					console.log("Descuento por piezas de mayoreo")
 					if(obj_precio.precio > 0){
-					//Descomentar esta linea para activar descuento por piezas descuento de mayoreo
+						//Descomentar esta linea para activar descuento por piezas descuento de mayoreo
 						fila.find(".precio").val(obj_precio.precio);
 					}
 				}
