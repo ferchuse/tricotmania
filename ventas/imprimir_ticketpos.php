@@ -39,36 +39,58 @@
 		
 	}
 	$respuesta.="\n\n";
-	if($fila_venta[0]["forma_pago"] == "efectivo"){
-		$respuesta.="Subtotal:      $ ". $producto["subtotal"]."\n";
-		$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
-		$respuesta.="Total:         $ ". $producto["total_ventas"]."\n";
-		
-		
-	}
-	elseif($fila_venta[0]["forma_pago"] == "tarjeta"){
-		
-		$respuesta.="Subtotal:  $ ". $fila_venta[0]["subtotal"]."\n";
-		// $respuesta.="Comision:  $ ".$fila_venta[0]["comision"]."\n";
-		$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
-		$respuesta.="Total:     $ ".$fila_venta[0]["tarjeta"]."\n";
-		
-	}
-	else{ 
-		$respuesta.="Efectivo:  $ ". $producto["efectivo"]."\n";
-		$respuesta.="Tarjeta:   $ ". $fila_venta[0]["tarjeta"]."\n";
-		$respuesta.="Total:     $ ".  $fila_venta[0]["total_ventas"]."\n";
-		
-		
-		
-	}
 	
-	
-	// $respuesta.= "\nTOTAL: $" .$fila_venta[0]["total_ventas"]."\n".chr(10).chr(13);
-	$respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
-	$respuesta.= "\nTEL: 54911478\n";
-	 $respuesta.= "15 DIAS PARA CAMBIOS \n\n";
-	$respuesta.= "GRACIAS POR SU COMPRA\n\n";
+	if($fila_venta[0]["estatus_ventas"] == 'PAGADO'){
+		if($fila_venta[0]["forma_pago"] == "efectivo"){
+			$respuesta.="Subtotal:      $ ". $producto["subtotal"]."\n";
+			
+			if($fila_venta[0]["total_descuento"] > 0){
+				$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
+			}
+			
+			
+			
+			$respuesta.="Total:         $ ". $producto["total_ventas"]."\n\n";
+			
+			$respuesta.="Pago con:      $ ". $producto["pagocon_ventas"]."\n";
+			$respuesta.="Cambio:        $ ". $producto["cambio_ventas"]."\n";
+			
+			
+		}
+		elseif($fila_venta[0]["forma_pago"] == "tarjeta"){
+			
+			$respuesta.="Subtotal:  $ ". $fila_venta[0]["subtotal"]."\n";
+			// $respuesta.="Comision:  $ ".$fila_venta[0]["comision"]."\n";
+			$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
+			$respuesta.="Total:     $ ".$fila_venta[0]["tarjeta"]."\n";
+			
+		}
+		else{ 
+			$respuesta.="Efectivo:  $ ". $producto["efectivo"]."\n";
+			$respuesta.="Tarjeta:   $ ". $fila_venta[0]["tarjeta"]."\n";
+			$respuesta.="Total:     $ ".  $fila_venta[0]["total_ventas"]."\n";
+			
+			
+			
+		}
+		
+		
+		
+		// $respuesta.= "\nTOTAL: $" .$fila_venta[0]["total_ventas"]."\n".chr(10).chr(13);
+		$respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
+		$respuesta.= "\nTEL: 54911478\n";
+		$respuesta.= "15 DIAS PARA CAMBIOS \n\n";
+		$respuesta.= "GRACIAS POR SU COMPRA\n\n";
+		
+		
+		
+	}
+	else{
+		$respuesta.= "POR COBRAR: $".$fila_venta[0]["total_ventas"]."\n\n";
+		$respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
+		$respuesta.=chr(29)."h".chr(80).chr(29)."H".chr(2).chr(29)."k".chr(4).$fila_venta[0]["id_ventas"].chr(0);
+		
+	}
 	
 	//barcode
 	
@@ -77,7 +99,6 @@
 	// $respuesta.=chr(29)."h".chr(80).chr(29)."H".chr(2).chr(29)."k".chr(2).$barcode.chr(0);
 	
 	
-	$respuesta.=chr(29)."h".chr(80).chr(29)."H".chr(2).chr(29)."k".chr(4).$fila_venta[0]["id_ventas"].chr(0);
 	
 	
 	

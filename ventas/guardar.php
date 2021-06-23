@@ -28,11 +28,8 @@
 	subtotal = '{$_POST["subtotal"]}',
 	total_descuento = '{$_POST["total_descuento"]}',
 	total_ventas = '{$_POST["total_ventas"]}',
-	estatus_ventas = '{$_POST["estatus_ventas"]}',
+	estatus_ventas = '{$_POST["estatus_ventas"]}'
 	
-	forma_pago = '{$_POST["forma_pago"]}',
-	tarjeta = '{$tarjeta}',
-	efectivo = '{$efectivo}'
 	
 	ON DUPLICATE KEY UPDATE
 	

@@ -14,14 +14,19 @@ function onLoad(event){
 	
 	$('.btn_cancelar_egreso').click( confirmaCancelarEgreso);
 	
-	$('.btn_ticketPago').click(imprimirTicket );
+	$('.btn_ticketPago').click(function(){
+		imprimirTicket($(this).data("id_ventas"))
+	});
+	
+	
 	$('.btn_ver').click(verTicket);
 	$('#panel_ventas').on("click", ".seleccionar",  contarSeleccionados);
 	$('#panel_ventas').on("click", ".btn_cancelar",  confirmaCancelarVenta);
 	$('#panel_ingresos').on("click", ".btn_cancelar",  confirmaCancelarIngreso);
 	
-	$('#form_pago').submit(cobrarEImprimir);
+	$('#form_cobrar').submit(guardarVenta);
 	$('#buscar_venta').keyup(buscarVenta);
+	$('#pago').keyup(calculaCambio);
 }
 
 function buscarVenta(event){
@@ -48,9 +53,10 @@ function buscarVenta(event){
 				
 				$("#subtotal").val(respuesta.venta.total_ventas)
 				$("#efectivo").val(respuesta.venta.total_ventas)
-				$("#pago").val(respuesta.venta.total_ventas)
-				cobrar();
-				
+			$("#pago").val(respuesta.venta.total_ventas)
+			$("#pago_id_ventas").val(respuesta.venta.id_ventas)
+			cobrar();
+			
 			}
 			else{
 				alertify.error('Esta folio se encuentra ' + respuesta.venta.estatus_ventas );
@@ -64,6 +70,56 @@ function buscarVenta(event){
 }
 
 
+function guardarVenta(event){
+	event.preventDefault();
+	console.log("guardarVenta", event.type);
+	
+	var boton = $(this).find(":submit");
+	var icono = boton.find('.fa');
+	
+	
+	boton.prop('disabled',true);
+	icono.toggleClass('fa-save fa-spinner fa-spin');
+	
+	
+	
+	return $.ajax({
+		url: '../ventas/guardar_pago.php',
+		method: 'POST',
+		dataType: 'JSON',
+		data:{
+			
+			"id_ventas": $("#pago_id_ventas").val(),
+			"forma_pago": $("#forma_pago").val(),
+			"efectivo": $("#efectivo").val(),
+			"tarjeta": $("#tarjeta").val(),
+			"pago": $("#pago").val(),
+			"cambio": $("#cambio").val(),
+			"estatus_ventas": "PAGADO",
+			
+		}
+		}).done(function(respuesta){
+		if(respuesta.estatus_venta == "success"){
+			alertify.success('Venta Guardada');
+			//Resetea la venta
+			
+			
+			$("#modal_cobrar").modal("hide");
+			
+			// limpiarVenta();
+			
+			// console.log("Venta Activa", $("#tabs_ventas>li.active input").val("Mostrador"));
+			imprimirTicket( respuesta.id_ventas)
+			
+		}
+		}).fail(function(xhr, error, errnum){
+		alertify.error('Ocurrio un error' + error);
+		}).always(function(){
+		boton.prop('disabled',false);
+		icono.toggleClass('fa-save fa-spinner fa-spin');
+	});
+	
+}
 
 function cobrarEImprimir(evt){
 	console.log("cobrarEImprimir()")
@@ -96,16 +152,19 @@ function cobrarEImprimir(evt){
 
 function cobrar(){
 	console.log("cobrar()")
-	$("#modal_cobrar").modal("show");
+	$("#modal_cobrar").modal("show") ;
 	
-	$("#efectivo").val($(".total:visible").val());
-	$("#tarjeta").val($(".total:visible").val());
-	$("#pago").val($("#efectivo").val());
-	$("#pago").focus();
+	// $("#efectivo").val($(".total:visible").val());
+	// $("#tarjeta").val($(".total:visible").val());
+	// $("#pago").val($("#efectivo").val());
+	$("#pago").select();
 	calculaCambio();
 }
 
+
+
 function calculaCambio(){
+	console.log("calculaCambio()")
 	let efectivo = $("#efectivo").val();
 	let pago = $("#pago").val();
 	let cambio = pago - efectivo;
@@ -155,7 +214,7 @@ function imprimirCorte(event){
 	// $("#resumen").addClass("visible-print");
 	// window.print();
 	
-
+	
 	
 	var password = prompt("Ingresa Contraseña", "");
 	if (password == "tricot") {
@@ -273,14 +332,14 @@ function filtrarUsuario(){
 }
 
 
-function imprimirTicket(){
+function imprimirTicket(id_ventas){
 	$("#arqueo").hide();
 	$("#resumen").hide();
 	$("#arqueo").addClass("hidden-print");
 	$("#resumen").addClass("hidden-print");
 	
 	console.log("btn_ticketPago");
-	var id_ventas = $(this).data("id_ventas");
+	// var id_ventas = $(this).data("id_ventas");
 	var boton = $(this);
 	var icono = boton.find(".fa");
 	

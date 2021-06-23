@@ -12,7 +12,7 @@
 				
 				<!-- "Modal Body" -->
 				<div class="modal-body">
-					
+					<input type="hidden" value="" name="id_ventas" id="pago_id_ventas">
 					<div class="row">
 						<div class="col-sm-6 text-right">
 							<label class="lead"> Forma de Pago:</label>
@@ -62,7 +62,7 @@
 						</div>
 					</div>
 					
-					
+					<!-- "Modal Body" 
 					<div class="well hidden"  id="div_tarjeta">
 						<div class="row">
 							<div class="col-sm-6 text-right">
@@ -91,16 +91,18 @@
 							</div>
 						</div>
 						
-						<div class="row  text-right">
+						
+					</div>
+					-->
+					
+					<div class="row  hidden text-right" id="div_tarjeta">
 							<div class="col-sm-6">
-								<label class="lead">Cobrar en Terminal: </label>
+								<label class="lead">Tarjeta: </label>
 							</div>
 							<div class="col-sm-4">
 								<input readonly id="tarjeta" value="0" type="number" class="valor form-control" name="tarjeta" min="0">
 							</div>
 						</div>
-					</div>
-					
 				</div>
 				
 				<!-- "Modal Footer" -->

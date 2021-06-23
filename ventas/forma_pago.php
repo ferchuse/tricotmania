@@ -16,7 +16,7 @@
 							<input  id="total_pago" value="0" type="hidden" class="valor form-control" name="total_pago">
 							
 							
-							
+							<!-- 
 							
 							<div class="form-group">
 								<div class="col-sm-6 text-right">
@@ -29,6 +29,8 @@
 								</div>
 							</div>
 							
+							
+							-->
 							
 							<div class="form-group">
 								<div class="col-sm-6 text-right">
@@ -61,7 +63,7 @@
 								<i class="fa fa-times"></i> Cancelar
 							</button>
 							<button type="submit" id="imprimir" class="btn btn-info">
-								<i class="fa fa-print"></i> Cobrar
+								<i class="fa fa-save"></i> Guardar
 							</button>
 							
 						</div>

@@ -204,7 +204,7 @@ function cobrarEImprimir(evt){
 		
 		setTimeout(function(){
 			imprimirTicket(respuesta.id_ventas)
-		}, 6000);
+		}, 4000);
 	})
 	
 }
@@ -809,7 +809,7 @@ function guardarVenta(event){
 	if(event.type == "submit"){
 		console.log("Cobrar");
 		
-		var estatus_ventas ="PAGADO" ;
+		var estatus_ventas ="PENDIENTE" ;
 		var nombre_cliente =  $("#tabs_ventas li.active a .nombre_cliente").val()
 		event.preventDefault();
 		
@@ -820,6 +820,8 @@ function guardarVenta(event){
 		var nombre_cliente =  event;
 		
 	}
+	
+
 	
 	
 	if($("#id_vendedores").val() == ''){
@@ -832,7 +834,7 @@ function guardarVenta(event){
 	
 	
 	boton.prop('disabled',true);
-	icono.toggleClass('fa-check fa-spinner fa-spin');
+	icono.toggleClass('fa-save fa-spinner fa-spin');
 	
 	//Agrega los productos al array que se envia
 	$(".tabla_venta:visible tbody tr").each(function(index, item){
@@ -856,10 +858,10 @@ function guardarVenta(event){
 			id_ventas: $('#tabs_ventas li.active').find(".id_ventas").val(),
 			id_usuarios: $('#id_vendedores').val(),
 			id_turnos:$('#id_turnos').val(),
-			forma_pago:$('.forma_pago:checked').val(),
+			// forma_pago:$('.forma_pago:checked').val(),
 			articulos: $(".articulos:visible").val(),
 			"productos": productos, 
-			"efectivo": $("#efectivo").val(),
+			// "efectivo": $("#efectivo").val(),
 			"estatus_ventas": estatus_ventas,
 			"nombre_cliente": nombre_cliente.toUpperCase(),
 			subtotal: $(".subtotal:visible").val(),
@@ -884,7 +886,7 @@ function guardarVenta(event){
 		alertify.error('Ocurrio un error' + error);
 		}).always(function(){
 		boton.prop('disabled',false);
-		icono.toggleClass('fa-check fa-spinner fa-spin');
+		icono.toggleClass('fa-save fa-spinner fa-spin');
 	});
 	
 	TotalTurno();
