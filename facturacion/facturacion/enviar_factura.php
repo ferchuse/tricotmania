@@ -51,7 +51,7 @@
 	
 	$sendSmtpEmail['to'] = $contactos;
 	
-	$sendSmtpEmail['templateId'] = 6;
+	$sendSmtpEmail['templateId'] = 1;
 	$sendSmtpEmail['params'] = array(
 	'folio'=> $_GET["folio"],
 	'url_pdf'=> "https://www.tricotmania.com/facturacion/facturacion/". $_GET["url_pdf"],
