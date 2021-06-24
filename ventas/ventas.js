@@ -28,7 +28,7 @@ function cargarPendientes(event){
 	})
 	.done(renderPendientes);
 	
-}
+	}
 
 function cerrarTab(event){
 	
@@ -202,9 +202,9 @@ function cobrarEImprimir(evt){
 		$("#imprimir").find(".fas").toggleClass('fa-print fa-spinner fa-spin');
 		imprimirTicket(respuesta.id_ventas);
 		
-		setTimeout(function(){
-			imprimirTicket(respuesta.id_ventas)
-		}, 4000);
+		// setTimeout(function(){
+			// imprimirTicket(respuesta.id_ventas)
+		// }, 4000);
 	})
 	
 }
