@@ -25,6 +25,9 @@
 	$respuesta.=  "\x1b"."E".chr(0); // Not Bold
 	$respuesta.=  "\x1b"."@" .chr(10).chr(13);
 	$respuesta.= "Folio:   ". $fila_venta[0]["id_ventas"]. "\n";
+	
+	if($fila_venta[0]["estatus_ventas"] == 'PAGADO'){
+	
 	$respuesta.= "Fecha:   " . date("d/m/Y", strtotime($fila_venta[0]["fecha_ventas"]))."\n";
 	$respuesta.= "Hora:    " . date('H:i:s', strtotime($fila_venta[0]["hora_ventas"]))."\n";
 	$respuesta.= "Cliente: " .$fila_venta[0]["nombre_cliente"]."\n";
@@ -40,7 +43,6 @@
 	}
 	$respuesta.="\n\n";
 	
-	if($fila_venta[0]["estatus_ventas"] == 'PAGADO'){
 		if($fila_venta[0]["forma_pago"] == "efectivo"){
 			$respuesta.="Subtotal:      $ ". $producto["subtotal"]."\n";
 			
