@@ -108,7 +108,12 @@
 					?>
 					<li class="<?php echo $menu_activo == "resumen" ? "active" : ''; ?>">
 						<a href="corte/resumen.php">
-							<i class="fas fa-cash-register"></i> Corte de Caja
+							<i class="fas fa-cash-register"></i> Corte
+						</a>
+					</li>
+					<li class="<?php echo $menu_activo == "cobrar" ? "active" : ''; ?>">
+						<a href="cobrar/cobrar.php">
+							<i class="fas fa-dollar-sign"></i> Cobrar
 						</a>
 					</li>
 					
