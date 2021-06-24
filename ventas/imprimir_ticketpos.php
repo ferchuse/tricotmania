@@ -67,7 +67,7 @@
 			$respuesta.="Subtotal:  $ ". $fila_venta[0]["subtotal"]."\n";
 			// $respuesta.="Comision:  $ ".$fila_venta[0]["comision"]."\n";
 			$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
-			$respuesta.="Total:     $ ".$fila_venta[0]["tarjeta"]."\n";
+			$respuesta.="Total:     $ ".$fila_venta[0]["total_ventas"]."\n";
 			
 		}
 		else{ 
