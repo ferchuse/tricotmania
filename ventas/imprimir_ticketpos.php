@@ -94,6 +94,10 @@
 		$respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
 		$respuesta.=chr(29)."h".chr(80).chr(29)."H".chr(2).chr(29)."k".chr(4).$fila_venta[0]["id_ventas"].chr(0);
 		
+			$respuesta.= "\n\n";
+			$respuesta.= "\n\n";
+		
+		
 	}
 	
 	//barcode

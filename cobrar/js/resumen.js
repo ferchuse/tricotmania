@@ -36,10 +36,10 @@ function buscarVenta(event){
 				
 				$("#subtotal").val(respuesta.venta.total_ventas)
 				$("#efectivo").val(respuesta.venta.total_ventas)
-			$("#pago").val(respuesta.venta.total_ventas)
-			$("#pago_id_ventas").val(respuesta.venta.id_ventas)
-			cobrar();
-			
+				$("#pago").val(respuesta.venta.total_ventas)
+				$("#pago_id_ventas").val(respuesta.venta.id_ventas)
+				cobrar();
+				
 			}
 			else{
 				alertify.error('Esta folio se encuentra ' + respuesta.venta.estatus_ventas );
@@ -95,6 +95,10 @@ function guardarVenta(event){
 			
 			// console.log("Venta Activa", $("#tabs_ventas>li.active input").val("Mostrador"));
 			imprimirTicket( respuesta.id_ventas)
+			
+			setTimeout(function(){
+				imprimirTicket(respuesta.id_ventas)
+			}, 4000);
 			
 		}
 		}).fail(function(xhr, error, errnum){
