@@ -100,6 +100,8 @@ function guardarVenta(event){
 				imprimirTicket(respuesta.id_ventas)
 			}, 4000);
 			
+			$("#form_cobrar")[0].reset();
+			
 		}
 		}).fail(function(xhr, error, errnum){
 		alertify.error('Ocurrio un error' + error);
