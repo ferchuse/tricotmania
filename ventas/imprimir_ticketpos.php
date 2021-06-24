@@ -44,6 +44,7 @@
 	$respuesta.="\n\n";
 	
 		if($fila_venta[0]["forma_pago"] == "efectivo"){
+			$respuesta.="Forma de Pago: EFECTIVO \n";
 			$respuesta.="Subtotal:      $ ". $producto["subtotal"]."\n";
 			
 			if($fila_venta[0]["total_descuento"] > 0){
@@ -62,7 +63,7 @@
 			
 		}
 		elseif($fila_venta[0]["forma_pago"] == "tarjeta"){
-			
+			$respuesta.="Forma de Pago: TARJETA \n";
 			$respuesta.="Subtotal:  $ ". $fila_venta[0]["subtotal"]."\n";
 			// $respuesta.="Comision:  $ ".$fila_venta[0]["comision"]."\n";
 			$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
@@ -70,6 +71,7 @@
 			
 		}
 		else{ 
+			$respuesta.="Forma de Pago: MIXTO \n";
 			$respuesta.="Efectivo:  $ ". $producto["efectivo"]."\n";
 			$respuesta.="Tarjeta:   $ ". $fila_venta[0]["tarjeta"]."\n";
 			$respuesta.="Total:     $ ".  $fila_venta[0]["total_ventas"]."\n";
