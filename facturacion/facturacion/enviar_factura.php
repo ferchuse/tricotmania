@@ -54,8 +54,8 @@
 	$sendSmtpEmail['templateId'] = 1;
 	$sendSmtpEmail['params'] = array(
 	'folio'=> $_GET["folio"],
-	'url_pdf'=> "https://www.tricotmania.com/facturacion/facturacion/". $_GET["url_pdf"],
-	'url_xml'=> "https://www.tricotmania.com/facturacion/facturacion/". $_GET["url_xml"]
+	'url_pdf'=> "www.tricotmania.com/facturacion/facturacion/". $_GET["url_pdf"],
+	'url_xml'=> "www.tricotmania.com/facturacion/facturacion/". $_GET["url_xml"]
 	);
 	
 	// $adjunto =  __DIR__ .'/'. $_GET["url_pdf"];
