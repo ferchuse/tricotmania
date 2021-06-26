@@ -10,6 +10,55 @@ function onLoad(event){
 	$('#form_cobrar').submit(guardarVenta);
 	$('#buscar_venta').keyup(buscarVenta);
 	$('#pago').keyup(calculaCambio);
+	
+	$("#forma_pago").change(eligeFormaPago);
+	
+}
+
+function eligeFormaPago(event){
+	console.log(eligeFormaPago)
+	// $("#forma_pago") hacer requeridos todos los input visibles y no requeridso los invisibles
+	
+	switch($(this).val()){
+		
+		case "efectivo":
+		$("#div_efectivo").removeClass("hidden")
+		$("#div_tarjeta").addClass("hidden")
+		
+		
+		
+		$("#efectivo").prop("readonly", true)
+		$("#efectivo").val($("#subtotal").val())
+		
+		$("#tarjeta").val(0)
+		$("#comision").val(0)
+		break;
+		
+		case "tarjeta":
+		
+		$("#div_efectivo").addClass("hidden")
+		$("#div_tarjeta").removeClass("hidden")
+		$("#tarjeta").val($("#subtotal").val())
+		$("#efectivo").val(0);
+		// $("#tarjeta").prop("readonly", false);
+		
+		break;
+		
+		case "mixto":
+		$("#efectivo").prop("readonly", false)
+		$("#efectivo").val($("#subtotal").val())
+		$("#efectivo").focus()
+		
+		$("#div_efectivo").removeClass("hidden")
+		$("#div_tarjeta").removeClass("hidden")
+		$("#tarjeta").val("0");
+		$("#tarjeta").prop("readonly", false);
+		// calculaComision()
+		break;
+		
+		
+		
+	}
 }
 
 function buscarVenta(event){

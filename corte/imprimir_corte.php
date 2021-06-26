@@ -24,7 +24,7 @@
 	// $respuesta.= "Inicio Turno:         " .date("H:i:s", strtotime($hora_inicios))."\n";
 	// $respuesta.= "Fin Turno:            " .date("H:i:s", strtotime($hora_fin))."\n";
 	$respuesta.= "Numero de Ventas:     " .$totales["ventas_totales"]."\n\n";
-	$respuesta.= "Fondo de Caja:        " .number_format($_COOKIE["efectivo_inicial"], 2)."\n";
+	$respuesta.= "Fondo de Caja:        " .number_format($fila_turno["efectivo_inicial"], 2)."\n";
 	$respuesta.= "Ventas en Efectivo: +$" .number_format($suma_efectivo , 2)."\n";
 	$respuesta.= "Ventas con Tarjeta: +$" .number_format($suma_tarjeta, 2)."\n";
 	$respuesta.= "Entradas:           +$" .number_format($totales["entradas"], 2)."\n";

@@ -27,6 +27,7 @@ function onLoad(event){
 	$('#form_cobrar').submit(guardarVenta);
 	$('#buscar_venta').keyup(buscarVenta);
 	$('#pago').keyup(calculaCambio);
+	$('#efectivo_inicial').keyup(actualizaFondoCaja);
 }
 
 function buscarVenta(event){
@@ -522,6 +523,25 @@ function cerrarTurno(){
 		else{
 			
 		}
+		
+	}).always();
+	
+	
+}	
+
+
+function actualizaFondoCaja(){
+	
+	$.ajax({
+		'method': 'POST',
+		'dataType': 'JSON',
+		'url': 'consultas/fondo_caja.php',
+		'data': {
+			id_turnos:$("#id_turnos").val(),
+			efectivo_inicial : $("#efectivo_inicial").val()
+		}
+		}).done(function(respuesta){
+		
 		
 	}).always();
 	

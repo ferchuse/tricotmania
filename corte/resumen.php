@@ -513,7 +513,7 @@
 									<div class="col-xs-3">Fondo de Caja</div>
 									<div class="col-xs-1 text-right"></div>
 									<div class="col-xs-1 text-center">$</div>
-									<div class="cantidad col-xs-1 text-right"><?php echo number_format($_COOKIE["efectivo_inicial"], 2) ?></div>
+									<div class="cantidad col-xs-2 text-right"><input type="number" id="efectivo_inicial" class="form-control" value="<?php echo $_COOKIE["efectivo_inicial"] ?>"></div>
 								</div>
 								<div class="row no-gutters">
 									<div class="col-xs-3">Ventas en Efectivo</div>
