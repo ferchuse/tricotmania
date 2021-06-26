@@ -300,9 +300,9 @@
 													<label class="control-label" for="forma_pago">Forma de Pago:</label>
 													<select id="forma_pago" name="forma_pago" class="form-control" >
 														<option value="">Seleccione...</option>
-														<option value="01" >01 Efectivo</option>
+														<option selected value="01" >01 Efectivo</option>
 														<option value="02">02 Cheque nominativo</option>
-														<option selected value="03" >03 Transferencia electrónica de fondos</option>
+														<option  value="03" >03 Transferencia electrónica de fondos</option>
 														<option value="04">04 Tarjeta de crédito</option>
 														<option value="28" >28 Tarjeta de débito</option>
 														<option value="29" >29 Tarjeta de servicios</option>
@@ -488,12 +488,12 @@
 														</div>	
 														<div class="col-sm-1 ">
 															<input required type="" readonly name="clave_unidad[] " class="form-control clave_unidad conceptos" value="H87">
-														<!--	
-															<select required  name="clave_unidad[] " class="form-control clave_unidad conceptos">
+															<!--	
+																<select required  name="clave_unidad[] " class="form-control clave_unidad conceptos">
 																<option value="">Elige...</option>
 																<?php //getUnidades($link,$id_emisores );?>
-															</select>
-														-->	
+																</select>
+															-->	
 															<input type="text" class="nombre_unidades hidden" name="nombre_unidades[]" value="Pieza" >
 															
 														</div>	
