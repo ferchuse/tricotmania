@@ -1,5 +1,9 @@
 function truncarString(string, decimales) {
+	
+	
 	console.log("truncarString("+string+")");
+	
+	return Number(string).toFixed(decimales);
 	var punto = string.indexOf(".");
 	
 	if(punto == -1){
@@ -42,7 +46,8 @@ $(document).ready(function(){
 	
 	function truncarNum (num, decimales) {
 		
-		return Math.trunc(num * Math.pow(10, decimales)) / Math.pow(10, decimales);
+		// return Math.trunc(num * Math.pow(10, decimales)) / Math.pow(10, decimales);
+		return num.toFixed(decimales);
 	}
 	
 	
@@ -496,7 +501,7 @@ function extraerNumeros(string){
 	
 	for(i = 0; i < string.length ; i++){
 		if(!isNaN(string[i])){
-		$numeros+= string[i];
+			$numeros+= string[i];
 		}
 		else{
 			$letras+= string[i];
@@ -570,14 +575,14 @@ function facturar(event){
 						console.log("Respuesta Correo", respuesta);
 						window.location.href = "facturas.php";
 						// if(respuesta["estatus_correo"] == "success"){
-							// $("#mensaje_correo").find(".fa").toggleClass('fa-spinner fa-spin fa-check');	
-							
-							// alertify.success("Factura Enviada Correctamente");
-							// window.location.href = "facturas.php"; 
+						// $("#mensaje_correo").find(".fa").toggleClass('fa-spinner fa-spin fa-check');	
+						
+						// alertify.success("Factura Enviada Correctamente");
+						// window.location.href = "facturas.php"; 
 						// }
 						// else{
-							// $("#mensaje_correo").find(".fa").toggleClass('fa-spinner fa-spin fa-times');	
-							// alertify.error(respuesta.mensaje_correo);
+						// $("#mensaje_correo").find(".fa").toggleClass('fa-spinner fa-spin fa-times');	
+						// alertify.error(respuesta.mensaje_correo);
 						// }
 						}).fail(function(xhr, error, errnum){
 						alertify.error("Error" + error);

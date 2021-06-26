@@ -52,7 +52,7 @@
 		$consulta = "SELECT
 		SUM(cantidad) AS cantidad,
 		descripcion AS descripcion_productos,
-		precio,
+		ROUND(precio / 1.16 , 2) AS precio ,
 		SUM(importe) AS importe
 		FROM
 		ventas_detalle
