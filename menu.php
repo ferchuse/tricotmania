@@ -148,7 +148,7 @@
 					<a href="#">
 						<i class="fas fa-clock"></i> Turno:
 						<span id="turno_span"></span>
-						<input type="hidden" id="id_turnos">
+						<input type="hidden" id="menu_id_turnos">
 					</a>
 				</li>
 				<li class="dropdown">
