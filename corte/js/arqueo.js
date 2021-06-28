@@ -25,39 +25,32 @@ function guardarArqueo(event){
 	let boton = form.find(':submit');
 	let icono = boton.find('.fa');
 	let datos = form.serializeArray();
-	let importe_arqueo = $('#importe_desglose').val();
 	
-	if(importe_arqueo != "" && importe_arqueo != "0"){
+	
+	boton.prop('disabled',true);
+	icono.toggleClass('fa-save fa-spinner fa-pulse ');
+	
+	$.ajax({
+		url: 'consultas/guardar_arqueo.php',
+		method: 'POST',
+		dataType: 'JSON',
 		
-		boton.prop('disabled',true);
-		icono.toggleClass('fa-save fa-spinner fa-pulse ');
+		data: datos
 		
-		$.ajax({
-			url: 'consultas/guardar_arqueo.php',
-			method: 'POST',
-			dataType: 'JSON',
+		}).done(function(respuesta){
+		if(respuesta.estatus == 'success'){
 			
-			data: datos
-			
-			}).done(function(respuesta){
-			if(respuesta.estatus == 'success'){
-				
-				$("#modal_arqueo").modal("hide");
-				imprimirArqueo(respuesta.nuevo_id);
-			}
-			else{
-				alertify.error('Ocurrio un error');
-			}
-			}).always(function(){ 
-			boton.prop('disabled',false);
-			icono.toggleClass('fa-save fa-spinner fa-pulse');
-		});
-	}
-	else{
-		alertify.error("Ingrese alguna cantidad");
-		
-		
-	}
+			$("#modal_arqueo").modal("hide");
+			imprimirArqueo(respuesta.nuevo_id);
+		}
+		else{
+			alertify.error('Ocurrio un error');
+		}
+		}).always(function(){ 
+		boton.prop('disabled',false);
+		icono.toggleClass('fa-save fa-spinner fa-pulse');
+	});
+	
 }
 
 
@@ -66,7 +59,9 @@ function guardarArqueo(event){
 function sumarArqueo(){
 	console.log("sumarArqueo()");
 	
+	let subtotal = 0;
 	let importe_total = 0;
+	let fondo_caja = Number($("#arqueo_fondo_caja").val());
 	let $fila = $(this).closest("tr");
 	let denominacion = Number($fila.find(".cantidad").data('denomi'));
 	let cantidad = Number($fila.find(".cantidad").val());
@@ -76,13 +71,17 @@ function sumarArqueo(){
 	
 	
 	$(".importe").each( function sumarImportes(index, item){
-		importe_total += Number($(item).val());
+		subtotal += Number($(item).val());
 	});
 	
-	let subtotal = importe_total.toFixed(2);
+	console.log("subtotal:" , subtotal)
+	
+	let total = subtotal - fondo_caja;
 	
 	
-	$("#importe_total").val(subtotal);
+	$("#arqueo_subtotal").val(subtotal.toFixed(2));
+	
+	$("#arqueo_total").val(total.toFixed(2));
 }
 
 

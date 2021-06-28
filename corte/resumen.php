@@ -718,7 +718,7 @@
 		<script src="js/pagos.js"></script>
 		<script src="js/numerosLetras.js"></script>
 		<script src="js/egresos.js"></script>
-		<script src="js/arqueo.js"></script>
+		<script src="js/arqueo.js?v=<?php echo date("d")?>"></script>
 		
 		
 	</body>

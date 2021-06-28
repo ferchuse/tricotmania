@@ -47,8 +47,18 @@
 					
 					
 					<div class="form-group ">
-						<label for="">Total</label>
-						<input type="number" name="importe" tabindex="-1" min="0" class="form-control" id="importe_total"  value="0" readOnly>
+						<label for="">Subtotal</label>
+						<input type="number" name="subtotal" tabindex="-1" min="0" class="form-control" id="arqueo_subtotal"  value="0" readOnly>
+					</div>
+					
+					<div class="form-group ">
+						<label for="">Fondo de Caja: </label>
+						<input type="number" name="fondo_caja" tabindex="-1" min="0" class="form-control" id="arqueo_fondo_caja"  value="<?php echo $_COOKIE["efectivo_inicial"]?>" readOnly>
+					</div>
+					
+					<div class="form-group ">
+						<label for="">Total: </label>
+						<input type="number" name="importe" tabindex="-1" min="0" class="form-control" id="arqueo_total"  value="0" readOnly>
 					</div>
 					
 				</div>

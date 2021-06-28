@@ -45,6 +45,8 @@
 			
 		}
 		
+		$respuesta.= "\nSUBTOTAL           		 $". number_format($filas["subtotal"])."\n";
+		$respuesta.= "\nFONDO DE CAJA           - $". number_format($filas["fondo_caja"])."\n";
 		$respuesta.= "\nIMPORTE TOTAL           $". number_format($filas["importe"])."\n";
 		
 		// $respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
