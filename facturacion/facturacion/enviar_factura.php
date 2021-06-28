@@ -46,7 +46,7 @@
 	$lista_correos = explode("," ,$_GET["correo"] ) ;
 	
 	foreach($lista_correos as $index => $correo){
-		$contactos[] = array('email'=>strtolower($correo), 'name'=>$_GET["nombre"]);
+		$contactos[] = array('email'=>strtolower(trim($correo)), 'name'=>$_GET["nombre"]);
 	}
 	
 	$sendSmtpEmail['to'] = $contactos;

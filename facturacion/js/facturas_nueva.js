@@ -593,6 +593,7 @@ function facturar(event){
 						
 					}); 
 				}
+				window.location.href = "facturas.php";
 				
 				}).fail(function(xhr, error, errnum){
 				alertify.error("Error" + error);
