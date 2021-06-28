@@ -27,22 +27,20 @@
 	$respuesta.= "Folio:   ". $fila_venta[0]["id_ventas"]. "\n";
 	
 	if($fila_venta[0]["estatus_ventas"] == 'PAGADO'){
-	
-	$respuesta.= "Fecha:   " . date("d/m/Y", strtotime($fila_venta[0]["fecha_ventas"]))."\n";
-	$respuesta.= "Hora:    " . date('H:i:s', strtotime($fila_venta[0]["hora_ventas"]))."\n";
-	$respuesta.= "Cliente: " .$fila_venta[0]["nombre_cliente"]."\n";
-	$respuesta.= "Vendedor: " .$fila_venta[0]["nombre_usuarios"]."\n\n";
-	
-	$respuesta.= "Cant   Descripcion       Importe  \n";
-	
-	
-	foreach ($fila_venta as $i => $producto) { 
-		$respuesta.=		number_format($producto["cantidad"], 0). "   ".$producto["descripcion"]
-		."\n             $".$producto["precio"]."      $" . $producto["importe"].chr(10).chr(13) ;
 		
-	}
-	$respuesta.="\n\n";
-	
+		$respuesta.= "Fecha:   " . date("d/m/Y", strtotime($fila_venta[0]["fecha_ventas"]))."\n";
+		$respuesta.= "Hora:    " . date('H:i:s', strtotime($fila_venta[0]["hora_ventas"]))."\n";
+		$respuesta.= "Cliente: " .$fila_venta[0]["nombre_cliente"]."\n";
+		$respuesta.= "Vendedor: " .$fila_venta[0]["nombre_usuarios"]."\n\n";
+		
+		$respuesta.= "Cant   Descripcion       Importe  \n";
+		foreach ($fila_venta as $i => $producto) { 
+			$respuesta.=		number_format($producto["cantidad"], 0). "   ".$producto["descripcion"]
+			."\n             $".$producto["precio"]."      $" . $producto["importe"].chr(10).chr(13) ;
+		}
+		
+		$respuesta.="\n\n";
+		
 		if($fila_venta[0]["forma_pago"] == "efectivo"){
 			$respuesta.="Forma de Pago: EFECTIVO \n";
 			$respuesta.="Subtotal:      $ ". $producto["subtotal"]."\n";
@@ -92,12 +90,20 @@
 		
 	}
 	else{
+		$respuesta.= "Cant   Descripcion       Importe  \n";
+		foreach ($fila_venta as $i => $producto) { 
+			$respuesta.=		number_format($producto["cantidad"], 0). "   ".$producto["descripcion"]
+			."\n             $".$producto["precio"]."      $" . $producto["importe"].chr(10).chr(13) ;
+		}
+		
+		$respuesta.="\n\n";
+		
 		$respuesta.= "POR COBRAR: $".$fila_venta[0]["total_ventas"]."\n\n";
 		$respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
 		$respuesta.=chr(29)."h".chr(80).chr(29)."H".chr(2).chr(29)."k".chr(4).$fila_venta[0]["id_ventas"].chr(0);
 		
-			$respuesta.= "\n\n";
-			$respuesta.= "\n\n";
+		$respuesta.= "\n\n";
+		$respuesta.= "\n\n";
 		
 		
 	}
