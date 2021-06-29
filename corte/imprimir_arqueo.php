@@ -1,11 +1,14 @@
 <?php 
+	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+	header("Cache-Control: post-check=0, pre-check=0", false);
+	header("Pragma: no-cache");
 	include('../conexi.php');
 	$link = Conectarse();
 	$filas = array();
 	$respuesta = array();
 	
 	
-	$denominaciones = ["1000", "500", "200", "100", "50", "20", "10", "5", "2", "1", "0.5", "0.2", "0.1"];
+	$denominaciones = ["1000", "500", "200", "100", "50", "20", "10", "5", "2", "1", "0.5"];
 	$consulta = "SELECT * FROM arqueo 
 	
 	LEFT JOIN usuarios USING(id_usuarios)
@@ -40,14 +43,14 @@
 		$respuesta.= "Usuario:  " . $_COOKIE["nombre_usuarios"]."\n";
 		$respuesta.= "Denom    Cantidad       Importe \n";
 		foreach($denominaciones as $i => $denominacion){
-			$respuesta.= "$".str_pad($denominacion, 10)." ". str_pad(number_format($filas[$denominacion]), 10, " ", STR_PAD_BOTH ). "  $" .str_pad(number_format($filas[$denominacion] * $denominacion),8," ", STR_PAD_LEFT )."\n" ;
+			$respuesta.= "$".str_pad($denominacion, 7)." ". str_pad(number_format($filas[$denominacion]), 7, " ", STR_PAD_BOTH ). "  $" .str_pad(number_format($filas[$denominacion] * $denominacion),7," ", STR_PAD_LEFT )."\n" ;
 			
 			
 		}
 		
-		$respuesta.= "\nSUBTOTAL           		 $". number_format($filas["subtotal"])."\n";
+		$respuesta.= "\nSUBTOTAL                  $". number_format($filas["subtotal"])."\n";
 		$respuesta.= "\nFONDO DE CAJA           - $". number_format($filas["fondo_caja"])."\n";
-		$respuesta.= "\nIMPORTE TOTAL           $". number_format($filas["importe"])."\n";
+		$respuesta.= "\nIMPORTE TOTAL             $". number_format($filas["importe"])."\n";
 		
 		// $respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
 		// $respuesta.= "GRACIAS POR SU COMPRA";
