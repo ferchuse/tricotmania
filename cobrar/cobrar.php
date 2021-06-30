@@ -170,13 +170,28 @@
 				<h4 class="text-center">
 					Cobrar Tickets 
 				</h4>
-				<div class="col-md-2 col-sm-offset-5 m-auto mt-3 text-center">
+				<div class="col-md-2 col-sm-offset-3 m-auto mt-3 text-center">
 					
 					<div class="form-group">
-						<label>Folio: </label>
+						<label>1 Ticket: </label>
 						<input type="number" class="form-control"  name="id_ventas" id="buscar_venta" autofocus >
 					</div>
 					
+				</div>
+				<div class="hidden col-md-2 col-sm-offset-2 m-auto mt-3 text-center">
+					
+					<div class="form-group">
+						<label>Varios Tickets: </label>
+						<div class="input-group">
+							<input type="text" class="form-control"  name="id_ventas" id="folios_multiples"  >
+							<span class="input-group-btn">
+								<button class="btn btn-primary" type="button">
+								<i class="fas fa-search" ></i> Cobrar 
+								</button>
+							</span>
+						</div>
+						
+					</div>
 				</div>
 				
 			</div>
@@ -199,9 +214,6 @@
 </div>
 
 
-<?php include('forms/modal_egresos.php'); ?>
-<?php include('forms/form_arqueo.php'); ?>
-<?php include('imprimir_corte.php'); ?>
 <?php include('modal_cobrar.php'); ?>
 
 <?php include('../scripts_carpetas.php'); ?>

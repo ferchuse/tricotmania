@@ -8,13 +8,26 @@ function onLoad(event){
 	
 	
 	$('#form_cobrar').submit(guardarVenta);
+	
 	$('#buscar_venta').keyup(buscarVenta);
+	
 	$('#pago').keyup(calculaCambio);
+	$('#efectivo').keyup(calculaCambio);
 	
 	$("#forma_pago").change(eligeFormaPago);
 	
+	$("#folios_multiples").keyup(agregarTickets);
+	
 }
 
+
+
+function agregarTickets(event){
+	console.log("agregarTickets")
+	if(event.key == "Enter"){
+		$("#folios_multiples").val($("#folios_multiples").val() + ",")	
+	}
+}
 function eligeFormaPago(event){
 	console.log(eligeFormaPago)
 	// $("#forma_pago") hacer requeridos todos los input visibles y no requeridso los invisibles
@@ -43,21 +56,21 @@ function eligeFormaPago(event){
 		// $("#tarjeta").prop("readonly", false);
 		
 		break;
-		
-		case "mixto":
-		$("#efectivo").prop("readonly", false)
-		$("#efectivo").val($("#subtotal").val())
-		$("#efectivo").focus()
-		
-		$("#div_efectivo").removeClass("hidden")
-		$("#div_tarjeta").removeClass("hidden")
-		$("#tarjeta").val("0");
-		$("#tarjeta").prop("readonly", false);
-		// calculaComision()
-		break;
-		
-		
-		
+	
+	case "mixto":
+	$("#efectivo").prop("readonly", false)
+	$("#efectivo").val($("#subtotal").val())
+	$("#efectivo").focus()
+	
+	$("#div_efectivo").removeClass("hidden")
+	$("#div_tarjeta").removeClass("hidden")
+	$("#tarjeta").val("0");
+	$("#tarjeta").prop("readonly", false);
+	// calculaComision()
+	break;
+	
+	
+	
 	}
 }
 
