@@ -38,10 +38,10 @@
 					<div class="well" id="div_efectivo">
 						<div class="row">
 							<div class="col-sm-6 text-right">
-								<label class="lead"> <i class="fas fa-cash"></i> Total:</label>
+								<label class="lead"> <i class="fas fa-cash"></i> Efectivo:</label>
 							</div>
 							<div class="col-sm-4">
-								<input readonly id="efectivo" min="0" value="0" type="number" class="lead form-control text-right" name="efectivo">
+								<input readonly id="efectivo" min="0" value="0" type="number" class="lead form-control text-right" name="efectivo" step="any">
 							</div>
 						</div>
 						<div class="row text-right">
@@ -49,7 +49,7 @@
 								<label class="lead">Se Recibe: </label>
 							</div>
 							<div class="col-sm-4">
-								<input id="pago" step=".5" type="number" class="valor form-control text-right" name="pago">
+								<input id="pago" step="any"  type="number" class="valor form-control text-right" name="pago">
 							</div>
 						</div>
 						<div class="cambio row text-right">
@@ -57,7 +57,7 @@
 								<label class="lead">Cambio: </label>
 							</div>
 							<div class="col-sm-4">
-								<input readonly id="cambio" value="0" min="0" type="number" class="form-control text-right" name="cambio">
+								<input readonly step="any" id="cambio" value="0" min="0" type="number" class="form-control text-right" name="cambio">
 							</div>
 						</div>
 					</div>
@@ -100,7 +100,7 @@
 								<label class="lead">Tarjeta: </label>
 							</div>
 							<div class="col-sm-4">
-								<input readonly id="tarjeta" value="0" type="number" class="valor form-control" name="tarjeta" min="0">
+								<input readonly step="any" id="tarjeta" value="0" type="number" class="valor form-control" name="tarjeta" min="0">
 							</div>
 						</div>
 				</div>
