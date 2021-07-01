@@ -24,10 +24,11 @@ importe = '{$_POST["importe"]}',
 `2` = '{$_POST["2"]}',
 `1` = '{$_POST["1"]}',
 `0.1` = '{$_POST["0.1"]}',
-`0.5`= '{$_POST["0.5"]}',
+`0.5`= '{$_POST["0_5"]}',
 `0.2`	='{$_POST["0.2"]}'
 
 ";
+
 
 if(mysqli_query($link,$consulta)){
 	$respuesta['nuevo_id'] = mysqli_insert_id($link);
@@ -38,6 +39,7 @@ if(mysqli_query($link,$consulta)){
 	$respuesta['mensaje'] = "Error en ".mysqli_error($link);
 }
 
+$respuesta['post'] = $_POST;
 $respuesta['consulta'] = $consulta;
 
 echo json_encode($respuesta);
