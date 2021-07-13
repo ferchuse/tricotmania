@@ -287,6 +287,9 @@ function cambiaFormaPago(event){
 		var efectivo = 0;
 	}
 	
+	$("#efectivo").val(efectivo);
+	$("#tarjeta").val(tarjeta);
+	
 	
 	$.ajax({
 		url: '../funciones/fila_update.php',
