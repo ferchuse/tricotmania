@@ -317,7 +317,7 @@
 												<div class="col-xs-12 col-sm-3 text-right">
 													
 													<?php
-														if ($estatus_ventas != "PENDIENTE") {
+														if ($estatus_ventas != "CANCELADO") {
 														?>
 														<input type="checkbox" class="seleccionar" value='<?php echo $row_ventas['id_ventas']?>'>
 														<button class="btn btn-info btn_ticketPago" title="Reimprimir Ticket" type="button" data-id_ventas="<?php echo $id_ventas; ?>">
