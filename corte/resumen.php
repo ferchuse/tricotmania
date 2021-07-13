@@ -506,7 +506,7 @@
 							<div class="panel-footer h4">
 								
 								<?php
-									$saldo_final = $fila_turno["efectivo_inicial"] + $suma_total + $totales["entradas"];
+									$saldo_final =  $suma_total + $totales["entradas"];
 								?>
 								
 								<div class="row no-gutters">
