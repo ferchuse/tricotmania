@@ -82,7 +82,8 @@ function agregarTickets(event){
 	}
 }
 function eligeFormaPago(event){
-	console.log(eligeFormaPago)
+	console.log("eligeFormaPago")
+	console.log($(this).val())
 	// $("#forma_pago") hacer requeridos todos los input visibles y no requeridso los invisibles
 	
 	switch($(this).val()){
