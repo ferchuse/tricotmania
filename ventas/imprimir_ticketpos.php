@@ -7,7 +7,7 @@
 	$consulta = "SELECT * FROM ventas
 	LEFT JOIN ventas_detalle USING (id_ventas)
 	LEFT JOIN usuarios USING (id_usuarios)
-	WHERE id_ventas={$_GET["id_ventas"]}";
+	WHERE id_ventas IN({$_GET["id_ventas"]})";
 	
 	$result = mysqli_query($link, $consulta);
 	
@@ -18,13 +18,15 @@
 	// for($t = 0 ; $t <= 1 ; $t++){
 	
 	
+	$folios = explode(",", $_GET["id_ventas"]);
+	
 	$respuesta.=   "\x1b"."@";
 	$respuesta.= "\x1b"."E".chr(1); // Bold
 	$respuesta.= "!";
 	$respuesta.=  "TRICOTMANIA\n";
 	$respuesta.=  "\x1b"."E".chr(0); // Not Bold
 	$respuesta.=  "\x1b"."@" .chr(10).chr(13);
-	$respuesta.= "Folio:   ". $fila_venta[0]["id_ventas"]. "\n";
+	$respuesta.= "Folio:   ". $_GET["id_ventas"]. "\n";
 	
 	if($fila_venta[0]["estatus_ventas"] == 'PAGADO'){
 		
@@ -35,15 +37,21 @@
 		
 		$respuesta.= "Cant   Descripcion       Importe  \n";
 		foreach ($fila_venta as $i => $producto) { 
+		
+			$suma_subtotal+= $producto["subtotal"];
+			$suma_total+= $producto["total_ventas"];
 			$respuesta.=		number_format($producto["cantidad"], 0). "   ".$producto["descripcion"]
 			."\n             $".$producto["precio"]."      $" . $producto["importe"].chr(10).chr(13) ;
 		}
 		
 		$respuesta.="\n\n";
 		
+		
+		
+		
 		if($fila_venta[0]["forma_pago"] == "efectivo"){
 			$respuesta.="Forma de Pago: EFECTIVO \n";
-			$respuesta.="Subtotal:      $ ". $producto["subtotal"]."\n";
+			$respuesta.="Subtotal:      $ ". $suma_subtotal."\n";
 			
 			if($fila_venta[0]["total_descuento"] > 0){
 				$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
@@ -51,9 +59,9 @@
 			
 			
 			
-			$respuesta.="Total:         $ ". $producto["total_ventas"]."\n\n";
+			$respuesta.="Total:         $ ". $suma_total."\n\n";
 			
-			$respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
+			$respuesta.= NumeroALetras::convertir($suma_total, "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
 			
 			$respuesta.="Pago con:      $ ". $producto["pagocon_ventas"]."\n";
 			$respuesta.="Cambio:        $ ". $producto["cambio_ventas"]."\n";
@@ -65,17 +73,17 @@
 			$respuesta.="Subtotal:  $ ". $fila_venta[0]["subtotal"]."\n";
 			// $respuesta.="Comision:  $ ".$fila_venta[0]["comision"]."\n";
 			$respuesta.="Descuento:     % ".$fila_venta[0]["total_descuento"]."\n";
-			$respuesta.="Total:     $ ".$fila_venta[0]["total_ventas"]."\n";
+			$respuesta.="Total:     $ ".$suma_total."\n";
 			
 		}
 		else{ 
 			$respuesta.="Forma de Pago: MIXTO \n";
 			$respuesta.="Efectivo:  $ ". $producto["efectivo"]."\n";
 			$respuesta.="Tarjeta:   $ ". $fila_venta[0]["tarjeta"]."\n";
-			$respuesta.="Total:     $ ".  $fila_venta[0]["total_ventas"]."\n";
+			$respuesta.="Total:     $ ".  $suma_total."\n";
 			
 			
-			$respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
+			$respuesta.= NumeroALetras::convertir($suma_total, "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
 		}
 		
 		

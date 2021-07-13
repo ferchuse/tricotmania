@@ -178,14 +178,14 @@
 					</div>
 					
 				</div>
-				<div class="hidden col-md-2 col-sm-offset-2 m-auto mt-3 text-center">
+				<div class="col-md-2 col-sm-offset-2 m-auto mt-3 text-center">
 					
 					<div class="form-group">
 						<label>Varios Tickets: </label>
 						<div class="input-group">
 							<input type="text" class="form-control"  name="id_ventas" id="folios_multiples"  >
 							<span class="input-group-btn">
-								<button class="btn btn-primary" type="button">
+								<button id="btn_cobrar_varios" class="btn btn-primary" type="button">
 								<i class="fas fa-search" ></i> Cobrar 
 								</button>
 							</span>

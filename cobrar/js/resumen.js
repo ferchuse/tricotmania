@@ -17,10 +17,63 @@ function onLoad(event){
 	$("#forma_pago").change(eligeFormaPago);
 	
 	$("#folios_multiples").keyup(agregarTickets);
+	$("#btn_cobrar_varios").click(cobrarVarios);
 	
 }
 
 
+
+function cobrarVarios(){
+	console.log("cobrarVarios()")
+	// str = str.substring(0,len-1);
+	
+	//mostrar modal
+	var folios = $("#folios_multiples").val();
+	
+	//Quita Coma al final
+	// while(folios.substring(folios.length -1,1)  == ","){
+		
+		// console.log("folios", folios)
+	// }
+		folios = folios.substring(0,folios.length - 1);
+	
+	//  if (str.substr(len-1,1) == ",") {
+	
+	$.ajax({
+		url: 'consultas/buscar_venta.php',
+		method: 'GET',
+		dataType: 'JSON',
+		data:  {
+			"id_ventas": folios
+			
+		}
+		}).done( function(respuesta){
+		if(respuesta.num_rows == 0){
+			
+			alertify.error("Venta no encontrada");
+			return false;
+		}
+		
+		if(respuesta.venta.estatus_ventas == 'PENDIENTE'){
+			//mostrar Modal de Cobro
+			
+			$("#subtotal").val(respuesta.venta.total_ventas)
+			$("#efectivo").val(respuesta.venta.total_ventas)
+			$("#pago").val(respuesta.venta.total_ventas)
+			$("#pago_id_ventas").val(folios)
+			cobrar();
+		
+	}
+	else{
+		alertify.error('Esta folio se encuentra ' + respuesta.venta.estatus_ventas );
+		
+	}
+	}).always(function(){
+	
+	});
+	
+	
+}
 
 function agregarTickets(event){
 	console.log("agregarTickets")
@@ -56,21 +109,21 @@ function eligeFormaPago(event){
 		// $("#tarjeta").prop("readonly", false);
 		
 		break;
-	
-	case "mixto":
-	$("#efectivo").prop("readonly", false)
-	$("#efectivo").val($("#subtotal").val())
-	$("#efectivo").focus()
-	
-	$("#div_efectivo").removeClass("hidden")
-	$("#div_tarjeta").removeClass("hidden")
-	$("#tarjeta").val("0");
-	$("#tarjeta").prop("readonly", false);
-	// calculaComision()
-	break;
-	
-	
-	
+		
+		case "mixto":
+		$("#efectivo").prop("readonly", false)
+		$("#efectivo").val($("#subtotal").val())
+		$("#efectivo").focus()
+		
+		$("#div_efectivo").removeClass("hidden")
+		$("#div_tarjeta").removeClass("hidden")
+		$("#tarjeta").val("0");
+		$("#tarjeta").prop("readonly", false);
+		// calculaComision()
+		break;
+		
+		
+		
 	}
 }
 
@@ -99,7 +152,7 @@ function buscarVenta(event){
 				$("#subtotal").val(respuesta.venta.total_ventas)
 				$("#efectivo").val(respuesta.venta.total_ventas)
 				$("#pago").val(respuesta.venta.total_ventas)
-				$("#pago_id_ventas").val(respuesta.venta.id_ventas)
+				$("#pago_id_ventas").val(id_ventas)
 				cobrar();
 				
 			}
@@ -507,7 +560,7 @@ function confirmaCancelarIngreso(event) {
 			}).fail(function(){
 			alertify.error("Ocurrió un error");
 			
-			}).always(function(){
+		}).always(function(){
 			icono.toggleClass("fa-times fa-spinner fa-spin");
 			boton.prop('disabled', false);
 			
@@ -579,4 +632,4 @@ function cerrarTurno(){
 	}).always();
 	
 	
-}	
+	}				

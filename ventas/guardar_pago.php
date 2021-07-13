@@ -19,7 +19,7 @@
 	pagocon_ventas = '{$_POST["pago"]}',
 	cambio_ventas = '{$_POST["cambio"]}'
 	
-	WHERE id_ventas = '{$_POST["id_ventas"]}'
+	WHERE id_ventas IN ({$_POST["id_ventas"]})
 	";
 	
 	$respuesta["insertarVentas"] = $insertarVentas;

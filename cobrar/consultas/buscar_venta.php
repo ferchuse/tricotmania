@@ -3,8 +3,8 @@
 	include('../../conexi.php');
 	$link = Conectarse();
 	$respuesta = array();
-	$consulta = "SELECT * FROM ventas 
-	WHERE id_ventas = '{$_GET["id_ventas"]}'
+	$consulta = "SELECT estatus_ventas, SUM(total_ventas) as total_ventas FROM ventas 
+	WHERE id_ventas IN ({$_GET["id_ventas"]})
 	
 	";    
 	

@@ -12,7 +12,15 @@
 				
 				<!-- "Modal Body" -->
 				<div class="modal-body">
-					<input type="hidden" value="" name="id_ventas" id="pago_id_ventas">
+					
+					<div class="row">
+						<div class="col-sm-6 text-right">
+							<label class="lead"> Folio:</label>
+						</div>
+						<div class="col-sm-4">
+							<input readonly class="form-control" type="text" value="" name="id_ventas" id="pago_id_ventas">
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-sm-6 text-right">
 							<label class="lead"> Forma de Pago:</label>
@@ -38,7 +46,7 @@
 					<div class="well" id="div_efectivo">
 						<div class="row">
 							<div class="col-sm-6 text-right">
-								<label class="lead"> <i class="fas fa-cash"></i> Efectivo:</label>
+							<label class="lead"> <i class="fas fa-cash"></i> Efectivo:</label>
 							</div>
 							<div class="col-sm-4">
 								<input readonly id="efectivo" min="0" value="0" type="number" class="lead form-control text-right" name="efectivo" step="any">
@@ -63,46 +71,46 @@
 					</div>
 					
 					<!-- "Modal Body" 
-					<div class="well hidden"  id="div_tarjeta">
+						<div class="well hidden"  id="div_tarjeta">
 						<div class="row">
-							<div class="col-sm-6 text-right">
-								<label class="lead"> Tipo de Tarjeta:</label>
-							</div>
-							<div class="col-sm-6">
-								<div class="radios_tarjeta ">
-									<div class="form-check form-check-inline">
-										<input required checked class="form-check-input tipo_tarjeta" value=".025" type="radio" name="tipo_tarjeta" id="debito">
-										<label class="form-check-label"  for="debito">Débito</label>
-									</div>
-									<div class="form-check form-check-inline">
-										<input required class="form-check-input tipo_tarjeta"  value=".03" type="radio" name="tipo_tarjeta" id="credito">
-										<label class="form-check-label" for="credito">Crédito</label>
-									</div>
-								</div>
-							</div>
+						<div class="col-sm-6 text-right">
+						<label class="lead"> Tipo de Tarjeta:</label>
+						</div>
+						<div class="col-sm-6">
+						<div class="radios_tarjeta ">
+						<div class="form-check form-check-inline">
+						<input required checked class="form-check-input tipo_tarjeta" value=".025" type="radio" name="tipo_tarjeta" id="debito">
+						<label class="form-check-label"  for="debito">Débito</label>
+						</div>
+						<div class="form-check form-check-inline">
+						<input required class="form-check-input tipo_tarjeta"  value=".03" type="radio" name="tipo_tarjeta" id="credito">
+						<label class="form-check-label" for="credito">Crédito</label>
+						</div>
+						</div>
+						</div>
 						</div>
 						
 						<div class="row  text-right">
-							<div class="col-sm-6">
-								<label class="lead">Comisión: </label>
-							</div>
-							<div class="col-sm-4">
-								<input readonly id="comision" value="0" type="number" class="valor form-control" name="comision">
-							</div>
+						<div class="col-sm-6">
+						<label class="lead">Comisión: </label>
+						</div>
+						<div class="col-sm-4">
+						<input readonly id="comision" value="0" type="number" class="valor form-control" name="comision">
+						</div>
 						</div>
 						
 						
-					</div>
+						</div>
 					-->
 					
 					<div class="row  hidden text-right" id="div_tarjeta">
-							<div class="col-sm-6">
-								<label class="lead">Tarjeta: </label>
-							</div>
-							<div class="col-sm-4">
-								<input readonly step="any" id="tarjeta" value="0" type="number" class="valor form-control" name="tarjeta" min="0">
-							</div>
+						<div class="col-sm-6">
+							<label class="lead">Tarjeta: </label>
 						</div>
+						<div class="col-sm-4">
+							<input  step="any" id="tarjeta" value="0" type="number" class="valor form-control" name="tarjeta" min="0">
+						</div>
+					</div>
 				</div>
 				
 				<!-- "Modal Footer" -->
