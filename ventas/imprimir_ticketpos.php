@@ -28,6 +28,8 @@
 	$respuesta.=  "\x1b"."@" .chr(10).chr(13);
 	$respuesta.= "Folio:   ". $_GET["id_ventas"]. "\n";
 	
+	
+	
 	if($fila_venta[0]["estatus_ventas"] == 'PAGADO'){
 		
 		$respuesta.= "Fecha:   " . date("d/m/Y", strtotime($fila_venta[0]["fecha_ventas"]))."\n";
@@ -38,8 +40,8 @@
 		$respuesta.= "Cant   Descripcion       Importe  \n";
 		foreach ($fila_venta as $i => $producto) { 
 		
-			$suma_subtotal+= $producto["subtotal"];
-			$suma_total+= $producto["total_ventas"];
+			$suma_subtotal+= $producto["importe"];
+			$suma_total+= $producto["importe"];
 			$respuesta.=		number_format($producto["cantidad"], 0). "   ".$producto["descripcion"]
 			."\n             $".$producto["precio"]."      $" . $producto["importe"].chr(10).chr(13) ;
 		}
